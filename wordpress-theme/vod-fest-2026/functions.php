@@ -62,6 +62,10 @@ function vod_fest_setup() {
         'flex-width'  => true,
     ));
 
+    // Add support for site icon (favicon)
+    add_theme_support('custom-header');
+    add_theme_support('site-icon');
+
     // Add support for Block Styles
     add_theme_support('wp-block-styles');
 
@@ -330,3 +334,232 @@ function vod_fest_fix_svg_thumb_display() {
     </style>';
 }
 add_action('admin_head', 'vod_fest_fix_svg_thumb_display');
+
+/**
+ * Add custom meta boxes for band embeds
+ */
+function vod_fest_band_meta_boxes() {
+    add_meta_box(
+        'vod_fest_band_embeds',
+        __('Media Embeds', 'vod-fest'),
+        'vod_fest_band_embeds_callback',
+        'band',
+        'normal',
+        'high'
+    );
+}
+add_action('add_meta_boxes', 'vod_fest_band_meta_boxes');
+
+/**
+ * Render band embeds meta box
+ */
+function vod_fest_band_embeds_callback($post) {
+    wp_nonce_field('vod_fest_band_embeds_nonce', 'vod_fest_band_embeds_nonce');
+
+    $bandcamp_embed = get_post_meta($post->ID, '_band_bandcamp_embed', true);
+    $youtube_id = get_post_meta($post->ID, '_band_youtube_id', true);
+    ?>
+    <p>
+        <label for="band_bandcamp_embed"><strong><?php _e('Bandcamp Embed Code:', 'vod-fest'); ?></strong></label><br>
+        <textarea id="band_bandcamp_embed" name="band_bandcamp_embed" rows="4" style="width: 100%;" placeholder='<iframe style="border: 0; width: 350px; height: 470px;" src="https://bandcamp.com/EmbeddedPlayer/..." seamless></iframe>'><?php echo esc_textarea($bandcamp_embed); ?></textarea>
+        <small><?php _e('Paste the complete Bandcamp embed code from the "Share/Embed" button on Bandcamp.', 'vod-fest'); ?></small>
+    </p>
+    <p>
+        <label for="band_youtube_id"><strong><?php _e('YouTube Video ID:', 'vod-fest'); ?></strong></label><br>
+        <input type="text" id="band_youtube_id" name="band_youtube_id" value="<?php echo esc_attr($youtube_id); ?>" style="width: 100%;" placeholder="dQw4w9WgXcQ">
+        <small><?php _e('Enter only the video ID from the YouTube URL (e.g., from youtube.com/watch?v=dQw4w9WgXcQ just enter: dQw4w9WgXcQ)', 'vod-fest'); ?></small>
+    </p>
+    <?php
+}
+
+/**
+ * Save band embeds meta box data
+ */
+function vod_fest_save_band_embeds($post_id) {
+    // Check nonce
+    if (!isset($_POST['vod_fest_band_embeds_nonce']) ||
+        !wp_verify_nonce($_POST['vod_fest_band_embeds_nonce'], 'vod_fest_band_embeds_nonce')) {
+        return;
+    }
+
+    // Check autosave
+    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
+        return;
+    }
+
+    // Check permissions
+    if (!current_user_can('edit_post', $post_id)) {
+        return;
+    }
+
+    // Save Bandcamp embed
+    if (isset($_POST['band_bandcamp_embed'])) {
+        update_post_meta($post_id, '_band_bandcamp_embed', wp_kses_post($_POST['band_bandcamp_embed']));
+    }
+
+    // Save YouTube ID
+    if (isset($_POST['band_youtube_id'])) {
+        update_post_meta($post_id, '_band_youtube_id', sanitize_text_field($_POST['band_youtube_id']));
+    }
+}
+add_action('save_post_band', 'vod_fest_save_band_embeds');
+
+/**
+ * Newsletter signup shortcode
+ */
+function vod_fest_newsletter_signup($atts) {
+    $atts = shortcode_atts(array(
+        'title' => __('Stay Updated', 'vod-fest'),
+        'subtitle' => __('Get festival updates, band announcements, and exclusive content.', 'vod-fest'),
+    ), $atts);
+
+    ob_start();
+    ?>
+    <div class="newsletter-signup" style="background: linear-gradient(135deg, var(--color-blood-red) 0%, var(--color-black) 100%); padding: var(--space-4xl); border-radius: var(--radius-lg); text-align: center; margin: var(--space-4xl) 0;">
+        <h3 style="font-size: var(--font-size-3xl); margin-bottom: var(--space-md); color: var(--color-gold);">
+            <?php echo esc_html($atts['title']); ?>
+        </h3>
+        <p style="font-size: var(--font-size-lg); color: var(--color-brass); margin-bottom: var(--space-2xl); max-width: 600px; margin-left: auto; margin-right: auto;">
+            <?php echo esc_html($atts['subtitle']); ?>
+        </p>
+        <form class="newsletter-form" method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>" style="max-width: 500px; margin: 0 auto;">
+            <input type="hidden" name="action" value="vod_fest_newsletter_signup">
+            <?php wp_nonce_field('vod_fest_newsletter', 'newsletter_nonce'); ?>
+            <div style="display: flex; gap: var(--space-md); flex-wrap: wrap;">
+                <input
+                    type="email"
+                    name="newsletter_email"
+                    class="form-input"
+                    placeholder="<?php esc_attr_e('Your email address', 'vod-fest'); ?>"
+                    required
+                    style="flex: 1; min-width: 250px;"
+                >
+                <button type="submit" class="btn btn-primary" style="white-space: nowrap;">
+                    <?php esc_html_e('Subscribe →', 'vod-fest'); ?>
+                </button>
+            </div>
+            <p style="font-size: var(--font-size-sm); color: var(--color-brass); margin-top: var(--space-md);">
+                <?php esc_html_e('We respect your privacy. Unsubscribe at any time.', 'vod-fest'); ?>
+            </p>
+        </form>
+    </div>
+    <?php
+    return ob_get_clean();
+}
+add_shortcode('newsletter', 'vod_fest_newsletter_signup');
+
+/**
+ * Handle newsletter signup submission
+ */
+function vod_fest_handle_newsletter_signup() {
+    // Verify nonce
+    if (!isset($_POST['newsletter_nonce']) ||
+        !wp_verify_nonce($_POST['newsletter_nonce'], 'vod_fest_newsletter')) {
+        wp_die(__('Security check failed', 'vod-fest'));
+    }
+
+    $email = sanitize_email($_POST['newsletter_email']);
+
+    if (!is_email($email)) {
+        wp_redirect(add_query_arg('newsletter', 'invalid', wp_get_referer()));
+        exit;
+    }
+
+    // Save to database (simple storage)
+    global $wpdb;
+    $table_name = $wpdb->prefix . 'vod_fest_newsletter';
+
+    $wpdb->insert(
+        $table_name,
+        array(
+            'email' => $email,
+            'subscribed_at' => current_time('mysql'),
+            'ip_address' => $_SERVER['REMOTE_ADDR'],
+        ),
+        array('%s', '%s', '%s')
+    );
+
+    // Redirect with success message
+    wp_redirect(add_query_arg('newsletter', 'success', wp_get_referer()));
+    exit;
+}
+add_action('admin_post_nopriv_vod_fest_newsletter_signup', 'vod_fest_handle_newsletter_signup');
+add_action('admin_post_vod_fest_newsletter_signup', 'vod_fest_handle_newsletter_signup');
+
+/**
+ * Create newsletter database table
+ */
+function vod_fest_create_newsletter_table() {
+    global $wpdb;
+    $table_name = $wpdb->prefix . 'vod_fest_newsletter';
+    $charset_collate = $wpdb->get_charset_collate();
+
+    $sql = "CREATE TABLE IF NOT EXISTS $table_name (
+        id bigint(20) NOT NULL AUTO_INCREMENT,
+        email varchar(100) NOT NULL,
+        subscribed_at datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
+        ip_address varchar(45) DEFAULT '' NOT NULL,
+        PRIMARY KEY  (id),
+        UNIQUE KEY email (email)
+    ) $charset_collate;";
+
+    require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
+    dbDelta($sql);
+}
+register_activation_hook(__FILE__, 'vod_fest_create_newsletter_table');
+
+/**
+ * Add customizer settings for social media
+ */
+function vod_fest_customize_register($wp_customize) {
+    // Social Media Section
+    $wp_customize->add_section('vod_fest_social', array(
+        'title'    => __('Social Media', 'vod-fest'),
+        'priority' => 30,
+    ));
+
+    // Facebook
+    $wp_customize->add_setting('vod_fest_facebook', array(
+        'default'           => '',
+        'sanitize_callback' => 'esc_url_raw',
+    ));
+    $wp_customize->add_control('vod_fest_facebook', array(
+        'label'   => __('Facebook URL', 'vod-fest'),
+        'section' => 'vod_fest_social',
+        'type'    => 'url',
+    ));
+
+    // Instagram
+    $wp_customize->add_setting('vod_fest_instagram', array(
+        'default'           => '',
+        'sanitize_callback' => 'esc_url_raw',
+    ));
+    $wp_customize->add_control('vod_fest_instagram', array(
+        'label'   => __('Instagram URL', 'vod-fest'),
+        'section' => 'vod_fest_social',
+        'type'    => 'url',
+    ));
+
+    // YouTube
+    $wp_customize->add_setting('vod_fest_youtube', array(
+        'default'           => '',
+        'sanitize_callback' => 'esc_url_raw',
+    ));
+    $wp_customize->add_control('vod_fest_youtube', array(
+        'label'   => __('YouTube URL', 'vod-fest'),
+        'section' => 'vod_fest_social',
+        'type'    => 'url',
+    ));
+
+    // Bandcamp
+    $wp_customize->add_setting('vod_fest_bandcamp', array(
+        'default'           => '',
+        'sanitize_callback' => 'esc_url_raw',
+    ));
+    $wp_customize->add_control('vod_fest_bandcamp', array(
+        'label'   => __('Bandcamp URL', 'vod-fest'),
+        'section' => 'vod_fest_social',
+        'type'    => 'url',
+    ));
+}
+add_action('customize_register', 'vod_fest_customize_register');

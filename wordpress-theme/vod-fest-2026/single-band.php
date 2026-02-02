@@ -79,6 +79,44 @@ while (have_posts()) : the_post();
                     </div>
                 </div>
             <?php endif; ?>
+
+            <!-- Media Embeds -->
+            <?php
+            $bandcamp_embed = get_post_meta(get_the_ID(), '_band_bandcamp_embed', true);
+            $youtube_id = get_post_meta(get_the_ID(), '_band_youtube_id', true);
+
+            if ($bandcamp_embed || $youtube_id) : ?>
+                <div style="margin-bottom: var(--space-4xl);">
+                    <h2 style="font-size: var(--font-size-3xl); margin-bottom: var(--space-xl); color: var(--color-gold);">
+                        <?php esc_html_e('Listen & Watch', 'vod-fest'); ?>
+                    </h2>
+
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: var(--space-2xl);">
+                        <?php if ($bandcamp_embed) : ?>
+                            <div class="bandcamp-embed">
+                                <?php echo wp_kses_post($bandcamp_embed); ?>
+                            </div>
+                        <?php endif; ?>
+
+                        <?php if ($youtube_id) : ?>
+                            <div class="youtube-embed" style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; background: var(--color-black);">
+                                <iframe
+                                    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
+                                    src="https://www.youtube.com/embed/<?php echo esc_attr($youtube_id); ?>"
+                                    frameborder="0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                    allowfullscreen>
+                                </iframe>
+                            </div>
+                        <?php endif; ?>
+                    </div>
+                </div>
+            <?php endif; ?>
+
+            <!-- Newsletter Signup -->
+            <div style="margin-top: var(--space-5xl);">
+                <?php echo do_shortcode('[newsletter title="Don\'t Miss Any Updates" subtitle="Subscribe to get lineup announcements, festival news, and exclusive content."]'); ?>
+            </div>
         </div>
     </article>
 

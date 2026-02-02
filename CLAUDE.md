@@ -1,598 +1,681 @@
-# CLAUDE.md
+# CLAUDE.md - VOD Fest 2026
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file provides comprehensive guidance to Claude Code when working on the VOD Fest 2026 project.
+
+## Project Status: ✅ LIVE & PRODUCTION
+
+**Last Updated:** February 2, 2026
+**Status:** Fully implemented and deployed on VPS
+**Live URL:** http://72.62.148.205:8080
+
+---
+
+## Quick Access
+
+### URLs
+- **Website:** http://72.62.148.205:8080
+- **Admin:** http://72.62.148.205:8080/wp-admin
+- **Lineup:** http://72.62.148.205:8080/lineup/
+- **Festival 2025 Recap:** http://72.62.148.205:8080/festival-2025/
+- **User Login:** http://72.62.148.205:8080/login/
+- **User Register:** http://72.62.148.205:8080/register/
+- **User Dashboard:** http://72.62.148.205:8080/dashboard/
+
+### Server Access
+```bash
+# SSH to VPS
+ssh root@72.62.148.205
+
+# WordPress Directory
+cd /var/www/vodfest
+
+# WP-CLI Commands
+wp --allow-root [command]
+```
+
+### Credentials
+- See `.env` file for all credentials
+- **NEVER commit .env to git!**
+
+---
 
 ## Project Overview
 
-**VOD Fest 2026 Website** - A bilingual (German/English) music festival website for a 3-day underground/experimental music event in Friedrichshafen, Germany (July 17-19, 2026).
+**VOD Fest 2026 Website** - A bilingual (German/English) music festival website for a 3-day underground/experimental music event in Friedrichshafen, Germany.
 
-**Status:** Planning/Development phase - no code created yet
+### Festival Details
+- **Event:** VOD Fest 2026
+- **Dates:** July 17-19, 2026 (Friday-Sunday)
+- **Location:** Kulturhaus Caserne, Fallenbrunnen 17, 88045 Friedrichshafen, Germany
+- **Hours:** 17:00-24:00 each evening
+- **Artists:** 21 bands over 3 days
+- **Stages:** 2 (Outside Stage, Venue Inside)
+- **Ticket Price:** €333 per person, €666 for two
+- **Organizer:** Frank Bull (VOD Records)
+- **Contact:** frank@vod-records.com
 
-**Target Platform:** WordPress (preferred) or custom solution
+### Key Bands
+Hunting Lodge, Esplendor Geométrico, Lydia Lunch/Marc Hurtado, No More, Crash Course in Science, Joachim Irmler (Faust), O Yuki Conjugate, Rapoon, Clair Obscur, The Anti Group, Norma Loy, and 10 more.
 
-**Primary Requirements Document:** `VOD_Fest_Details.md`
+---
 
-## Festival Details
+## Technology Stack
 
-**Event:** VOD Fest 2026
-**Dates:** July 17-19, 2026
-**Location:** Kulturhaus Caserne, Fallenbrunnen 17, 88045 Friedrichshafen, Germany
-**Hours:** 17:00-24:00 each evening (Friday, Saturday, Sunday)
-**Artists:** 21 bands over 3 days, split between outdoor and indoor stages
-**Ticket Price:** €333 per person, €666 for two
+### Core Platform
+- **CMS:** WordPress 6.x
+- **Theme:** Custom "VOD Fest 2026" Theme (v1.0.1)
+- **Server:** Hostinger VPS (Ubuntu 24.04.3 LTS)
+- **IP:** 72.62.148.205
+- **Port:** 8080
+- **Database:** MySQL/MariaDB
 
-**Key Bands:** Hunting Lodge, Esplendor Geométrico, Lydia Lunch/Marc Hurtado, No More, Crash Course in Science, Joachim Irmler (Faust), and 15 others
+### Custom Theme
+**Location:** `/var/www/vodfest/wp-content/themes/vod-fest-2026/`
 
-**Organizer:** Frank Bull (VOD Records)
-**Contact:** frank@vod-records.com
-**Pre-Event Location:** Pinart Gallery, Eugenstraße 57, 88045 Friedrichshafen
+**Key Files:**
+- `functions.php` - Theme setup, custom post types, meta boxes, shortcodes
+- `style.css` - Theme header
+- `header.php` - Site header with navigation
+- `footer.php` - Site footer with social media
+- `front-page.php` - Homepage
+- `single-band.php` - Band detail pages (with embeds)
+- `archive-band.php` - Lineup overview page
+- `template-2025-recap.php` - Festival 2025 recap page template
+- `page.php` - Standard pages
+- `404.php` - Error page
 
-## Required Website Features
+**CSS Architecture:**
+```
+/assets/css/
+├── variables.css   - CSS custom properties (colors, fonts, spacing)
+├── global.css      - Base styles, typography, layout
+├── components.css  - UI components (buttons, cards, forms)
+└── animations.css  - Keyframe animations
+```
+
+**JavaScript:**
+```
+/assets/js/
+└── main.js - Mobile menu, scroll animations, form interactions
+```
+
+**Images:**
+```
+/assets/images/
+├── favicon.svg         - Full VOD FEST 2026 logo
+└── favicon-simple.svg  - Simplified "V" icon (active as site icon)
+```
+
+### Custom Plugin
+**VOD Fest User Area** (v1.0.0)
+**Location:** `/var/www/vodfest/wp-content/plugins/vod-fest-user-area/`
+
+**Features:**
+- User registration with AJAX
+- Login/logout system
+- User dashboard with festival info
+- Profile editor (name, email, country, phone)
+- Newsletter subscription tracking
+- Responsive design matching theme
+
+**Plugin Structure:**
+```
+vod-fest-user-area/
+├── vod-fest-user-area.php  - Main plugin file
+├── templates/
+│   ├── login-form.php      - Login form template
+│   ├── register-form.php   - Registration form template
+│   ├── dashboard.php       - User dashboard template
+│   └── profile.php         - Profile editor template
+└── assets/
+    ├── style.css           - User area styling
+    └── script.js           - AJAX handlers for forms
+```
+
+**Auto-Created Pages:**
+- `/login/` - Login Form
+- `/register/` - Registration Form
+- `/dashboard/` - User Dashboard
+- `/profile/` - User Profile Editor
+
+---
+
+## Implemented Features
+
+### ✅ 1. Custom Post Types & Taxonomies
+
+**Band Post Type:**
+- Slug: `band`
+- Archive: `/lineup/`
+- Single: `/band/[band-name]/`
+
+**Custom Fields (Meta Boxes):**
+- `_band_start_time` - Performance start time
+- `_band_end_time` - Performance end time
+- `_band_bandcamp_link` - Bandcamp URL
+- `_band_bandcamp_embed` - Bandcamp iframe embed code
+- `_band_youtube_id` - YouTube video ID
+- `_thumbnail_id` - Featured image
+
+**Taxonomies:**
+- `festival_day` - Friday, Saturday, Sunday
+- `stage` - Outside Stage, Venue Inside
+- `band_genre` - Industrial, Experimental, Post-Punk, etc.
+
+### ✅ 2. Band Images
+**Status:** 19 of 21 bands have real images from Bandcamp
+**Missing:** IRSOL (Post 97), CRASH COURSE IN SCIENCE (Post 99)
+
+**All 21 Bands:**
+1. JOACHIM IRMLER (FAUST) - Post ID 94
+2. NO MORE - Post ID 95
+3. DIETRICH VON EULER DONNERSPERG - Post ID 96
+4. IRSOL - Post ID 97 ❌ No image
+5. O YUKI CONJUGATE - Post ID 98
+6. CRASH COURSE IN SCIENCE - Post ID 99 ❌ No image
+7. HUNTING LODGE - Post ID 100
+8. DAS SYNTHETISCHE MISCHGEWEBE - Post ID 101
+9. MARC HURTADO / LYDIA LUNCH - Post ID 102
+10. RAPOON - Post ID 103
+11. NORMA LOY - Post ID 104
+12. CLAIR OBSCUR - Post ID 105
+13. THE ANTI GROUP - Post ID 106
+14. ESPLENDOR GEOMETRICO - Post ID 107
+15. PLUS INSTRUMENTS - Post ID 108
+16. PARADE GROUND - Post ID 109
+17. ETANT DONNES - Post ID 110
+18. CLUB MORAL - Post ID 111
+19. BAND OF HOLY JOY - Post ID 112
+20. ZOSKIA - Post ID 113
+21. SUTCLIFFE NO MORE - Post ID 114
+
+### ✅ 3. Bandcamp/YouTube Embeds
+**Location:** Single band pages (`single-band.php`)
+**How to use:**
+1. Edit band in wp-admin
+2. Scroll to "Media Embeds" meta box
+3. Paste Bandcamp iframe code OR enter YouTube video ID
+4. Embeds appear automatically in "Listen & Watch" section
+
+### ✅ 4. Newsletter Signup
+**Shortcode:** `[newsletter]`
+**Database:** `wp_vod_fest_newsletter` table
+**Features:**
+- Email validation
+- Duplicate prevention (UNIQUE email constraint)
+- IP address logging
+- GDPR-compliant text
+
+**Active on:**
+- All band detail pages (bottom)
+- Festival 2025 Recap page
+- Can be added to any page/post
+
+**Export Newsletter Subscribers:**
+```sql
+SELECT email FROM wp_vod_fest_newsletter ORDER BY subscribed_at DESC;
+```
+
+### ✅ 5. Social Media Integration
+**Customizer Settings:** Appearance → Customize → Social Media
+
+**Configured URLs:**
+- Facebook: https://facebook.com/vodfest
+- Instagram: https://instagram.com/vodfest
+- YouTube: https://youtube.com/@vodfest
+- Bandcamp: https://vodrecords.bandcamp.com
+
+**Display:** Footer on all pages (with hover effects)
+
+### ✅ 6. Favicon
+**File:** `/assets/images/favicon-simple.svg`
+**Status:** Active as WordPress Site Icon (Media ID 139)
+**Display:** Browser tabs on all pages
+
+### ✅ 7. User Area System
+**Plugin:** VOD Fest User Area v1.0.0
+**Status:** Active
+
+**Features:**
+- ✅ User registration with validation
+- ✅ Login/logout with remember me
+- ✅ User dashboard with festival info
+- ✅ Profile editor (name, email, country, phone)
+- ✅ AJAX-based forms (no page reloads)
+- ✅ Responsive design
+
+**Pages:**
+- `/login/` - Post ID 134
+- `/register/` - Post ID 135
+- `/dashboard/` - Post ID 136
+- `/profile/` - Post ID 137
+
+### ✅ 8. Festival 2025 Recap Page
+**Template:** `template-2025-recap.php`
+**Page:** http://72.62.148.205:8080/festival-2025/ (Post ID 138)
+**Added to navigation:** Primary Menu (position 9)
+
+**Sections:**
+- Hero with 2025 branding
+- Statistics cards (19 bands, 3 days, 2 stages, 100+ attendees)
+- Photo gallery (12 placeholders in 3x4 grid)
+- Video gallery (6 placeholders in 2x3 grid)
+- Artist testimonials (3 cards - editable in template)
+- Newsletter CTA
+
+**TODO:** Replace placeholders with real photos/videos from 2025 festival
+
+### ✅ 9. Navigation Menu
+**Primary Menu** (9 items):
+1. Home
+2. Lineup
+3. Info
+4. Tickets
+5. Contact
+6. Travel
+7. Schedule
+8. Venue
+9. Festival 2025
+
+**Footer Menu** (3 items):
+1. Impressum
+2. Datenschutzerklärung
+3. Terms & Conditions
+
+---
+
+## Pages & Content
 
 ### Core Pages
-- **Home:** Engaging landing page based on festival poster design
-- **Festival Info 2025:** Images and information from previous year's festival
-- **2026 Agenda:** Complete schedule with band timeslots (indoor/outdoor stages)
-- **Bands Overview:** All 21 bands on one page
-- **Individual Band Pages:** Dedicated page per band with bio, links, media
-- **Travel & Accommodation:** Hotels, public transport info (Bus 10/12 to "Hochschulen" stop)
-- **Visitor Testimonials:** Feedback from 2025 attendees
-- **Contact:** Contact form and organizer information
-- **Ticket Purchase:** Payment options (Bank transfer preferred, PayPal alternative)
-- **Social Media Links:** Integration with all social platforms
-- **User Registration/Login:** Account system for ticket holders and newsletter subscribers
-- **User Dashboard:** Personal area for ticket status, newsletter preferences, saved bands
+- **Home** (Post ID 5) - Front page with hero, lineup preview
+- **Lineup** - Archive of all 21 bands at `/lineup/`
+- **Info** (Post ID 6) - Festival info, philosophy, venue
+- **Tickets** (Post ID 7) - Pricing, payment info, order form
+- **Contact** (Post ID 8) - Contact form, organizer info
+- **Travel & Accommodation** (Post ID 82) - Hotels, transport
+- **Timetable** (Post ID 85) - Schedule overview
+- **Venue** (Post ID 84) - Kulturhaus Caserne info + gallery
 
-### Critical Content
+### Legal Pages
+- **Impressum** (Post ID 73) - TMG-compliant legal notice
+- **Datenschutzerklärung** (Post ID 75) - DSGVO privacy policy
+- **Terms & Conditions** (Post ID 74) - Complete AGB
 
-**Band Schedule (parsed from VOD_Fest_Details.md lines 62-161):**
-- Friday: 7 performances (Joachim Irmler, No More, Hunting Lodge, etc.)
-- Saturday: 7 performances (Lydia Lunch/Marc Hurtado, Esplendor Geométrico, etc.)
-- Sunday: 7 performances (Sutcliffe No More, Band of Holy Joy, etc.)
+### User Pages
+- **Login** (Post ID 134) - `[vod_login]` shortcode
+- **Register** (Post ID 135) - `[vod_register]` shortcode
+- **Dashboard** (Post ID 136) - `[vod_dashboard]` shortcode
+- **My Profile** (Post ID 137) - `[vod_profile]` shortcode
 
-**Payment Details:**
-```
-Bank Transfer (preferred):
-Frank Bull
-BIC: GENODE61UBE
-IBAN: DE35690618000060018316
+### Special Pages
+- **Festival 2025 Recap** (Post ID 138) - Template-based page
 
-PayPal (alternative): frank@vod-records.com
-```
+---
 
-**Pre-Event Schedule:**
-- Thursday, July 17: 17:00-22:00 - Early check-in at Pinart (wristbands, vinyl sales, DJ sets)
-- Friday, July 18: 11:00-16:00 - Early check-in at Pinart
-- Saturday, July 19: 11:00-14:00 - Meet & Greet, book presentation "Shock Factory"
+## Design System
 
-**Public Transport:**
-- Main Station (Stadtbahnhof) → Bus 10 or 12 → Stop "Hochschulen"
-- Festival venue 5-minute walk from bus stop
-- Info: https://www.stadtverkehr-fn.de/
-
-## Design Specifications
-
-**Visual Identity:** Use `VOD_Fest_Plakat.png` (1024x1536 PNG) as primary design inspiration
-- Industrial/underground aesthetic
-- Bold typography
-- High contrast design
-
-**Languages:** Full bilingual implementation (German + English language switcher)
-
-**Mobile-First:** Responsive design essential for ticket buyers and travelers
-
-## Technology Stack Recommendations
-
-**WordPress Setup (Preferred):**
-- Theme: Consider custom theme based on poster aesthetics or festival-oriented themes
-- Plugins Needed:
-  - Multilingual: WPML or Polylang
-  - Events/Schedule: The Events Calendar or custom ACF implementation
-  - Contact Forms: WPForms or Contact Form 7
-  - SEO: Yoast SEO
-  - User Registration: Ultimate Member or ProfilePress
-  - Newsletter: Mailchimp for WordPress or Newsletter Plugin
-  - Analytics: Site Kit by Google (official Google Analytics plugin)
-  - Cookie Consent: Complianz GDPR/CCPA or Borlabs Cookie (GDPR-compliant)
-
-**Alternative Stack (if WordPress unsuitable):**
-- Next.js 15 + React 19 + TypeScript
-- Tailwind CSS for styling
-- i18next for translations
-- Headless CMS (Sanity/Contentful) for content management
-- NextAuth.js for authentication
-- React Email + Resend/SendGrid for email delivery
-- Google Analytics 4 + @next/third-parties for analytics
-
-## Analytics & Marketing Integration
-
-### Google Analytics 4 (GA4)
-
-**Implementation:**
-- Track page views, user journeys, conversion events
-- Monitor ticket purchase funnel completion
-- Analyze band page popularity
-- Track newsletter sign-ups and user registrations
-
-**Key Events to Track:**
-- `ticket_interest` - User clicks ticket purchase button
-- `band_view` - Band page visits
-- `schedule_view` - Agenda page visits
-- `newsletter_signup` - Newsletter subscription
-- `user_registration` - New account creation
-- `social_click` - Social media link clicks
-- `external_link` - Bandcamp/external music links
-
-**Privacy Compliance:**
-- GDPR-compliant cookie consent banner required
-- IP anonymization enabled
-- User opt-out option
-- Clear privacy policy disclosure
-
-**WordPress Integration:**
-```
-Plugin: Site Kit by Google (official Google plugin)
-- Connects Google Analytics, Search Console, AdSense
-- Dashboard widget with key metrics
-- Automatic event tracking setup
+### Color Palette
+```css
+--color-gold: #D4AF37;         /* Primary accent */
+--color-blood-red: #4A0000;    /* Dark background */
+--color-black: #0D0000;        /* Darker background */
+--color-brass: #BFA160;        /* Muted accent */
+--color-cream: #F5F5DC;        /* Body text */
+--color-orange: #FF6B35;       /* Hover states */
 ```
 
-**Custom Stack Integration:**
-```javascript
-// Next.js: use @next/third-parties for optimized GA4 loading
-import { GoogleAnalytics } from '@next/third-parties/google'
-
-<GoogleAnalytics gaId="G-XXXXXXXXXX" />
+### Typography
+```css
+--font-display: "Bebas Neue", Impact, sans-serif;  /* Headings */
+--font-body: "Inter", system-ui, sans-serif;       /* Body text */
+--font-mono: "Roboto Mono", monospace;             /* Code */
 ```
 
-### Newsletter System
-
-**Recommended Solutions:**
-
-**Option 1: Mailchimp (Recommended for festivals)**
-- **Pros:** Industry standard, excellent deliverability, automation workflows, free tier up to 500 subscribers
-- **Features:**
-  - Segmentation (by ticket status, language preference, band interest)
-  - Automated welcome series
-  - Event reminders (pre-festival countdown emails)
-  - Campaign analytics and A/B testing
-- **Cost:** Free (0-500 subscribers), €13/month (501-1500), €20/month (1501-2500)
-- **WordPress Plugin:** Mailchimp for WordPress (MC4WP)
-- **API Integration:** Full REST API for custom implementations
-
-**Option 2: Brevo (formerly Sendinblue) - Budget-Friendly**
-- **Pros:** Unlimited contacts on free tier, transactional email included, EU-based (GDPR advantage)
-- **Features:**
-  - 300 emails/day free tier
-  - SMS marketing option
-  - Marketing automation
-  - Contact management
-- **Cost:** Free (300 emails/day), €19/month (20k emails), €39/month (40k emails)
-- **WordPress Plugin:** Brevo (Official)
-
-**Option 3: Newsletter Plugin (WordPress Native) - Simplest**
-- **Pros:** No external service, complete data ownership, no monthly costs, easy setup
-- **Features:**
-  - Built-in subscription forms
-  - Email composer with templates
-  - Subscriber management
-  - Basic automation
-- **Limitations:** Deliverability depends on server reputation, no advanced segmentation
-- **Cost:** Free (core) + €99/year (Professional add-ons)
-
-**Option 4: ConvertKit - Creator-Focused**
-- **Pros:** Visual automation builder, creator-friendly interface, excellent for storytelling
-- **Features:**
-  - Tag-based subscriber management
-  - Landing page builder
-  - Advanced automation sequences
-  - Commerce integrations
-- **Cost:** Free (0-300 subscribers), $15/month (301-1000), $29/month (1001-3000)
-
-**Recommended Choice for VOD Fest:**
-**Newsletter Plugin (WordPress)** - Simplest and most cost-effective solution. No monthly fees, complete data ownership, sufficient for ~100 ticket holders + newsletter subscribers.
-
-**Setup:**
-```
-Plugin: Newsletter (by Stefano Lissa)
-- Free forever, no subscriber limits
-- Built-in subscription forms + widgets
-- Drag & drop email composer
-- Basic automation (welcome emails)
-- SMTP integration for reliable delivery
-- Export/import subscribers
-- GDPR-compliant (EU-based developer)
+### Spacing Scale
+```css
+--space-xs: 0.25rem;   /* 4px */
+--space-sm: 0.5rem;    /* 8px */
+--space-md: 1rem;      /* 16px */
+--space-lg: 1.5rem;    /* 24px */
+--space-xl: 2rem;      /* 32px */
+--space-2xl: 3rem;     /* 48px */
+--space-3xl: 4rem;     /* 64px */
+--space-4xl: 6rem;     /* 96px */
+--space-5xl: 8rem;     /* 128px */
 ```
 
-**Alternative if more features needed later:**
-**Brevo (formerly Sendinblue)** - Free tier with 300 emails/day (sufficient for 100 tickets + moderate newsletter list), EU-based, unlimited contacts.
+### Component Classes
+- `.btn` - Base button
+- `.btn-primary` - Gold button (CTA)
+- `.btn-secondary` - Outlined button
+- `.card` - Content card with border
+- `.badge` - Small label/tag
+- `.badge-day` - Festival day badge
+- `.badge-stage-inside` - Inside stage badge
+- `.badge-stage-outside` - Outside stage badge
+- `.form-input` - Text input field
+- `.band-card` - Band preview card
+- `.waveform` - Audio waveform animation
 
-**Newsletter Content Strategy:**
-- **Weekly Updates:** Band announcements, behind-the-scenes content
-- **Pre-Event Series:**
-  - 3 months before: "Save the date" + early bird info
-  - 2 months before: Travel guide + accommodation tips
-  - 1 month before: Full schedule reveal
-  - 2 weeks before: Wristband pickup info + last-minute details
-  - 1 week before: Final reminders + weather forecast
-- **Post-Event:** Thank you email + feedback survey + photo gallery
-- **2027 Announcement:** Early-bird notification for VOD Fest 2027 (to retained users)
-- **Monthly:** Band spotlight, VOD Records releases, underground music news
+---
 
-### SMTP Service & Automated Emails
+## Shortcodes
 
-**SMTP Provider Recommendations:**
-
-**Option 1: Brevo (Sendinblue) - Recommended**
-- **Free Tier:** 300 emails/day (9000/month)
-- **Sufficient for:** ~100 ticket orders + registrations + newsletters
-- **Features:** SMTP + transactional API, email templates, tracking
-- **Setup:** Simple SMTP credentials, WordPress plugins available
-- **Cost:** Free for current needs
-
-**Option 2: SendGrid**
-- **Free Tier:** 100 emails/day (3000/month)
-- **May be tight** for newsletter + transactional combined
-- **Cost:** $19.95/month for 50k emails if free tier exceeded
-
-**Option 3: AWS SES (Amazon Simple Email Service)**
-- **Cost:** $0.10 per 1000 emails (extremely cheap)
-- **Complexity:** Requires AWS account setup, domain verification
-- **Best for:** Technical users comfortable with AWS
-
-**Option 4: Server SMTP (VPS Native)**
-- **Cost:** Free (uses VPS mail server)
-- **Risk:** Low deliverability, may land in spam folders
-- **Not recommended** for important transactional emails
-
-**Recommended: Brevo Free Tier**
-- Sufficient for 100 tickets + moderate newsletter use
-- Reliable deliverability
-- EU-based (GDPR advantage)
-- Easy WordPress integration
-
-### Automated Email Templates
-
-**1. User Registration Confirmation**
-```
-Subject: Welcome to VOD Fest 2026! / Willkommen beim VOD Fest 2026!
-
-Content:
-- Welcome message
-- Account activation link (email verification)
-- What's next: Explore lineup, order tickets, subscribe to newsletter
-- Links to social media and festival info
-```
-
-**2. Newsletter Subscription Confirmation**
-```
-Subject: You're subscribed to VOD Fest updates / Newsletter-Anmeldung bestätigt
-
-Content:
-- Confirmation message
-- What to expect: Band announcements, pre-event info, underground music news
-- Unsubscribe link (GDPR required)
-- Invite to create account for more features
-```
-
-**3. Ticket Order Confirmation (Automated)**
-```
-Subject: Ticket Order Received - VOD Fest 2026 / Ticketbestellung erhalten
-
-Content:
-- Order details (name, quantity, total amount)
-- Payment instructions:
-  - Bank: IBAN DE35690618000060018316, BIC: GENODE61UBE
-  - Reference: [Name + Order ID]
-  - PayPal: frank@vod-records.com (alternative)
-- "We'll confirm your ticket within 2-3 business days after payment verification"
-- Contact: frank@vod-records.com for questions
-- Festival dates reminder: July 17-19, 2026
-```
-
-**4. Ticket Payment Confirmed (Manual trigger)**
-```
-Subject: Your VOD Fest 2026 Ticket is Confirmed! / Dein Ticket ist bestätigt!
-
-Content:
-- Payment confirmed, ticket secured
-- Wristband pickup info:
-  - Thursday July 17: 17:00-22:00 at Pinart Gallery
-  - Friday July 18: 11:00-16:00 at Pinart Gallery
-  - Or at venue entrance from 15:00 Friday
-- Schedule overview + link to full lineup
-- Travel & accommodation tips link
-- Add to calendar file attachment
-```
-
-**5. Pre-Event Reminder (1 week before)**
-```
-Subject: VOD Fest 2026 starts in 7 days! / Noch 7 Tage bis zum VOD Fest!
-
-Content (automated, sent to all ticket holders + subscribers):
-- Final reminder: July 17-19
-- Wristband pickup locations & times
-- Public transport info (Bus 10/12 to "Hochschulen")
-- Weather forecast
-- Last-minute tips
-- Emergency contact for day-of questions
-```
-
-**6. Password Reset**
-```
-Subject: Reset your VOD Fest account password
-
-Content:
-- Password reset link (expires in 1 hour)
-- "Didn't request this? Ignore this email"
-- Security reminder
-```
-
-**SMTP Configuration (WordPress):**
+### Newsletter
 ```php
-Plugin: WP Mail SMTP (by WPForms)
-- Provider: Brevo (Sendinblue)
-- SMTP Host: smtp-relay.brevo.com
-- SMTP Port: 587 (TLS) or 465 (SSL)
-- Encryption: TLS
-- Authentication: Yes
-- Username: [Brevo account email]
-- Password: [Brevo SMTP key]
-- From Email: noreply@vodfest.com (or chosen domain)
-- From Name: VOD Fest 2026
+[newsletter]
+[newsletter title="Custom Title" subtitle="Custom subtitle"]
 ```
 
-**Testing Automated Emails:**
-```
-- Test registration flow with real email
-- Verify all emails land in inbox (not spam)
-- Test German + English versions
-- Verify all links work
-- Check mobile rendering
-- Test unsubscribe flow
+### User Area
+```php
+[vod_login]      - Login form
+[vod_register]   - Registration form
+[vod_dashboard]  - User dashboard
+[vod_profile]    - Profile editor
 ```
 
-### User Registration System
+---
 
-**Purpose:**
-- Ticket holder account management
-- Newsletter preference management
-- Personalized festival experience
-- Community building for repeat attendees
+## Database Schema
 
-**User Roles:**
+### Custom Tables
 
-1. **Guest:** No account, can browse public content
-2. **Subscriber:** Newsletter only, minimal data collection
-3. **Ticket Holder:** Verified ticket purchase, full access
-4. **VIP/Press:** Special access level (if needed for media)
-5. **Admin:** Festival organizer team
-
-**User Profile Features:**
-
-**Basic Information:**
-- Name, Email (required)
-- Language preference (German/English)
-- Country of origin
-- Phone (optional, for urgent festival communications)
-
-**Festival-Specific:**
-- Ticket number/confirmation code
-- Wristband pickup status
-- Emergency contact (optional)
-- Dietary restrictions (if catering planned)
-- Accessibility needs
-
-**Preferences:**
-- Favorite bands (from lineup)
-- Genre interests (for band recommendations)
-- Email notification preferences:
-  - Festival updates (mandatory for ticket holders)
-  - Band announcements (optional)
-  - VOD Records news (optional)
-  - General newsletter (optional)
-- SMS notifications (opt-in for urgent updates)
-
-**User Dashboard:**
-- Ticket order status (if ordered via website)
-- Personal schedule builder (save favorite band performances)
-- Newsletter subscription management
-- Account settings
-- Saved favorite bands
-- Event updates and announcements
-
-**Registration Flow:**
-
-1. **Minimal Friction:** Email + password only for initial signup
-2. **Progressive Profiling:** Request additional info after registration
-3. **Ticket Verification:** Link ticket purchase to account via confirmation code
-4. **Email Verification:** Required to prevent spam
-5. **Social Login (Optional):** Facebook/Google OAuth for convenience
-
-**WordPress Implementation:**
-```
-Plugin: Ultimate Member (free, extensible)
-- Custom registration form fields
-- User roles management
-- Profile pages
-- Email notifications
-- reCAPTCHA integration
-
-Alternative: ProfilePress (lighter, focused on essentials)
+**Newsletter Subscribers:**
+```sql
+CREATE TABLE wp_vod_fest_newsletter (
+    id bigint(20) AUTO_INCREMENT PRIMARY KEY,
+    email varchar(100) NOT NULL UNIQUE,
+    subscribed_at datetime NOT NULL,
+    ip_address varchar(45) NOT NULL
+);
 ```
 
-**Custom Stack Implementation:**
-```
-Auth: NextAuth.js with email/password + OAuth providers
-Database: User table with profile fields, ticket references
-Email: Resend/SendGrid for verification emails
-Validation: Zod schemas for data validation
-Security: bcrypt password hashing, JWT sessions
-```
+### Custom Post Meta
+- `_band_start_time` - varchar(10) - "18:00"
+- `_band_end_time` - varchar(10) - "19:30"
+- `_band_bandcamp_link` - text - Full URL
+- `_band_bandcamp_embed` - longtext - Full iframe HTML
+- `_band_youtube_id` - varchar(20) - Video ID only
 
-**Privacy & Security:**
-- GDPR-compliant data processing
-- User data export capability
-- Account deletion option (but encourage data retention for future festivals)
-- Secure password requirements (min 8 chars, complexity)
-- Two-factor authentication (optional, via email code)
-- Rate limiting on login attempts
-- Email verification required
-- Password reset flow
+### Theme Mods (Options)
+- `vod_fest_facebook` - Facebook URL
+- `vod_fest_instagram` - Instagram URL
+- `vod_fest_youtube` - YouTube URL
+- `vod_fest_bandcamp` - Bandcamp URL
+- `site_icon` - Favicon media ID
 
-**Data Retention Policy:**
-- User data kept indefinitely (with consent) for multi-year festival community
-- Early announcements for VOD Fest 2027 to existing user base
-- Opt-out option available, but default to keep subscribed for future events
-- Benefit: Returning attendees get priority access to future ticket sales
-
-**Integration with Ticket System (Simplified):**
-
-**Ticket Order Flow:**
-1. User fills out ticket order form (name, email, quantity, language preference)
-2. Form sends email to organizer with order details
-3. User receives automated confirmation: "Order received, please transfer €X to [bank details]"
-4. Organizer manually verifies bank transfer
-5. Organizer sends personal confirmation email with ticket info
-6. User account (if registered) stores ticket status for reference
-
-**No Complex Features Needed:**
-- No ticket verification codes
-- No automated payment matching
-- No PDF ticket generation
-- Simple email-based workflow for ~100 tickets
-- Optional: Store ticket holder emails in user database for pre-event communications
-
-## Band Data Structure
-
-Each band entry should include:
-- **Name:** Official band name
-- **Day:** Friday/Saturday/Sunday
-- **Stage:** Outside/Inside
-- **Time:** Start-End times
-- **Duration:** Performance length
-- **Bandcamp URL:** Official music links (all bands have Bandcamp pages)
-- **Bio:** Brief description (to be researched)
-- **Images:** Band photos (to be sourced)
-- **Videos:** Band Videos (to be sourced)
-- **Genre/Tags:** For filtering/discovery
-
-Example band entry from requirements:
-```
-HUNTING LODGE
-Day: Friday, July 17
-Stage: Venue Inside
-Time: 22:45 - 24:00 (75 min)
-Link: https://huntinglodge.bandcamp.com/
-```
-
-## Content Creation Tasks
-
-**Required Research:**
-1. Analyze successful music festival websites (Primavera Sound, Roadburn, Desert Daze, etc.)
-2. Source band information and press photos from Bandcamp links
-3. Collect testimonials from 2025 festival (may need to request from organizer)
-4. Create visual mockups based on poster design
-5. Gather accommodation recommendations near Friedrichshafen
-6. Compile transportation information with real schedules
-
-**Content to Request from Organizer:**
-- 2025 festival photos/videos
-- High-resolution poster files
-- Band promotional materials
-- Venue capacity/layout information
-- Accessibility information
+---
 
 ## Development Workflow
 
-**Phase 1: Planning & Research (Current)**
-- Create structured project directory
-- Research festival website examples
-- Design mockups/wireframes
-- Content gathering
+### Local Development
+Files are in: `/Users/robin/Documents/4_AI/VOD_Fest/`
 
-**Phase 2: Setup**
-- WordPress installation (local → staging → production)
-- Theme selection/customization
-- Plugin configuration
-- Bilingual structure setup
-- Google Analytics 4 account creation + integration
-- Newsletter service setup (Mailchimp account + API keys)
-- User registration system configuration
-- Cookie consent banner implementation
+```
+VOD_Fest/
+├── .env                        - Credentials (DO NOT COMMIT)
+├── .env.example               - Template for credentials
+├── CLAUDE.md                  - This file
+├── VOD_Fest_Details.md       - Original requirements
+├── VOD_Fest_CI.md            - Brand identity guidelines
+├── VOD_Fest_Mockups.md       - Site structure & mockups
+├── VOD_Fest_Lineup.csv       - Band schedule data
+├── wordpress-theme/
+│   └── vod-fest-2026/        - Custom theme
+└── wordpress-plugins/
+    └── vod-fest-user-area/   - User area plugin
+```
 
-**Phase 3: Content Entry**
-- Band pages creation (21 pages)
-- Schedule implementation
-- Travel information
-- Legal pages (Impressum, Privacy Policy - required in Germany)
-- Newsletter signup forms on key pages
-- User registration form customization
-- Email templates (welcome, ticket confirmation, pre-event series)
-- GA4 event tracking verification
+### Deploy to VPS
+```bash
+# Upload theme files
+cd /Users/robin/Documents/4_AI/VOD_Fest/wordpress-theme/vod-fest-2026
+scp -r * root@72.62.148.205:/var/www/vodfest/wp-content/themes/vod-fest-2026/
 
-**Phase 4: Server Deployment**
-- Domain setup
-- Hosting configuration
-- SSL certificate
-- **SMTP Service setup** (for reliable email delivery)
-- Newsletter plugin configuration (WordPress Newsletter)
-- Analytics verification
-- GDPR compliance final check (with data retention consent)
-- User database backup strategy
-- Test automated emails (registration, newsletter signup, ticket order confirmation)
+# Upload plugin
+cd /Users/robin/Documents/4_AI/VOD_Fest/wordpress-plugins
+scp -r vod-fest-user-area root@72.62.148.205:/var/www/vodfest/wp-content/plugins/
 
-## Important Notes
+# Clear WordPress cache
+ssh root@72.62.148.205 "cd /var/www/vodfest && wp cache flush --allow-root"
+```
 
-**German Legal Requirements:**
-- **Impressum (Legal Notice):** Mandatory in Germany, must include organizer name, address, contact
-- **Datenschutz (Privacy Policy):** Required for any data collection (forms, cookies)
-- **Cookie Consent:** GDPR-compliant cookie banner if using analytics
+### WP-CLI Common Commands
+```bash
+# SSH to VPS first
+ssh root@72.62.148.205
+cd /var/www/vodfest
 
-**Ticket Processing (Simplified):**
-- **No automated system needed** - only ~100 tickets total
+# Posts & Pages
+wp post list --post_type=band --fields=ID,post_title --allow-root
+wp post create --post_type=page --post_title="Title" --allow-root
+
+# Media
+wp media import /path/to/image.jpg --title="Title" --allow-root
+wp post meta update POST_ID _thumbnail_id IMAGE_ID --allow-root
+
+# Plugins
+wp plugin list --allow-root
+wp plugin activate PLUGIN_NAME --allow-root
+
+# Theme
+wp theme list --allow-root
+wp theme mod set SETTING_NAME "value" --allow-root
+wp theme mod get SETTING_NAME --allow-root
+
+# Options
+wp option get site_icon --allow-root
+wp option update site_icon MEDIA_ID --allow-root
+
+# Menu
+wp menu list --allow-root
+wp menu item add-post MENU_ID POST_ID --title="Title" --allow-root
+
+# Database
+wp db query "SELECT * FROM wp_vod_fest_newsletter;" --allow-root
+
+# Cache
+wp cache flush --allow-root
+```
+
+---
+
+## Payment Integration
+
+### Bank Transfer (Preferred)
+```
+Account Holder: Frank Bull
+Bank: Volksbank Überlingen
+IBAN: DE35690618000060018316
+BIC: GENODE61UBE
+Reference: [Customer Name + Ticket Quantity]
+```
+
+### PayPal (Alternative)
+```
+Email: frank@vod-records.com
+```
+
+**Current Setup:**
 - Simple contact form for ticket orders
-- Form submission sends email to organizer (frank@vod-records.com)
-- Manual processing: organizer verifies bank transfer → sends confirmation email
-- No complex ticket management database required
+- Manual processing by organizer
+- Email confirmation sent manually
+- No automated payment processing (by design - ~100 tickets only)
 
-**Non-Profit Status:**
-- Festival operates as non-profit per requirements
-- PayPal discouraged due to fees (but available as fallback)
+---
 
-## File Organization
+## Security & Best Practices
 
+### What's Protected
+- ✅ `.env` file in `.gitignore`
+- ✅ AJAX requests use WordPress nonces
+- ✅ Input sanitization (sanitize_text_field, sanitize_email, esc_url)
+- ✅ Output escaping (esc_html, esc_attr, wp_kses_post)
+- ✅ SQL injection prevention (wpdb prepared statements)
+- ✅ CSRF protection (wp_verify_nonce)
+
+### Passwords
+- WordPress admin password: See `.env` file
+- Database password: On VPS only
+- SSH key authentication for VPS
+
+### SSL/HTTPS
+**Current:** HTTP only (port 8080)
+**TODO:** Configure SSL certificate for production domain
+
+---
+
+## TODO & Future Enhancements
+
+### Content Tasks
+- [ ] Add Bandcamp/YouTube embeds for all 21 bands
+- [ ] Find images for IRSOL and CRASH COURSE IN SCIENCE
+- [ ] Replace 2025 Recap placeholders with real photos/videos
+- [ ] Update artist testimonials with real quotes
+- [ ] Add band bios/descriptions to all band posts
+
+### Technical Enhancements
+- [ ] Add reCAPTCHA to registration form (prevent spam)
+- [ ] Email verification for new users
+- [ ] Automated welcome emails
+- [ ] Newsletter export to Mailchimp/Brevo
+- [ ] SSL certificate for production domain
+- [ ] Multilingual support (WPML/Polylang)
+- [ ] Performance optimization (caching, CDN)
+- [ ] Google Analytics integration
+- [ ] Cookie consent banner (GDPR)
+
+### Plugin Enhancements
+- [ ] User favorite bands feature
+- [ ] Personal schedule builder
+- [ ] Email notifications for schedule updates
+- [ ] Ticket verification system
+- [ ] Password strength meter
+- [ ] Two-factor authentication
+
+---
+
+## Troubleshooting
+
+### Images Not Showing
+```bash
+# Check file permissions
+ssh root@72.62.148.205 "ls -la /var/www/vodfest/wp-content/uploads/2026/02/"
+
+# Re-upload image
+wp media import /path/to/image.jpg --title="Title" --allow-root
 ```
-/VOD_Fest/
-├── CLAUDE.md (this file)
-├── VOD_Fest_Details.md (requirements)
-├── VOD_Fest_Plakat.png (design reference)
-├── /planning/ (future)
-│   ├── /research/ (festival website examples)
-│   ├── /design/ (mockups, wireframes)
-│   └── /content/ (band bios, images)
-├── /wordpress/ (future - WordPress installation)
-└── /custom-solution/ (future - if building custom)
+
+### Plugin Not Working
+```bash
+# Check plugin status
+wp plugin status vod-fest-user-area --allow-root
+
+# Reactivate
+wp plugin deactivate vod-fest-user-area --allow-root
+wp plugin activate vod-fest-user-area --allow-root
 ```
 
-## Key Decisions to Make
+### Menu Not Showing
+```bash
+# Check menu locations
+wp menu location list --allow-root
 
-Before implementation, clarify with organizer:
-1. **Domain name:** What URL should be used?
-2. **Hosting:** Where should this be hosted? (VPS already available at 72.62.148.205)
-3. **Social Media:** Provide all social media account URLs
-4. **Previous Festival:** Access to 2025 photos/videos/content?
-5. **From Email:** What domain/email for sending automated emails? (e.g., noreply@vodfest.com)
-6. **Band Content:** Can organizer provide band bios/photos or should they be researched?
+# Assign menu to location
+wp menu location assign MENU_ID primary --allow-root
+```
 
-**Decisions Made:**
-- ✅ Newsletter: WordPress Newsletter Plugin (free, simple)
-- ✅ Ticket System: Simple form → email to organizer (manual processing for ~100 tickets)
-- ✅ User Registration: As proposed (Ultimate Member plugin)
-- ✅ Data Retention: Keep indefinitely for future festivals (with user consent)
-- ✅ SMTP: Brevo free tier (300 emails/day)
-- ✅ Automated Emails: Registration, newsletter signup, ticket order confirmation
-- ✅ Analytics: Google Analytics 4 with GDPR cookie consent
+### Newsletter Not Saving
+```bash
+# Check if table exists
+wp db query "SHOW TABLES LIKE 'wp_vod_fest_newsletter';" --allow-root
+
+# Recreate table
+wp db query "CREATE TABLE IF NOT EXISTS wp_vod_fest_newsletter (...);" --allow-root
+```
+
+### Cache Issues
+```bash
+# Clear all caches
+wp cache flush --allow-root
+wp rewrite flush --allow-root
+
+# Browser: CTRL+SHIFT+R (hard refresh)
+```
+
+---
+
+## Support & Contact
+
+### Project Contacts
+- **Developer:** Robin Seckler (rseckler@gmail.com)
+- **Organizer:** Frank Bull (frank@vod-records.com)
+- **VPS:** Hostinger support
+
+### Useful Links
+- **WordPress Codex:** https://codex.wordpress.org/
+- **WP-CLI Docs:** https://developer.wordpress.org/cli/commands/
+- **Theme Handbook:** https://developer.wordpress.org/themes/
+- **Plugin Handbook:** https://developer.wordpress.org/plugins/
+
+---
+
+## Version History
+
+### v1.0.1 (February 2, 2026) - Current
+- ✅ All 21 bands created with correct schedule
+- ✅ 19 of 21 bands have real images from Bandcamp
+- ✅ Bandcamp/YouTube embed system
+- ✅ Newsletter signup with database storage
+- ✅ Social media integration
+- ✅ Favicon configured
+- ✅ User area plugin (login, register, dashboard, profile)
+- ✅ Festival 2025 Recap page with placeholders
+- ✅ All features deployed to VPS
+- ✅ Navigation menu updated
+
+### v1.0.0 (February 1, 2026)
+- Initial WordPress theme development
+- Custom post types (Band, Schedule)
+- Custom taxonomies (Genre, Festival Day, Stage)
+- Core pages (Home, Lineup, Info, Tickets, Contact, Venue)
+- Legal pages (Impressum, Datenschutz, Terms)
+- Responsive design with industrial aesthetic
+
+---
+
+## Git Repository
+
+### Recommended .gitignore
+```
+# WordPress
+wp-config.php
+wp-content/uploads/
+wp-content/cache/
+wp-content/backup-db/
+
+# Environment
+.env
+.env.local
+
+# System
+.DS_Store
+Thumbs.db
+*.log
+
+# Dependencies
+node_modules/
+vendor/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+```
+
+---
 
 ## Related Projects
 
@@ -602,4 +685,9 @@ This repository is part of a multi-project workspace. See parent `CLAUDE.md` for
 - **Passive Income:** AI content generator
 - **VOD_discogs:** Discogs integration (related to VOD Records)
 
-**VPS Access:** Projects can be deployed to existing Hostinger VPS (72.62.148.205) if needed.
+**Shared VPS:** 72.62.148.205 (Hostinger Ubuntu 24.04.3 LTS)
+
+---
+
+**Last Updated:** February 2, 2026 by Claude Code
+**Next Review:** Before VOD Fest 2026 (July 2026)

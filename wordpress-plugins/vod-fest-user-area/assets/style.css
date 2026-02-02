@@ -1,0 +1,314 @@
+/**
+ * VOD Fest User Area Styles
+ */
+
+.vod-user-area {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: var(--space-4xl) var(--space-xl);
+}
+
+/* Form Container */
+.vod-user-form-container {
+    max-width: 500px;
+    margin: 0 auto;
+    background: linear-gradient(135deg, rgba(74, 0, 0, 0.3) 0%, rgba(13, 0, 0, 0.5) 100%);
+    padding: var(--space-4xl);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--color-brass);
+}
+
+.vod-form-title {
+    text-align: center;
+    font-size: var(--font-size-3xl);
+    color: var(--color-gold);
+    margin-bottom: var(--space-3xl);
+}
+
+/* Form Styles */
+.vod-form {
+    width: 100%;
+}
+
+.vod-form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-lg);
+}
+
+.vod-form-group {
+    margin-bottom: var(--space-lg);
+}
+
+.vod-form-group label {
+    display: block;
+    margin-bottom: var(--space-sm);
+    color: var(--color-cream);
+    font-weight: var(--font-weight-semibold);
+}
+
+.vod-input {
+    width: 100%;
+    padding: var(--space-md);
+    background: rgba(13, 0, 0, 0.6);
+    border: 1px solid var(--color-brass);
+    border-radius: var(--radius-sm);
+    color: var(--color-cream);
+    font-size: var(--font-size-base);
+    transition: all var(--transition-base);
+}
+
+.vod-input:focus {
+    outline: none;
+    border-color: var(--color-gold);
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+}
+
+.vod-input:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.vod-form-group small {
+    display: block;
+    margin-top: var(--space-xs);
+    font-size: var(--font-size-sm);
+    color: var(--color-brass);
+}
+
+.vod-checkbox-group {
+    display: flex;
+    align-items: center;
+}
+
+.vod-checkbox-group label {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    cursor: pointer;
+    margin-bottom: 0;
+}
+
+.vod-checkbox-group input[type="checkbox"] {
+    width: auto;
+    cursor: pointer;
+}
+
+/* Buttons */
+.vod-btn {
+    display: inline-block;
+    padding: var(--space-md) var(--space-2xl);
+    border: none;
+    border-radius: var(--radius-sm);
+    font-family: var(--font-display);
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-bold);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    transition: all var(--transition-base);
+    text-decoration: none;
+    text-align: center;
+}
+
+.vod-btn-primary {
+    background: var(--color-gold);
+    color: var(--color-black);
+    width: 100%;
+}
+
+.vod-btn-primary:hover {
+    background: #FFD700;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
+}
+
+.vod-btn-secondary {
+    background: transparent;
+    border: 2px solid var(--color-brass);
+    color: var(--color-brass);
+}
+
+.vod-btn-secondary:hover {
+    border-color: var(--color-gold);
+    color: var(--color-gold);
+}
+
+/* Messages */
+.vod-message {
+    padding: var(--space-md);
+    border-radius: var(--radius-sm);
+    margin-bottom: var(--space-lg);
+    text-align: center;
+}
+
+.vod-message.success {
+    background: rgba(76, 175, 80, 0.2);
+    border: 1px solid #4CAF50;
+    color: #A5D6A7;
+}
+
+.vod-message.error {
+    background: rgba(244, 67, 54, 0.2);
+    border: 1px solid #F44336;
+    color: #EF9A9A;
+}
+
+/* Form Footer */
+.vod-form-footer {
+    margin-top: var(--space-2xl);
+    padding-top: var(--space-lg);
+    border-top: 1px solid var(--color-brass);
+    text-align: center;
+}
+
+.vod-form-footer p {
+    margin-bottom: var(--space-sm);
+    color: var(--color-brass);
+}
+
+.vod-form-footer a {
+    color: var(--color-gold);
+}
+
+.vod-form-footer a:hover {
+    text-decoration: underline;
+}
+
+/* Dashboard */
+.vod-dashboard {
+    width: 100%;
+}
+
+.vod-dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-3xl);
+    padding-bottom: var(--space-xl);
+    border-bottom: 2px solid var(--color-brass);
+}
+
+.vod-dashboard-header h2 {
+    font-size: var(--font-size-4xl);
+    color: var(--color-gold);
+    margin-bottom: 0;
+}
+
+.vod-dashboard-nav {
+    display: flex;
+    gap: var(--space-md);
+    margin-bottom: var(--space-3xl);
+    flex-wrap: wrap;
+}
+
+.vod-nav-item {
+    padding: var(--space-md) var(--space-xl);
+    background: rgba(74, 0, 0, 0.3);
+    border: 1px solid var(--color-brass);
+    border-radius: var(--radius-sm);
+    color: var(--color-brass);
+    text-decoration: none;
+    font-family: var(--font-display);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    transition: all var(--transition-base);
+}
+
+.vod-nav-item:hover,
+.vod-nav-item.active {
+    background: var(--color-gold);
+    border-color: var(--color-gold);
+    color: var(--color-black);
+}
+
+/* Dashboard Content */
+.vod-dashboard-content {
+    width: 100%;
+}
+
+.vod-dashboard-widgets {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: var(--space-2xl);
+}
+
+.vod-widget {
+    background: linear-gradient(135deg, rgba(74, 0, 0, 0.3) 0%, rgba(13, 0, 0, 0.5) 100%);
+    border: 1px solid var(--color-brass);
+    border-radius: var(--radius-md);
+    padding: var(--space-2xl);
+}
+
+.vod-widget h3 {
+    font-size: var(--font-size-xl);
+    color: var(--color-gold);
+    margin-bottom: var(--space-lg);
+}
+
+.vod-widget-content p {
+    margin-bottom: var(--space-md);
+    color: var(--color-cream);
+}
+
+.vod-widget-content strong {
+    color: var(--color-gold);
+}
+
+.vod-link-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+}
+
+.vod-link-list a {
+    color: var(--color-brass);
+    text-decoration: none;
+    transition: color var(--transition-base);
+}
+
+.vod-link-list a:hover {
+    color: var(--color-gold);
+}
+
+/* Profile Form */
+.vod-profile-form-container {
+    max-width: 800px;
+    margin: 0 auto;
+    background: linear-gradient(135deg, rgba(74, 0, 0, 0.3) 0%, rgba(13, 0, 0, 0.5) 100%);
+    padding: var(--space-4xl);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--color-brass);
+}
+
+.vod-profile-form-container h3 {
+    font-size: var(--font-size-2xl);
+    color: var(--color-gold);
+    margin-bottom: var(--space-xl);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .vod-user-area {
+        padding: var(--space-2xl) var(--space-md);
+    }
+
+    .vod-user-form-container,
+    .vod-profile-form-container {
+        padding: var(--space-2xl);
+    }
+
+    .vod-form-row {
+        grid-template-columns: 1fr;
+    }
+
+    .vod-dashboard-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--space-md);
+    }
+
+    .vod-dashboard-widgets {
+        grid-template-columns: 1fr;
+    }
+}

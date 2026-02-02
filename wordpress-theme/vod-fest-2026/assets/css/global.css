@@ -218,7 +218,22 @@ code {
 }
 
 .nav {
-  display: block;
+  display: block !important;
+}
+
+/* Force menu visibility on all screen sizes initially */
+.header .nav,
+.header .primary-navigation {
+  display: block !important;
+}
+
+/* Fix SVG images in band cards */
+.band-image img,
+.wp-post-image {
+  width: 100% !important;
+  height: auto !important;
+  min-height: 250px;
+  object-fit: cover;
 }
 
 .nav-list {
@@ -311,12 +326,20 @@ code {
 
 /* Desktop Navigation */
 @media (min-width: 1024px) {
-  .nav {
-    display: block;
+  .nav,
+  .primary-navigation {
+    display: block !important;
+    position: static !important;
+    transform: none !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    background: transparent !important;
+    border: none !important;
   }
 
-  .hamburger {
-    display: none;
+  .hamburger,
+  .menu-toggle {
+    display: none !important;
   }
 }
 

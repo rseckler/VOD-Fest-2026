@@ -30,7 +30,7 @@
             ?>
         </div>
 
-        <nav class="nav" role="navigation" aria-label="<?php esc_attr_e('Primary Navigation', 'vod-fest'); ?>">
+        <nav class="nav primary-navigation" role="navigation" aria-label="<?php esc_attr_e('Primary Navigation', 'vod-fest'); ?>">
             <?php
             wp_nav_menu(array(
                 'theme_location' => 'primary',
@@ -43,55 +43,8 @@
         </nav>
 
         <div class="header-actions">
-            <!-- Language Switcher (WPML/Polylang integration) -->
-            <div class="lang-switcher">
-                <?php
-                // WPML Language Switcher
-                if (function_exists('icl_get_languages')) {
-                    $languages = icl_get_languages('skip_missing=0');
-                    if (!empty($languages)) {
-                        foreach ($languages as $lang) {
-                            $class = $lang['active'] ? 'lang-btn active' : 'lang-btn';
-                            echo '<a href="' . esc_url($lang['url']) . '" class="' . esc_attr($class) . '">';
-                            echo esc_html(strtoupper($lang['language_code']));
-                            echo '</a>';
-                            if ($lang !== end($languages)) {
-                                echo '<span style="color: var(--color-brass);">|</span>';
-                            }
-                        }
-                    }
-                }
-                // Polylang Language Switcher
-                else if (function_exists('pll_the_languages')) {
-                    pll_the_languages(array(
-                        'show_flags' => 0,
-                        'show_names' => 1,
-                        'display_names_as' => 'slug',
-                        'hide_current' => 0,
-                    ));
-                }
-                // Default fallback (no multilingual plugin)
-                else {
-                    echo '<button class="lang-btn active">EN</button>';
-                    echo '<span style="color: var(--color-brass);">|</span>';
-                    echo '<button class="lang-btn">DE</button>';
-                }
-                ?>
-            </div>
-
-            <!-- Login/Register or User Menu -->
-            <?php if (is_user_logged_in()) : ?>
-                <a href="<?php echo esc_url(wp_logout_url(home_url())); ?>" class="btn btn-secondary" style="padding: 8px 24px; font-size: 0.875rem;">
-                    <?php esc_html_e('Logout', 'vod-fest'); ?>
-                </a>
-            <?php else : ?>
-                <a href="<?php echo esc_url(wp_login_url()); ?>" class="btn btn-secondary" style="padding: 8px 24px; font-size: 0.875rem;">
-                    <?php esc_html_e('Login', 'vod-fest'); ?>
-                </a>
-            <?php endif; ?>
-
             <!-- Mobile Menu Toggle -->
-            <button class="hamburger" aria-label="<?php esc_attr_e('Toggle menu', 'vod-fest'); ?>" aria-expanded="false">
+            <button class="hamburger menu-toggle" aria-label="Toggle menu" aria-expanded="false">
                 <span></span>
                 <span></span>
                 <span></span>

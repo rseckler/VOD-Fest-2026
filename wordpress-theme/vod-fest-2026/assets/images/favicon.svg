@@ -1,0 +1,16 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="512" height="512" fill="#4A0000"/>
+
+  <!-- VOD Text -->
+  <text x="256" y="200" font-family="Arial Black, sans-serif" font-size="140" font-weight="900" fill="#D4AF37" text-anchor="middle">VOD</text>
+
+  <!-- Festival underline -->
+  <rect x="100" y="240" width="312" height="8" fill="#D4AF37"/>
+
+  <!-- FEST Text -->
+  <text x="256" y="360" font-family="Arial Black, sans-serif" font-size="80" font-weight="900" fill="#D4AF37" text-anchor="middle">FEST</text>
+
+  <!-- Year -->
+  <text x="256" y="440" font-family="Arial, sans-serif" font-size="50" font-weight="normal" fill="#BFA160" text-anchor="middle">2026</text>
+</svg>
