@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VOD Fest 2026 - Prototypes Navigation</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/variables.css">
+  <link rel="stylesheet" href="assets/css/global.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <style>
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: var(--space-xl);
+    }
+
+    .nav-container {
+      max-width: 800px;
+      width: 100%;
+      background: rgba(13, 0, 0, 0.9);
+      border: 2px solid var(--color-gold);
+      padding: var(--space-4xl);
+      box-shadow:
+        0 0 20px rgba(212, 175, 55, 0.4),
+        inset 0 0 30px rgba(212, 175, 55, 0.1);
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: var(--space-3xl);
+      font-size: var(--font-size-5xl);
+    }
+
+    .page-grid {
+      display: grid;
+      gap: var(--space-lg);
+      margin-bottom: var(--space-3xl);
+    }
+
+    .page-link {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: var(--space-xl);
+      background: rgba(74, 0, 0, 0.6);
+      border: 2px solid rgba(212, 175, 55, 0.3);
+      transition: all var(--transition-base);
+      text-decoration: none;
+    }
+
+    .page-link:hover {
+      border-color: var(--color-gold);
+      background: rgba(139, 0, 0, 0.6);
+      box-shadow: 0 4px 16px rgba(212, 175, 55, 0.3);
+      transform: translateX(8px);
+    }
+
+    .page-info {
+      flex: 1;
+    }
+
+    .page-title {
+      font-family: var(--font-display);
+      font-size: var(--font-size-2xl);
+      color: var(--color-gold);
+      margin-bottom: var(--space-xs);
+      text-transform: uppercase;
+    }
+
+    .page-status {
+      font-size: var(--font-size-sm);
+      color: var(--color-brass);
+    }
+
+    .page-status.ready {
+      color: #4AFF4A;
+    }
+
+    .page-status.wip {
+      color: var(--color-warning);
+    }
+
+    .page-status.planned {
+      color: var(--color-brass);
+    }
+
+    .page-arrow {
+      font-size: var(--font-size-3xl);
+      color: var(--color-gold);
+      transition: transform var(--transition-base);
+    }
+
+    .page-link:hover .page-arrow {
+      transform: translateX(8px);
+    }
+
+    .info-box {
+      background: rgba(13, 0, 0, 0.6);
+      border-left: 4px solid var(--color-orange);
+      padding: var(--space-lg);
+      margin-bottom: var(--space-2xl);
+    }
+
+    .info-box h3 {
+      font-size: var(--font-size-xl);
+      margin-bottom: var(--space-md);
+      color: var(--color-orange);
+    }
+
+    .info-box p {
+      margin: 0;
+      font-size: var(--font-size-sm);
+      line-height: 1.6;
+    }
+
+    .docs-links {
+      display: flex;
+      gap: var(--space-md);
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: var(--space-3xl);
+      padding-top: var(--space-3xl);
+      border-top: 1px solid rgba(212, 175, 55, 0.2);
+    }
+
+    .docs-links a {
+      font-size: var(--font-size-sm);
+      padding: var(--space-sm) var(--space-lg);
+      border: 1px solid var(--color-brass);
+      transition: all var(--transition-base);
+    }
+
+    .docs-links a:hover {
+      border-color: var(--color-gold);
+      background: rgba(212, 175, 55, 0.1);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="nav-container">
+    <h1>VOD FEST 2026<br><span style="font-size: 0.5em; color: var(--color-brass);">Prototypes</span></h1>
+
+    <div class="info-box">
+      <h3>📸 Screenshots erstellen</h3>
+      <p>Öffne jede Seite im Browser → Vollbild (F11) → Mac: Cmd+Shift+4 → Screenshot im Browser-Fenster auswählen → Speichere in /screenshots/ Ordner</p>
+    </div>
+
+    <div class="page-grid">
+      <!-- Home -->
+      <a href="pages/home.html" class="page-link">
+        <div class="page-info">
+          <div class="page-title">Home</div>
+          <div class="page-status ready">✓ Ready - Vollständig implementiert</div>
+        </div>
+        <div class="page-arrow">→</div>
+      </a>
+
+      <!-- Lineup -->
+      <a href="pages/lineup.html" class="page-link" style="opacity: 0.6; pointer-events: none;">
+        <div class="page-info">
+          <div class="page-title">Lineup</div>
+          <div class="page-status planned">⏳ Geplant - Noch nicht erstellt</div>
+        </div>
+        <div class="page-arrow">→</div>
+      </a>
+
+      <!-- Band Detail -->
+      <a href="pages/band-detail.html" class="page-link" style="opacity: 0.6; pointer-events: none;">
+        <div class="page-info">
+          <div class="page-title">Band Detail</div>
+          <div class="page-status planned">⏳ Geplant - Noch nicht erstellt</div>
+        </div>
+        <div class="page-arrow">→</div>
+      </a>
+
+      <!-- Schedule -->
+      <a href="pages/schedule.html" class="page-link" style="opacity: 0.6; pointer-events: none;">
+        <div class="page-info">
+          <div class="page-title">Schedule</div>
+          <div class="page-status planned">⏳ Geplant - Noch nicht erstellt</div>
+        </div>
+        <div class="page-arrow">→</div>
+      </a>
+
+      <!-- Info -->
+      <a href="pages/info.html" class="page-link" style="opacity: 0.6; pointer-events: none;">
+        <div class="page-info">
+          <div class="page-title">Festival Info</div>
+          <div class="page-status planned">⏳ Geplant - Noch nicht erstellt</div>
+        </div>
+        <div class="page-arrow">→</div>
+      </a>
+
+      <!-- Travel -->
+      <a href="pages/travel.html" class="page-link" style="opacity: 0.6; pointer-events: none;">
+        <div class="page-info">
+          <div class="page-title">Travel & Accommodation</div>
+          <div class="page-status planned">⏳ Geplant - Noch nicht erstellt</div>
+        </div>
+        <div class="page-arrow">→</div>
+      </a>
+
+      <!-- Tickets -->
+      <a href="pages/tickets.html" class="page-link" style="opacity: 0.6; pointer-events: none;">
+        <div class="page-info">
+          <div class="page-title">Tickets</div>
+          <div class="page-status planned">⏳ Geplant - Noch nicht erstellt</div>
+        </div>
+        <div class="page-arrow">→</div>
+      </a>
+
+      <!-- Contact -->
+      <a href="pages/contact.html" class="page-link" style="opacity: 0.6; pointer-events: none;">
+        <div class="page-info">
+          <div class="page-title">Contact</div>
+          <div class="page-status planned">⏳ Geplant - Noch nicht erstellt</div>
+        </div>
+        <div class="page-arrow">→</div>
+      </a>
+
+      <!-- Login -->
+      <a href="pages/login.html" class="page-link" style="opacity: 0.6; pointer-events: none;">
+        <div class="page-info">
+          <div class="page-title">Login / Register</div>
+          <div class="page-status planned">⏳ Geplant - Noch nicht erstellt</div>
+        </div>
+        <div class="page-arrow">→</div>
+      </a>
+
+      <!-- Dashboard -->
+      <a href="pages/dashboard.html" class="page-link" style="opacity: 0.6; pointer-events: none;">
+        <div class="page-info">
+          <div class="page-title">User Dashboard</div>
+          <div class="page-status planned">⏳ Geplant - Noch nicht erstellt</div>
+        </div>
+        <div class="page-arrow">→</div>
+      </a>
+    </div>
+
+    <div class="docs-links">
+      <a href="../CLAUDE.md">📄 CLAUDE.md</a>
+      <a href="../VOD_Fest_CI.md">🎨 CI Documentation</a>
+      <a href="../VOD_Fest_Mockups.md">📐 Mockups</a>
+      <a href="README.md">📖 README</a>
+    </div>
+
+    <p style="text-align: center; margin-top: var(--space-3xl); font-size: var(--font-size-sm); color: var(--color-brass);">
+      💡 Weitere Seiten folgen. Homepage als Template nutzen für neue Seiten.
+    </p>
+  </div>
+
+</body>
+</html>

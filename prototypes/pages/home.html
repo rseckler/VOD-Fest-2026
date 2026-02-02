@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="VOD Fest 2026 - Industrial, Experimental, Post-Punk & Avant-Garde Music Festival. July 17-19, 2026 in Friedrichshafen, Germany.">
+  <title>VOD Fest 2026 | July 17-19 Friedrichshafen</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;700&family=Roboto+Slab:wght@700&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="../assets/css/variables.css">
+  <link rel="stylesheet" href="../assets/css/global.css">
+  <link rel="stylesheet" href="../assets/css/components.css">
+  <link rel="stylesheet" href="../assets/css/animations.css">
+
+  <style>
+    /* Page-Specific Styles */
+
+    /* Hero Section */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-background {
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+    }
+
+    .hero-background img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(13, 0, 0, 0.7) 0%, rgba(74, 0, 0, 0.8) 100%);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: var(--space-xl);
+      max-width: 1200px;
+    }
+
+    .hero-title {
+      font-size: clamp(3rem, 8vw, 7rem);
+      margin-bottom: var(--space-lg);
+      animation: fadeInDown 1s ease 0.5s backwards;
+    }
+
+    .hero-tagline {
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      color: var(--color-brass);
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      margin-bottom: var(--space-md);
+      animation: fadeIn 1s ease 1s backwards;
+    }
+
+    .hero-date {
+      font-family: var(--font-display);
+      font-size: clamp(1.5rem, 3vw, 2.5rem);
+      color: var(--color-gold);
+      margin-bottom: var(--space-xl);
+      animation: fadeIn 1s ease 1.3s backwards;
+    }
+
+    .hero-location {
+      font-size: var(--font-size-lg);
+      color: var(--color-cream);
+      margin-bottom: var(--space-3xl);
+      animation: fadeIn 1s ease 1.5s backwards;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: var(--space-lg);
+      justify-content: center;
+      flex-wrap: wrap;
+      animation: fadeInUp 1s ease 1.8s backwards;
+    }
+
+    .scroll-indicator {
+      position: absolute;
+      bottom: var(--space-3xl);
+      left: 50%;
+      transform: translateX(-50%);
+      animation: scrollArrow 2s ease-in-out infinite;
+      color: var(--color-gold);
+      font-size: var(--font-size-2xl);
+    }
+
+    /* About Section */
+    .about-section {
+      background: var(--color-blood-red);
+      text-align: center;
+    }
+
+    .section-title {
+      font-size: clamp(2rem, 5vw, 4rem);
+      margin-bottom: var(--space-lg);
+    }
+
+    .section-title-underline {
+      width: 100px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--color-gold), var(--color-orange));
+      margin: 0 auto var(--space-2xl);
+    }
+
+    .about-description {
+      max-width: 800px;
+      margin: 0 auto var(--space-4xl);
+      font-size: var(--font-size-lg);
+      line-height: 1.8;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: var(--space-2xl);
+      max-width: 900px;
+      margin: 0 auto var(--space-3xl);
+    }
+
+    /* Featured Lineup */
+    .lineup-section {
+      background: var(--color-black);
+    }
+
+    .band-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: var(--space-2xl);
+      margin-bottom: var(--space-3xl);
+    }
+
+    /* Schedule Preview */
+    .schedule-section {
+      background: var(--color-blood-red);
+    }
+
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    /* Venue Section */
+    .venue-section {
+      background: var(--color-black);
+    }
+
+    .venue-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      gap: var(--space-3xl);
+      align-items: center;
+    }
+
+    .venue-image {
+      width: 100%;
+      height: 400px;
+      background: linear-gradient(45deg, var(--color-blood-red), var(--color-crimson));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-brass);
+      font-style: italic;
+    }
+
+    .venue-details h3 {
+      font-size: var(--font-size-3xl);
+      margin-bottom: var(--space-lg);
+    }
+
+    .venue-address {
+      font-size: var(--font-size-lg);
+      line-height: 1.8;
+      margin-bottom: var(--space-xl);
+    }
+
+    .venue-description {
+      margin-bottom: var(--space-xl);
+    }
+
+    .venue-buttons {
+      display: flex;
+      gap: var(--space-lg);
+      flex-wrap: wrap;
+    }
+
+    .venue-info-box {
+      background: rgba(13, 0, 0, 0.6);
+      border: 2px solid rgba(212, 175, 55, 0.3);
+      padding: var(--space-lg);
+      margin-top: var(--space-xl);
+    }
+
+    /* Newsletter Section */
+    .newsletter-section {
+      background: var(--color-crimson);
+      text-align: center;
+    }
+
+    .newsletter-form {
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .newsletter-input-group {
+      display: flex;
+      gap: var(--space-md);
+      margin-bottom: var(--space-lg);
+    }
+
+    .newsletter-input-group input {
+      flex: 1;
+    }
+
+    .newsletter-disclaimer {
+      font-size: var(--font-size-sm);
+      color: var(--color-brass);
+      font-style: italic;
+    }
+
+    /* Final CTA */
+    .cta-final {
+      min-height: 60vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      background: url('../assets/images/poster.png') center/cover;
+    }
+
+    .cta-final::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(13, 0, 0, 0.85);
+    }
+
+    .cta-content {
+      position: relative;
+      z-index: 1;
+      padding: var(--space-xl);
+    }
+
+    .cta-title {
+      font-size: clamp(2rem, 5vw, 4rem);
+      margin-bottom: var(--space-lg);
+    }
+
+    .cta-urgency {
+      font-size: var(--font-size-xl);
+      color: var(--color-orange);
+      margin-bottom: var(--space-2xl);
+    }
+
+    /* Mobile Adjustments */
+    @media (max-width: 767px) {
+      .hero-cta {
+        flex-direction: column;
+      }
+
+      .hero-cta .btn {
+        width: 100%;
+      }
+
+      .venue-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .newsletter-input-group {
+        flex-direction: column;
+      }
+
+      .newsletter-input-group .btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-content">
+      <a href="home.html" class="logo">VOD FEST 2026</a>
+
+      <nav class="nav">
+        <ul class="nav-list">
+          <li><a href="home.html" class="nav-link active">Home</a></li>
+          <li><a href="lineup.html" class="nav-link">Lineup</a></li>
+          <li><a href="schedule.html" class="nav-link">Schedule</a></li>
+          <li><a href="info.html" class="nav-link">Info</a></li>
+          <li><a href="travel.html" class="nav-link">Travel</a></li>
+          <li><a href="tickets.html" class="nav-link">Tickets</a></li>
+          <li><a href="contact.html" class="nav-link">Contact</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <div class="lang-switcher">
+          <button class="lang-btn active">EN</button>
+          <span style="color: var(--color-brass);">|</span>
+          <button class="lang-btn">DE</button>
+        </div>
+        <a href="login.html" class="btn btn-secondary" style="padding: 8px 24px; font-size: 0.875rem;">Login</a>
+        <button class="hamburger">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO SECTION -->
+  <section class="hero">
+    <div class="hero-background">
+      <img src="../assets/images/poster.png" alt="VOD Fest 2026 Poster" loading="eager">
+      <div class="hero-overlay"></div>
+    </div>
+
+    <div class="hero-content">
+      <h1 class="hero-title">VOD FEST 2026</h1>
+      <p class="hero-tagline">Industrial • Experimental • Post-Punk • Avant-Garde</p>
+      <p class="hero-date">17-19 JULY 2026 // FRIEDRICHSHAFEN</p>
+      <p class="hero-location">Kulturhaus Caserne, Fallenbrunnen</p>
+
+      <div class="hero-cta">
+        <a href="tickets.html" class="btn btn-primary pulse-glow">Get Tickets</a>
+        <a href="lineup.html" class="btn btn-secondary">View Lineup</a>
+      </div>
+    </div>
+
+    <div class="scroll-indicator">
+      ↓
+    </div>
+  </section>
+
+  <!-- ABOUT SECTION -->
+  <section class="about-section section">
+    <div class="container">
+      <h2 class="section-title scroll-animate">IT'S HAPPENING AGAIN</h2>
+      <div class="section-title-underline"></div>
+
+      <div class="about-description scroll-animate delay-200">
+        <p>VOD Fest returns for its second year, bringing together 21 of the most groundbreaking artists from the industrial, experimental, post-punk and avant-garde scenes.</p>
+
+        <p>Three days. Two stages. Seven hours of music each evening. From 5pm to midnight, immerse yourself in the underground sounds that defined a generation and continue to push boundaries today.</p>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stats-card scroll-animate delay-300">
+          <span class="stats-number">21</span>
+          <span class="stats-label">Bands</span>
+        </div>
+        <div class="stats-card scroll-animate delay-400">
+          <span class="stats-number">3</span>
+          <span class="stats-label">Days</span>
+        </div>
+        <div class="stats-card scroll-animate delay-500">
+          <span class="stats-number">7</span>
+          <span class="stats-label">Hours/Day</span>
+        </div>
+      </div>
+
+      <a href="info.html" class="btn btn-secondary scroll-animate delay-600">Learn More</a>
+    </div>
+  </section>
+
+  <!-- FEATURED LINEUP SECTION -->
+  <section class="lineup-section section">
+    <div class="container">
+      <h2 class="section-title text-center scroll-animate">FEATURED ARTISTS</h2>
+      <div class="section-title-underline"></div>
+
+      <div class="band-grid">
+        <!-- Band Card 1 -->
+        <div class="band-card scroll-animate delay-100">
+          <div class="band-card-image">
+            <img src="https://via.placeholder.com/400x400/4A0000/D4AF37?text=HUNTING+LODGE" alt="Hunting Lodge">
+          </div>
+          <h3 class="band-name">HUNTING LODGE</h3>
+          <p class="band-time">FRI 22:45 - 24:00</p>
+          <p class="band-stage">Inside Stage</p>
+          <a href="band-detail.html" class="btn btn-secondary" style="margin-top: var(--space-lg); font-size: 0.875rem; padding: 8px 24px;">More Info</a>
+        </div>
+
+        <!-- Band Card 2 -->
+        <div class="band-card scroll-animate delay-200">
+          <div class="band-card-image">
+            <img src="https://via.placeholder.com/400x400/4A0000/D4AF37?text=ESPLENDOR+GEOMETRICO" alt="Esplendor Geométrico">
+          </div>
+          <h3 class="band-name">ESPLENDOR GEOMÉTRICO</h3>
+          <p class="band-time">SAT 22:45 - 24:00</p>
+          <p class="band-stage">Inside Stage</p>
+          <a href="band-detail.html" class="btn btn-secondary" style="margin-top: var(--space-lg); font-size: 0.875rem; padding: 8px 24px;">More Info</a>
+        </div>
+
+        <!-- Band Card 3 -->
+        <div class="band-card scroll-animate delay-300">
+          <div class="band-card-image">
+            <img src="https://via.placeholder.com/400x400/4A0000/D4AF37?text=LYDIA+LUNCH" alt="Lydia Lunch / Marc Hurtado">
+          </div>
+          <h3 class="band-name">LYDIA LUNCH / MARC HURTADO</h3>
+          <p class="band-time">SAT 19:45 - 20:45</p>
+          <p class="band-stage">Outside Stage</p>
+          <a href="band-detail.html" class="btn btn-secondary" style="margin-top: var(--space-lg); font-size: 0.875rem; padding: 8px 24px;">More Info</a>
+        </div>
+
+        <!-- Band Card 4 -->
+        <div class="band-card scroll-animate delay-400">
+          <div class="band-card-image">
+            <img src="https://via.placeholder.com/400x400/4A0000/D4AF37?text=NO+MORE" alt="No More">
+          </div>
+          <h3 class="band-name">NO MORE</h3>
+          <p class="band-time">FRI 19:30 - 20:30</p>
+          <p class="band-stage">Outside Stage</p>
+          <a href="band-detail.html" class="btn btn-secondary" style="margin-top: var(--space-lg); font-size: 0.875rem; padding: 8px 24px;">More Info</a>
+        </div>
+
+        <!-- Band Card 5 -->
+        <div class="band-card scroll-animate delay-500">
+          <div class="band-card-image">
+            <img src="https://via.placeholder.com/400x400/4A0000/D4AF37?text=CRASH+COURSE" alt="Crash Course in Science">
+          </div>
+          <h3 class="band-name">CRASH COURSE IN SCIENCE</h3>
+          <p class="band-time">FRI 20:30 - 21:30</p>
+          <p class="band-stage">Inside Stage</p>
+          <a href="band-detail.html" class="btn btn-secondary" style="margin-top: var(--space-lg); font-size: 0.875rem; padding: 8px 24px;">More Info</a>
+        </div>
+
+        <!-- Band Card 6 -->
+        <div class="band-card scroll-animate delay-600">
+          <div class="band-card-image">
+            <img src="https://via.placeholder.com/400x400/4A0000/D4AF37?text=THE+ANTI+GROUP" alt="The Anti Group">
+          </div>
+          <h3 class="band-name">THE ANTI GROUP</h3>
+          <p class="band-time">SAT 20:45 - 21:45</p>
+          <p class="band-stage">Inside Stage</p>
+          <a href="band-detail.html" class="btn btn-secondary" style="margin-top: var(--space-lg); font-size: 0.875rem; padding: 8px 24px;">More Info</a>
+        </div>
+      </div>
+
+      <div class="text-center">
+        <a href="lineup.html" class="btn btn-primary">View All 21 Bands →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCHEDULE PREVIEW SECTION -->
+  <section class="schedule-section section">
+    <div class="container">
+      <h2 class="section-title text-center scroll-animate">THREE DAYS OF MUSIC</h2>
+      <div class="section-title-underline"></div>
+
+      <div class="tabs">
+        <button class="tab active" data-tab="friday">Friday</button>
+        <button class="tab" data-tab="saturday">Saturday</button>
+        <button class="tab" data-tab="sunday">Sunday</button>
+      </div>
+
+      <!-- Friday -->
+      <div id="friday" class="tab-content active">
+        <div class="schedule-item">
+          <span class="schedule-time">17:00 - 18:00</span>
+          <div class="schedule-details">
+            <h4 class="schedule-band">IRSOL</h4>
+            <span class="schedule-stage badge badge-stage-inside">Inside Stage</span>
+          </div>
+          <span class="schedule-duration">60 min</span>
+        </div>
+
+        <div class="schedule-item">
+          <span class="schedule-time">18:00 - 18:30</span>
+          <div class="schedule-details">
+            <h4 class="schedule-band">JOACHIM IRMLER (FAUST)</h4>
+            <span class="schedule-stage badge badge-stage-outside">Outside Stage</span>
+          </div>
+          <span class="schedule-duration">30 min</span>
+        </div>
+
+        <div class="schedule-item">
+          <span class="schedule-time">18:30 - 19:30</span>
+          <div class="schedule-details">
+            <h4 class="schedule-band">O YUKI CONJUGATE</h4>
+            <span class="schedule-stage badge badge-stage-inside">Inside Stage</span>
+          </div>
+          <span class="schedule-duration">60 min</span>
+        </div>
+
+        <div class="schedule-item">
+          <span class="schedule-time">19:30 - 20:30</span>
+          <div class="schedule-details">
+            <h4 class="schedule-band">NO MORE</h4>
+            <span class="schedule-stage badge badge-stage-outside">Outside Stage</span>
+          </div>
+          <span class="schedule-duration">60 min</span>
+        </div>
+
+        <div class="schedule-item">
+          <span class="schedule-time">20:30 - 21:30</span>
+          <div class="schedule-details">
+            <h4 class="schedule-band">CRASH COURSE IN SCIENCE</h4>
+            <span class="schedule-stage badge badge-stage-inside">Inside Stage</span>
+          </div>
+          <span class="schedule-duration">60 min</span>
+        </div>
+      </div>
+
+      <!-- Saturday -->
+      <div id="saturday" class="tab-content">
+        <div class="schedule-item">
+          <span class="schedule-time">17:00 - 18:00</span>
+          <div class="schedule-details">
+            <h4 class="schedule-band">NORMA LOY</h4>
+            <span class="schedule-stage badge badge-stage-inside">Inside Stage</span>
+          </div>
+          <span class="schedule-duration">60 min</span>
+        </div>
+
+        <div class="schedule-item">
+          <span class="schedule-time">18:00 - 18:45</span>
+          <div class="schedule-details">
+            <h4 class="schedule-band">DAS SYNTHETISCHE MISCHGEWEBE</h4>
+            <span class="schedule-stage badge badge-stage-outside">Outside Stage</span>
+          </div>
+          <span class="schedule-duration">45 min</span>
+        </div>
+
+        <div class="schedule-item">
+          <span class="schedule-time">18:45 - 19:45</span>
+          <div class="schedule-details">
+            <h4 class="schedule-band">CLAIR OBSCUR</h4>
+            <span class="schedule-stage badge badge-stage-inside">Inside Stage</span>
+          </div>
+          <span class="schedule-duration">60 min</span>
+        </div>
+
+        <div class="schedule-item">
+          <span class="schedule-time">19:45 - 20:45</span>
+          <div class="schedule-details">
+            <h4 class="schedule-band">MARC HURTADO / LYDIA LUNCH</h4>
+            <span class="schedule-stage badge badge-stage-outside">Outside Stage</span>
+          </div>
+          <span class="schedule-duration">60 min</span>
+        </div>
+
+        <div class="schedule-item">
+          <span class="schedule-time">22:45 - 24:00</span>
+          <div class="schedule-details">
+            <h4 class="schedule-band">ESPLENDOR GEOMÉTRICO</h4>
+            <span class="schedule-stage badge badge-stage-inside">Inside Stage</span>
+          </div>
+          <span class="schedule-duration">75 min</span>
+        </div>
+      </div>
+
+      <!-- Sunday -->
+      <div id="sunday" class="tab-content">
+        <div class="schedule-item">
+          <span class="schedule-time">17:00 - 18:00</span>
+          <div class="schedule-details">
+            <h4 class="schedule-band">CLUB MORAL</h4>
+            <span class="schedule-stage badge badge-stage-inside">Inside Stage</span>
+          </div>
+          <span class="schedule-duration">60 min</span>
+        </div>
+
+        <div class="schedule-item">
+          <span class="schedule-time">18:00 - 18:45</span>
+          <div class="schedule-details">
+            <h4 class="schedule-band">PLUS INSTRUMENTS</h4>
+            <span class="schedule-stage badge badge-stage-outside">Outside Stage</span>
+          </div>
+          <span class="schedule-duration">45 min</span>
+        </div>
+
+        <div class="schedule-item">
+          <span class="schedule-time">18:45 - 19:45</span>
+          <div class="schedule-details">
+            <h4 class="schedule-band">BAND OF HOLY JOY</h4>
+            <span class="schedule-stage badge badge-stage-inside">Inside Stage</span>
+          </div>
+          <span class="schedule-duration">60 min</span>
+        </div>
+
+        <div class="schedule-item">
+          <span class="schedule-time">20:30 - 21:30</span>
+          <div class="schedule-details">
+            <h4 class="schedule-band">ZOSKIA</h4>
+            <span class="schedule-stage badge badge-stage-inside">Inside Stage</span>
+          </div>
+          <span class="schedule-duration">60 min</span>
+        </div>
+
+        <div class="schedule-item">
+          <span class="schedule-time">22:15 - 24:00</span>
+          <div class="schedule-details">
+            <h4 class="schedule-band">SUTCLIFFE NO MORE</h4>
+            <span class="schedule-stage badge badge-stage-inside">Inside Stage</span>
+          </div>
+          <span class="schedule-duration">75 min</span>
+        </div>
+      </div>
+
+      <div class="text-center" style="margin-top: var(--space-3xl);">
+        <a href="schedule.html" class="btn btn-primary">View Full Schedule →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- VENUE SECTION -->
+  <section class="venue-section section">
+    <div class="container">
+      <h2 class="section-title text-center scroll-animate">THE VENUE</h2>
+      <div class="section-title-underline"></div>
+
+      <div class="venue-grid">
+        <div class="venue-image scroll-animate">
+          [Venue Photo Placeholder]
+        </div>
+
+        <div class="venue-details scroll-animate delay-200">
+          <h3>KULTURHAUS CASERNE</h3>
+          <div class="venue-address">
+            Fallenbrunnen 17<br>
+            88045 Friedrichshafen<br>
+            Germany
+          </div>
+
+          <p class="venue-description">Two stages - inside and outside - creating the perfect underground atmosphere for three days of experimental music.</p>
+
+          <div class="venue-buttons">
+            <a href="#" class="btn btn-primary">View Map</a>
+            <a href="travel.html" class="btn btn-secondary">Get Directions</a>
+          </div>
+
+          <div class="venue-info-box">
+            <h4 style="font-size: var(--font-size-lg); margin-bottom: var(--space-md); color: var(--color-gold);">PUBLIC TRANSPORT:</h4>
+            <p style="margin: 0;">Bus 10 or 12 to "Hochschulen"<br>5 min walk from stop</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NEWSLETTER SECTION -->
+  <section class="newsletter-section section">
+    <div class="container">
+      <h2 class="section-title scroll-animate">STAY IN THE LOOP</h2>
+      <p class="scroll-animate delay-200" style="font-size: var(--font-size-lg); margin-bottom: var(--space-3xl);">Get lineup updates, ticket information, and exclusive content straight to your inbox.</p>
+
+      <form class="newsletter-form scroll-animate delay-400">
+        <div class="newsletter-input-group">
+          <input type="email" class="form-input" placeholder="Your Email Address" required>
+          <button type="submit" class="btn btn-primary">Subscribe</button>
+        </div>
+        <p class="newsletter-disclaimer">No spam, just underground music news.</p>
+      </form>
+    </div>
+  </section>
+
+  <!-- FINAL CTA SECTION -->
+  <section class="cta-final">
+    <div class="cta-content">
+      <h2 class="cta-title">JULY 17-19, 2026<br>DON'T MISS OUT</h2>
+      <p class="cta-urgency">Only 100 tickets available</p>
+      <a href="tickets.html" class="btn btn-primary pulse-glow" style="font-size: var(--font-size-xl); padding: 20px 60px;">Get Your Ticket</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-waveform waveform">
+      <div class="waveform-bar"></div>
+      <div class="waveform-bar"></div>
+      <div class="waveform-bar"></div>
+      <div class="waveform-bar"></div>
+      <div class="waveform-bar"></div>
+      <div class="waveform-bar"></div>
+      <div class="waveform-bar"></div>
+      <div class="waveform-bar"></div>
+      <div class="waveform-bar"></div>
+      <div class="waveform-bar"></div>
+    </div>
+
+    <div class="footer-content">
+      <div class="footer-section">
+        <h4>VOD FEST 2026</h4>
+        <p>17-19 July<br>Friedrichshafen, Germany</p>
+        <p style="margin-top: var(--space-lg);"><strong>Contact:</strong><br>frank@vod-records.com</p>
+      </div>
+
+      <div class="footer-section">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="home.html">Home</a></li>
+          <li><a href="lineup.html">Lineup</a></li>
+          <li><a href="schedule.html">Schedule</a></li>
+          <li><a href="tickets.html">Tickets</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="#">Impressum</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms & Conditions</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h4>Follow Us</h4>
+        <div class="social-links">
+          <a href="#" class="social-link">FB</a>
+          <a href="#" class="social-link">IG</a>
+          <a href="#" class="social-link">YT</a>
+          <a href="#" class="social-link">BC</a>
+        </div>
+
+        <h4 style="margin-top: var(--space-2xl);">Newsletter</h4>
+        <form style="display: flex; gap: var(--space-sm); margin-top: var(--space-md);">
+          <input type="email" class="form-input" placeholder="Email" style="flex: 1; padding: 10px;">
+          <button type="submit" class="btn btn-primary" style="padding: 10px 20px; font-size: 0.875rem;">→</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      © 2026 VOD Records. All Rights Reserved.
+    </div>
+  </footer>
+
+  <!-- JavaScript -->
+  <script>
+    // Tab Switching
+    document.querySelectorAll('.tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        const tabName = tab.dataset.tab;
+
+        // Remove active from all tabs and content
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+
+        // Add active to clicked tab and corresponding content
+        tab.classList.add('active');
+        document.getElementById(tabName).classList.add('active');
+      });
+    });
+
+    // Scroll Animations (Intersection Observer)
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -100px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.scroll-animate').forEach(el => {
+      observer.observe(el);
+    });
+
+    // Mobile Menu Toggle (if needed)
+    document.querySelector('.hamburger')?.addEventListener('click', () => {
+      alert('Mobile menu would open here - implement as needed');
+    });
+  </script>
+
+</body>
+</html>
