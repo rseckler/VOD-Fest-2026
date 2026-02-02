@@ -218,7 +218,7 @@ code {
 }
 
 .nav {
-  display: none;
+  display: block;
 }
 
 .nav-list {
