@@ -1,0 +1,122 @@
+/*!
+Theme Name:  VOD Fest 2026
+Theme URI:   https://github.com/rseckler/VOD-Fest-2026
+Author:      Robin Seckler
+Author URI:  https://github.com/rseckler
+Description: Custom WordPress theme for VOD Fest 2026 - Industrial, Experimental, Post-Punk & Avant-Garde Music Festival. Dark, grunge aesthetic with vintage gold accents. Fully responsive, bilingual (EN/DE), and optimized for performance.
+Version:     1.0.0
+License:     GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: vod-fest
+Tags:        festival, music, dark, custom, responsive, block-ready
+Requires at least: 6.0
+Tested up to: 6.4
+Requires PHP: 8.0
+
+VOD Fest 2026 WordPress Theme
+Developed with Claude Code
+*/
+
+/*
+ * This file is intentionally minimal.
+ * All styles are imported from separate CSS files in /assets/css/
+ * This approach allows for better organization and maintainability.
+ *
+ * Styles are enqueued in functions.php:
+ * - variables.css (CSS Custom Properties)
+ * - global.css (Base styles, typography, layout)
+ * - components.css (UI components)
+ * - animations.css (Keyframe animations)
+ * - theme-specific.css (WordPress-specific styles)
+ */
+
+/* Basic reset for WordPress */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Ensure WordPress admin bar doesn't break layout */
+body.admin-bar {
+  margin-top: 32px;
+}
+
+@media screen and (max-width: 782px) {
+  body.admin-bar {
+    margin-top: 46px;
+  }
+}
+
+/* WordPress alignment classes */
+.alignleft {
+  float: left;
+  margin-right: 1.5rem;
+}
+
+.alignright {
+  float: right;
+  margin-left: 1.5rem;
+}
+
+.aligncenter {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Screen reader text */
+.screen-reader-text {
+  border: 0;
+  clip: rect(1px, 1px, 1px, 1px);
+  clip-path: inset(50%);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+  word-wrap: normal !important;
+}
+
+/* WordPress default image captions */
+.wp-caption {
+  max-width: 100%;
+}
+
+.wp-caption-text {
+  text-align: center;
+  font-size: 0.875rem;
+  color: var(--color-brass, #C9A961);
+  margin-top: 0.5rem;
+}
+
+/* Gallery styles */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.gallery-item {
+  position: relative;
+}
+
+/* Sticky post indicator */
+.sticky {
+  border-left: 4px solid var(--color-gold, #D4AF37);
+}
+
+/* Continue reading link */
+.more-link {
+  display: inline-block;
+  margin-top: 1rem;
+  color: var(--color-gold, #D4AF37);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.more-link:hover {
+  color: #FFD700;
+}
