@@ -456,3 +456,133 @@ code {
     font-size: var(--font-size-3xl);
   }
 }
+
+/* ============================================
+   JAVASCRIPT INTERACTION STYLES
+   ============================================ */
+
+/* Mobile Menu Active State */
+.menu-toggle.active .hamburger span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.menu-toggle.active .hamburger span:nth-child(2) {
+  opacity: 0;
+}
+
+.menu-toggle.active .hamburger span:nth-child(3) {
+  transform: rotate(-45deg) translate(6px, -6px);
+}
+
+.primary-navigation {
+  transition: transform var(--transition-base), opacity var(--transition-base);
+}
+
+@media (max-width: 1023px) {
+  .primary-navigation {
+    position: fixed;
+    top: 80px;
+    left: 0;
+    right: 0;
+    background: rgba(13, 0, 0, 0.98);
+    backdrop-filter: blur(10px);
+    border-bottom: 2px solid var(--color-gold);
+    transform: translateY(-100%);
+    opacity: 0;
+    visibility: hidden;
+    z-index: var(--z-modal);
+  }
+
+  .primary-navigation.active {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .nav-list {
+    flex-direction: column;
+    padding: var(--space-2xl);
+    gap: var(--space-md);
+  }
+
+  .nav-link {
+    font-size: var(--font-size-lg);
+    padding: var(--space-md) 0;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+  }
+}
+
+/* Prevent body scroll when menu is open */
+body.menu-open {
+  overflow: hidden;
+}
+
+/* Sticky Header States */
+.site-header.scrolled {
+  box-shadow: var(--shadow-2xl);
+  background: rgba(13, 0, 0, 0.98);
+}
+
+.site-header.header-hidden {
+  transform: translateY(-100%);
+}
+
+/* Back to Top Button Hover */
+.back-to-top:hover {
+  background: var(--color-orange);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(212, 175, 55, 0.4);
+}
+
+.back-to-top:active {
+  transform: translateY(-2px);
+}
+
+/* Scroll Animate Classes */
+.scroll-animate {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.scroll-animate.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Delay classes for staggered animations */
+.delay-100 { transition-delay: 0.1s; }
+.delay-200 { transition-delay: 0.2s; }
+.delay-300 { transition-delay: 0.3s; }
+.delay-400 { transition-delay: 0.4s; }
+.delay-500 { transition-delay: 0.5s; }
+.delay-600 { transition-delay: 0.6s; }
+
+/* Focus visible for keyboard navigation */
+*:focus-visible {
+  outline: 3px solid var(--color-gold);
+  outline-offset: 4px;
+  border-radius: var(--radius-sm);
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .scroll-animate {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* JavaScript loaded state */
+body.js-loaded {
+  /* Add any styles that should only apply when JS is active */
+}
