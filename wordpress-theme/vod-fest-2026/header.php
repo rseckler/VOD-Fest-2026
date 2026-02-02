@@ -38,7 +38,6 @@
                 'container'      => false,
                 'fallback_cb'    => false,
                 'items_wrap'     => '<ul id="%1$s" class="%2$s">%3$s</ul>',
-                'walker'         => new VOD_Fest_Walker_Nav_Menu(),
             ));
             ?>
         </nav>
