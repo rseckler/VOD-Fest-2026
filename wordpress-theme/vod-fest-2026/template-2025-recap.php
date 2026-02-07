@@ -326,6 +326,10 @@ get_header();
             array('id' => 'QHSSItWmtZA', 'title' => 'Ivan Novak (Laibach)', 'type' => 'Roundtable'),
             array('id' => 'TPOZy8lL-To', 'title' => 'Portion Control',      'type' => 'Live Outtake'),
             array('id' => 'z6a5rPcIcIs', 'title' => 'S.P.K.',               'type' => 'Teaser'),
+            array('id' => '2RfWrKTlLMA', 'title' => 'Absolute Body Control', 'type' => 'Teaser V2'),
+            array('id' => 'yIa6q4QJrwI', 'title' => 'Absolute Body Control', 'type' => 'Teaser'),
+            array('id' => 'qLv6P-ee1g4', 'title' => 'Legendary Pink Dots',   'type' => 'Teaser'),
+            array('id' => 'f7akUMjoqKI', 'title' => 'Zoviet France',         'type' => 'Teaser'),
         );
         ?>
         <div class="video-grid">
