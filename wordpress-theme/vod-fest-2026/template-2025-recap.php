@@ -68,38 +68,60 @@ get_header();
     margin-top: var(--space-3xl);
 }
 
-.photo-placeholder {
-    aspect-ratio: 4/3;
-    background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, rgba(13, 0, 0, 0.5) 100%);
-    border: 2px dashed var(--color-brass);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: var(--radius-md);
-    transition: all var(--transition-base);
+.photo-card {
     position: relative;
     overflow: hidden;
+    border: 2px solid rgba(212, 175, 55, 0.3);
+    border-radius: var(--radius-md);
+    transition: all var(--transition-base);
 }
 
-.photo-placeholder:hover {
+.photo-card:hover {
     border-color: var(--color-gold);
+    box-shadow: 0 8px 24px rgba(212, 175, 55, 0.2);
     transform: scale(1.02);
 }
 
-.photo-placeholder::before {
-    content: '📷';
-    font-size: 3rem;
-    opacity: 0.3;
+.photo-card img {
+    width: 100%;
+    aspect-ratio: 4/3;
+    object-fit: cover;
+    display: block;
+    filter: grayscale(20%) contrast(1.1);
+    transition: all var(--transition-slow);
 }
 
-.photo-placeholder span {
+.photo-card:hover img {
+    filter: grayscale(0%) contrast(1.2);
+    transform: scale(1.05);
+}
+
+.photo-card__caption {
     position: absolute;
-    bottom: var(--space-md);
-    left: var(--space-md);
-    right: var(--space-md);
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: var(--space-md) var(--space-lg);
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.85));
+    font-family: var(--font-display);
     font-size: var(--font-size-sm);
+    color: var(--color-gold);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    opacity: 0;
+    transition: opacity var(--transition-base);
+}
+
+.photo-card:hover .photo-card__caption {
+    opacity: 1;
+}
+
+.photo-card__credit {
+    font-family: var(--font-body);
+    font-size: var(--font-size-xs);
     color: var(--color-brass);
-    text-align: center;
+    text-transform: none;
+    letter-spacing: 0;
 }
 
 .video-grid {
@@ -244,18 +266,45 @@ get_header();
             <?php esc_html_e('Highlights from three nights of industrial beats and experimental sounds', 'vod-fest'); ?>
         </p>
 
+        <?php
+        $img_base = content_url('/uploads/images/fest-2025/');
+        $photos = array(
+            array('file' => 'Laibach-01-Cheesy.jpg',                       'caption' => 'Laibach'),
+            array('file' => 'ClockDVA_0455_E.GabrielEdvy.JPG',             'caption' => 'Clock DVA',                  'credit' => 'E. Gabriel Edvy'),
+            array('file' => 'ABC_0414_E.GabrielEdvy.jpg',                  'caption' => 'Absolute Body Control',      'credit' => 'E. Gabriel Edvy'),
+            array('file' => 'EsplendorG-03-Cheesy.jpg',                    'caption' => 'Esplendor Geometrico'),
+            array('file' => 'SPK-04-Cheesy.jpg',                           'caption' => 'S.P.K.'),
+            array('file' => 'LegendaryPD-04-Cheesy.jpg',                   'caption' => 'Legendary Pink Dots'),
+            array('file' => 'AsmusTietchens_0123BW_E.GabrielEdvy.jpg',     'caption' => 'Asmus Tietchens',            'credit' => 'E. Gabriel Edvy'),
+            array('file' => 'AFergusson-01-Cheesy.jpg',                    'caption' => 'Alex Fergusson'),
+            array('file' => 'NocturnalE-01-Cheesy.jpg',                    'caption' => 'Nocturnal Emissions'),
+            array('file' => 'PortionC-02-Cheesy.jpg',                      'caption' => 'Portion Control'),
+            array('file' => 'GToniutti-01-Cheesy.jpg',                     'caption' => 'Giancarlo Toniutti'),
+            array('file' => 'GToniutti-02-Cheesy.jpg',                     'caption' => 'Giancarlo Toniutti'),
+            array('file' => 'ZeroK-01-Cheesy.jpg',                         'caption' => 'Zero Kama'),
+            array('file' => 'Attrition-01-Cheesy.jpg',                     'caption' => 'Attrition'),
+            array('file' => 'Ramleh-04-Cheesy.jpg',                        'caption' => 'Ramleh'),
+            array('file' => 'SovietF-02-Cheesy.jpg',                       'caption' => 'Zoviet France'),
+            array('file' => 'SeveredH-05-Cheesy.jpg',                      'caption' => 'Severed Heads'),
+            array('file' => 'JDuncan-01-Cheesy.jpg',                       'caption' => 'John Duncan'),
+            array('file' => 'ClockDVA-03-Cheesy.jpg',                      'caption' => 'Clock DVA'),
+            array('file' => 'FinalProgram_0219BW_E.GabrielEdvy.jpg',       'caption' => 'Final Program',              'credit' => 'E. Gabriel Edvy'),
+        );
+        ?>
         <div class="photo-grid">
-            <?php for ($i = 1; $i <= 12; $i++) : ?>
-                <div class="photo-placeholder">
-                    <span><?php printf(esc_html__('Photo %d - Coming Soon', 'vod-fest'), $i); ?></span>
+            <?php foreach ($photos as $photo) : ?>
+                <div class="photo-card">
+                    <img src="<?php echo esc_url($img_base . $photo['file']); ?>"
+                         alt="<?php echo esc_attr($photo['caption']); ?> - VOD Fest 2025"
+                         loading="lazy">
+                    <div class="photo-card__caption">
+                        <?php echo esc_html($photo['caption']); ?>
+                        <?php if (!empty($photo['credit'])) : ?>
+                            <br><span class="photo-card__credit"><?php printf(esc_html__('Photo: %s', 'vod-fest'), esc_html($photo['credit'])); ?></span>
+                        <?php endif; ?>
+                    </div>
                 </div>
-            <?php endfor; ?>
-        </div>
-
-        <div style="text-align: center; margin-top: var(--space-3xl);">
-            <p style="color: var(--color-brass); font-size: var(--font-size-md);">
-                <?php esc_html_e('📸 Official photos will be added soon. Stay tuned!', 'vod-fest'); ?>
-            </p>
+            <?php endforeach; ?>
         </div>
     </div>
 </section>
