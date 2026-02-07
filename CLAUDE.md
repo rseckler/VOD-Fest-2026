@@ -199,6 +199,9 @@ vod-fest-user-area/
 
 ### ✅ 3. Bandcamp/YouTube Embeds
 **Location:** Single band pages (`single-band.php`)
+**Status:** All 21 bands have embeds (20 Bandcamp + YouTube, IRSOL YouTube only)
+**Embed style:** Theme-colored Bandcamp players (`bgcol=0D0000`, `linkcol=D4AF37`)
+
 **How to use:**
 1. Edit band in wp-admin
 2. Scroll to "Media Embeds" meta box
@@ -228,10 +231,14 @@ SELECT email FROM wp_vod_fest_newsletter ORDER BY subscribed_at DESC;
 **Customizer Settings:** Appearance → Customize → Social Media
 
 **Configured URLs:**
-- Facebook: https://facebook.com/vodfest
+- Facebook: https://www.facebook.com/vinylondemandrecords
 - Instagram: https://instagram.com/vodfest
 - YouTube: https://youtube.com/@vodfest
 - Bandcamp: https://vodrecords.bandcamp.com
+
+**Footer Website Links:**
+- VOD Records: https://www.vod-records.com
+- Tape Magazine: https://tape-mag.com
 
 **Display:** Footer on all pages (with hover effects)
 
@@ -561,7 +568,7 @@ Email: frank@vod-records.com
 ## TODO & Future Enhancements
 
 ### Content Tasks
-- [ ] Add Bandcamp/YouTube embeds for all 21 bands
+- [x] Add Bandcamp/YouTube embeds for all 21 bands
 - [ ] Find images for IRSOL and CRASH COURSE IN SCIENCE
 - [x] Replace 2025 Recap placeholders with real photos/videos
 - [ ] Update artist testimonials with real quotes
@@ -660,7 +667,9 @@ wp rewrite flush --allow-root
 - ✅ GDPR cookie consent banner with granular category controls
 - ✅ Festival 2025 photo gallery: 20 real photos with hover effects & credits
 - ✅ Festival 2025 video highlights: 9 YouTube embeds (youtube-nocookie.com)
-- ✅ Videos converted from Google Drive .mov to YouTube (unlisted)
+- ✅ Bandcamp + YouTube embeds for all 21 bands (theme-colored players)
+- ✅ Facebook URL updated to vinylondemandrecords
+- ✅ Footer links: VOD Records (vod-records.com) + Tape Magazine (tape-mag.com)
 
 ### v1.0.1 (February 2, 2026)
 - ✅ All 21 bands created with correct schedule
