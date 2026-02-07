@@ -109,36 +109,49 @@ get_header();
     margin-top: var(--space-3xl);
 }
 
-.video-placeholder {
-    aspect-ratio: 16/9;
-    background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, rgba(13, 0, 0, 0.5) 100%);
-    border: 2px dashed var(--color-brass);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
+.video-card {
+    background: linear-gradient(135deg, rgba(13, 0, 0, 0.9) 0%, rgba(74, 0, 0, 0.6) 100%);
+    border: 2px solid rgba(212, 175, 55, 0.3);
     border-radius: var(--radius-md);
-    transition: all var(--transition-base);
-    position: relative;
     overflow: hidden;
+    transition: all var(--transition-base);
 }
 
-.video-placeholder:hover {
+.video-card:hover {
     border-color: var(--color-gold);
-    transform: scale(1.02);
+    box-shadow: 0 8px 24px rgba(212, 175, 55, 0.2);
 }
 
-.video-placeholder::before {
-    content: '▶';
-    font-size: 4rem;
+.video-card video {
+    width: 100%;
+    display: block;
+    background: #000;
+}
+
+.video-card__title {
+    padding: var(--space-md) var(--space-lg);
+    font-family: var(--font-display);
+    font-size: var(--font-size-lg);
     color: var(--color-gold);
-    opacity: 0.3;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
 }
 
-.video-placeholder span {
-    margin-top: var(--space-md);
-    font-size: var(--font-size-sm);
+.video-card__type {
+    display: inline-block;
+    font-size: var(--font-size-xs);
     color: var(--color-brass);
+    font-family: var(--font-body);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-left: var(--space-sm);
+    font-weight: var(--font-weight-normal);
+}
+
+@media (max-width: 767px) {
+    .video-grid {
+        grid-template-columns: 1fr;
+    }
 }
 
 .stats-grid {
@@ -247,18 +260,37 @@ get_header();
             <?php esc_html_e('Full performance videos and behind-the-scenes footage', 'vod-fest'); ?>
         </p>
 
+        <?php
+        $video_base = content_url('/uploads/videos/fest-2025/');
+        $videos = array(
+            array('file' => 'vod_fest_teaser_laibach_05aug25.mp4',                       'title' => 'Laibach',                    'type' => 'Teaser'),
+            array('file' => 'vod_fest_teaser_esplendor_geometrico_live_18aug23.mp4',      'title' => 'Esplendor Geometrico',        'type' => 'Live'),
+            array('file' => 'vod_fest_teaser_clockdva_07aug25.mp4',                       'title' => 'Clock DVA',                   'type' => 'Teaser'),
+            array('file' => 'vod_fest_teaser_s_p_k_01aug25.mp4',                          'title' => 'S.P.K.',                      'type' => 'Teaser'),
+            array('file' => 'vod_fest_teaser_legendary_pink_dots_28july25.mp4',            'title' => 'Legendary Pink Dots',         'type' => 'Teaser'),
+            array('file' => 'vod_fest_teaser_absolute_body_control_31july25.mp4',          'title' => 'Absolute Body Control',       'type' => 'Teaser'),
+            array('file' => 'vod_fest_teaser_absolute_body_control_v2_31july25.mp4',       'title' => 'Absolute Body Control',       'type' => 'Teaser V2'),
+            array('file' => 'vod_fest_teaser_alex_fergusson_live_23aug25.mp4',             'title' => 'Alex Fergusson',              'type' => 'Live'),
+            array('file' => 'vod_fest_teaser_zero_kama_live_29july25.mp4',                 'title' => 'Zero Kama',                   'type' => 'Live'),
+            array('file' => 'vod_fest_teser_zoviet_france_uhd_03aug25.mp4',                'title' => 'Zoviet France',               'type' => 'Teaser'),
+            array('file' => 'spk_nocturnalemissions_excerp_drummachines_24juli25.mp4',     'title' => 'SPK / Nocturnal Emissions',   'type' => 'Excerpt'),
+            array('file' => 'vod_fest_outtake_attrition_01_26july25.mp4',                  'title' => 'Attrition',                   'type' => 'Outtake'),
+            array('file' => 'vod_fest_outtake_portion_control_live_27july25.mp4',          'title' => 'Portion Control',             'type' => 'Live Outtake'),
+            array('file' => 'roundtable_outtake_ivannovak_laibach_25july25.mp4',           'title' => 'Ivan Novak (Laibach)',        'type' => 'Roundtable'),
+        );
+        ?>
         <div class="video-grid">
-            <?php for ($i = 1; $i <= 6; $i++) : ?>
-                <div class="video-placeholder">
-                    <span><?php printf(esc_html__('Video %d - Coming Soon', 'vod-fest'), $i); ?></span>
+            <?php foreach ($videos as $video) : ?>
+                <div class="video-card">
+                    <video controls preload="metadata">
+                        <source src="<?php echo esc_url($video_base . $video['file']); ?>" type="video/mp4">
+                    </video>
+                    <div class="video-card__title">
+                        <?php echo esc_html($video['title']); ?>
+                        <span class="video-card__type"><?php echo esc_html($video['type']); ?></span>
+                    </div>
                 </div>
-            <?php endfor; ?>
-        </div>
-
-        <div style="text-align: center; margin-top: var(--space-3xl);">
-            <p style="color: var(--color-brass); font-size: var(--font-size-md);">
-                <?php esc_html_e('🎥 Performance videos will be uploaded to our YouTube channel soon.', 'vod-fest'); ?>
-            </p>
+            <?php endforeach; ?>
         </div>
     </div>
 </section>
