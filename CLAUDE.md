@@ -4,7 +4,7 @@ This file provides comprehensive guidance to Claude Code when working on the VOD
 
 ## Project Status: ✅ LIVE & PRODUCTION
 
-**Last Updated:** February 2, 2026
+**Last Updated:** February 7, 2026
 **Status:** Fully implemented and deployed on VPS
 **Live URL:** http://72.62.148.205:8080
 
@@ -63,7 +63,7 @@ Hunting Lodge, Esplendor Geométrico, Lydia Lunch/Marc Hurtado, No More, Crash C
 
 ### Core Platform
 - **CMS:** WordPress 6.x
-- **Theme:** Custom "VOD Fest 2026" Theme (v1.0.1)
+- **Theme:** Custom "VOD Fest 2026" Theme (v1.0.2)
 - **Server:** Hostinger VPS (Ubuntu 24.04.3 LTS)
 - **IP:** 72.62.148.205
 - **Port:** 8080
@@ -87,16 +87,24 @@ Hunting Lodge, Esplendor Geométrico, Lydia Lunch/Marc Hurtado, No More, Crash C
 **CSS Architecture:**
 ```
 /assets/css/
-├── variables.css   - CSS custom properties (colors, fonts, spacing)
-├── global.css      - Base styles, typography, layout
-├── components.css  - UI components (buttons, cards, forms)
-└── animations.css  - Keyframe animations
+├── variables.css       - CSS custom properties (colors, fonts, spacing)
+├── global.css          - Base styles, typography, layout
+├── components.css      - UI components (buttons, cards, forms)
+├── animations.css      - Keyframe animations
+└── cookie-consent.css  - GDPR cookie consent banner & settings modal
 ```
 
 **JavaScript:**
 ```
 /assets/js/
-└── main.js - Mobile menu, scroll animations, form interactions
+├── main.js           - Mobile menu, scroll animations, form interactions
+└── cookie-consent.js - Cookie consent logic (localStorage, categories, public API)
+```
+
+**Templates:**
+```
+/templates/
+└── cookie-consent-banner.php - Cookie consent banner & settings modal (wp_footer hook)
 ```
 
 **Images:**
@@ -258,12 +266,36 @@ SELECT email FROM wp_vod_fest_newsletter ORDER BY subscribed_at DESC;
 **Sections:**
 - Hero with 2025 branding
 - Statistics cards (19 bands, 3 days, 2 stages, 100+ attendees)
-- Photo gallery (12 placeholders in 3x4 grid)
-- Video gallery (6 placeholders in 2x3 grid)
+- Photo gallery (20 real photos in responsive grid)
+- Video gallery (9 YouTube embeds via youtube-nocookie.com)
 - Artist testimonials (3 cards - editable in template)
 - Newsletter CTA
 
-**TODO:** Replace placeholders with real photos/videos from 2025 festival
+**Photos:** 20 images served from `/wp-content/uploads/images/fest-2025/` (4 by E. Gabriel Edvy, 16 by Cheesy). Hover effects: grayscale-to-color, zoom, caption overlay with credits.
+
+**Videos:** YouTube embeds (unlisted). To add more, add entries to the `$videos` array in `template-2025-recap.php`:
+```php
+array('id' => 'YOUTUBE_VIDEO_ID', 'title' => 'Band Name', 'type' => 'Teaser'),
+```
+
+### ✅ 9. Cookie Consent Banner (GDPR)
+**Files:** `assets/css/cookie-consent.css`, `assets/js/cookie-consent.js`, `templates/cookie-consent-banner.php`
+**Loaded via:** `wp_footer` hook in `functions.php`
+
+**Features:**
+- Three cookie categories: Necessary (always on), Analytics, Marketing
+- Granular toggle switches per category
+- Stores consent in `localStorage` key `vod_cookie_consent` (JSON with version tracking)
+- Consent version bump triggers re-consent
+- Privacy-nocookie YouTube embeds (DSGVO-compliant)
+- Keyboard accessible: focus trapping, Escape closes modal
+- Fires `cookie-consent-updated` custom event for future integrations
+
+**Public API:**
+```js
+window.vodCookieConsent.getConsent('analytics')  // true/false
+window.vodCookieConsent.showSettings()           // open settings modal
+```
 
 ### ✅ 9. Navigation Menu
 **Primary Menu** (9 items):
@@ -531,9 +563,10 @@ Email: frank@vod-records.com
 ### Content Tasks
 - [ ] Add Bandcamp/YouTube embeds for all 21 bands
 - [ ] Find images for IRSOL and CRASH COURSE IN SCIENCE
-- [ ] Replace 2025 Recap placeholders with real photos/videos
+- [x] Replace 2025 Recap placeholders with real photos/videos
 - [ ] Update artist testimonials with real quotes
 - [ ] Add band bios/descriptions to all band posts
+- [ ] Upload remaining ~5 festival videos to YouTube (unlisted) and add IDs to template
 
 ### Technical Enhancements
 - [ ] Add reCAPTCHA to registration form (prevent spam)
@@ -544,7 +577,7 @@ Email: frank@vod-records.com
 - [ ] Multilingual support (WPML/Polylang)
 - [ ] Performance optimization (caching, CDN)
 - [ ] Google Analytics integration
-- [ ] Cookie consent banner (GDPR)
+- [x] Cookie consent banner (GDPR)
 
 ### Plugin Enhancements
 - [ ] User favorite bands feature
@@ -623,7 +656,13 @@ wp rewrite flush --allow-root
 
 ## Version History
 
-### v1.0.1 (February 2, 2026) - Current
+### v1.0.2 (February 7, 2026) - Current
+- ✅ GDPR cookie consent banner with granular category controls
+- ✅ Festival 2025 photo gallery: 20 real photos with hover effects & credits
+- ✅ Festival 2025 video highlights: 9 YouTube embeds (youtube-nocookie.com)
+- ✅ Videos converted from Google Drive .mov to YouTube (unlisted)
+
+### v1.0.1 (February 2, 2026)
 - ✅ All 21 bands created with correct schedule
 - ✅ 19 of 21 bands have real images from Bandcamp
 - ✅ Bandcamp/YouTube embed system
@@ -631,7 +670,7 @@ wp rewrite flush --allow-root
 - ✅ Social media integration
 - ✅ Favicon configured
 - ✅ User area plugin (login, register, dashboard, profile)
-- ✅ Festival 2025 Recap page with placeholders
+- ✅ Festival 2025 Recap page
 - ✅ All features deployed to VPS
 - ✅ Navigation menu updated
 
@@ -689,5 +728,5 @@ This repository is part of a multi-project workspace. See parent `CLAUDE.md` for
 
 ---
 
-**Last Updated:** February 2, 2026 by Claude Code
+**Last Updated:** February 7, 2026 by Claude Code
 **Next Review:** Before VOD Fest 2026 (July 2026)
