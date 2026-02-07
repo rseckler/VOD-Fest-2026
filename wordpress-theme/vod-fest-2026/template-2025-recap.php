@@ -122,10 +122,20 @@ get_header();
     box-shadow: 0 8px 24px rgba(212, 175, 55, 0.2);
 }
 
-.video-card video {
+.video-card__embed {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 */
+    height: 0;
+    overflow: hidden;
+}
+
+.video-card__embed iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
-    display: block;
-    background: #000;
+    height: 100%;
+    border: 0;
 }
 
 .video-card__title {
@@ -261,30 +271,26 @@ get_header();
         </p>
 
         <?php
-        $video_base = content_url('/uploads/videos/fest-2025/');
         $videos = array(
-            array('file' => 'vod_fest_teaser_laibach_05aug25.mp4',                       'title' => 'Laibach',                    'type' => 'Teaser'),
-            array('file' => 'vod_fest_teaser_esplendor_geometrico_live_18aug23.mp4',      'title' => 'Esplendor Geometrico',        'type' => 'Live'),
-            array('file' => 'vod_fest_teaser_clockdva_07aug25.mp4',                       'title' => 'Clock DVA',                   'type' => 'Teaser'),
-            array('file' => 'vod_fest_teaser_s_p_k_01aug25.mp4',                          'title' => 'S.P.K.',                      'type' => 'Teaser'),
-            array('file' => 'vod_fest_teaser_legendary_pink_dots_28july25.mp4',            'title' => 'Legendary Pink Dots',         'type' => 'Teaser'),
-            array('file' => 'vod_fest_teaser_absolute_body_control_31july25.mp4',          'title' => 'Absolute Body Control',       'type' => 'Teaser'),
-            array('file' => 'vod_fest_teaser_absolute_body_control_v2_31july25.mp4',       'title' => 'Absolute Body Control',       'type' => 'Teaser V2'),
-            array('file' => 'vod_fest_teaser_alex_fergusson_live_23aug25.mp4',             'title' => 'Alex Fergusson',              'type' => 'Live'),
-            array('file' => 'vod_fest_teaser_zero_kama_live_29july25.mp4',                 'title' => 'Zero Kama',                   'type' => 'Live'),
-            array('file' => 'vod_fest_teser_zoviet_france_uhd_03aug25.mp4',                'title' => 'Zoviet France',               'type' => 'Teaser'),
-            array('file' => 'spk_nocturnalemissions_excerp_drummachines_24juli25.mp4',     'title' => 'SPK / Nocturnal Emissions',   'type' => 'Excerpt'),
-            array('file' => 'vod_fest_outtake_attrition_01_26july25.mp4',                  'title' => 'Attrition',                   'type' => 'Outtake'),
-            array('file' => 'vod_fest_outtake_portion_control_live_27july25.mp4',          'title' => 'Portion Control',             'type' => 'Live Outtake'),
-            array('file' => 'roundtable_outtake_ivannovak_laibach_25july25.mp4',           'title' => 'Ivan Novak (Laibach)',        'type' => 'Roundtable'),
+            array('id' => 'IEYvPU_mykc', 'title' => 'Laibach',              'type' => 'Teaser'),
+            array('id' => 'ixO07d8rHp4', 'title' => 'Attrition',            'type' => 'Outtake'),
+            array('id' => 'QHSSItWmtZA', 'title' => 'Ivan Novak (Laibach)', 'type' => 'Roundtable'),
+            array('id' => 'TPOZy8lL-To', 'title' => 'Portion Control',      'type' => 'Live Outtake'),
+            array('id' => 'z6a5rPcIcIs', 'title' => 'S.P.K.',               'type' => 'Teaser'),
         );
         ?>
         <div class="video-grid">
             <?php foreach ($videos as $video) : ?>
                 <div class="video-card">
-                    <video controls preload="metadata">
-                        <source src="<?php echo esc_url($video_base . $video['file']); ?>" type="video/mp4">
-                    </video>
+                    <div class="video-card__embed">
+                        <iframe
+                            src="https://www.youtube-nocookie.com/embed/<?php echo esc_attr($video['id']); ?>"
+                            title="<?php echo esc_attr($video['title']); ?>"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen
+                            loading="lazy"
+                        ></iframe>
+                    </div>
                     <div class="video-card__title">
                         <?php echo esc_html($video['title']); ?>
                         <span class="video-card__type"><?php echo esc_html($video['type']); ?></span>
