@@ -14,6 +14,10 @@
                 <h4 style="color: var(--color-gold); margin-bottom: 20px;">VOD FEST 2026</h4>
                 <p>17-19 July 2026<br>Friedrichshafen<br>Germany</p>
                 <p style="margin-top: 20px;"><a href="mailto:frank@vod-records.com" style="color: var(--color-gold);">frank@vod-records.com</a></p>
+                <div style="margin-top: 20px; display: flex; flex-direction: column; gap: 8px;">
+                    <a href="https://www.vod-records.com" target="_blank" rel="noopener" style="color: var(--color-brass); transition: color var(--transition-fast);" onmouseover="this.style.color='var(--color-gold)'" onmouseout="this.style.color='var(--color-brass)'">VOD Records</a>
+                    <a href="https://tape-mag.com" target="_blank" rel="noopener" style="color: var(--color-brass); transition: color var(--transition-fast);" onmouseover="this.style.color='var(--color-gold)'" onmouseout="this.style.color='var(--color-brass)'">Tape Magazine</a>
+                </div>
             </div>
 
             <div class="footer-section">
