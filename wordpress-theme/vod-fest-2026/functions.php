@@ -144,10 +144,27 @@ function vod_fest_scripts() {
         VOD_FEST_VERSION
     );
 
+    // Cookie Consent
+    wp_enqueue_style(
+        'vod-fest-cookie-consent',
+        VOD_FEST_THEME_URI . '/assets/css/cookie-consent.css',
+        array('vod-fest-animations'),
+        VOD_FEST_VERSION
+    );
+
     // Main JavaScript
     wp_enqueue_script(
         'vod-fest-main',
         VOD_FEST_THEME_URI . '/assets/js/main.js',
+        array(),
+        VOD_FEST_VERSION,
+        true
+    );
+
+    // Cookie Consent JavaScript
+    wp_enqueue_script(
+        'vod-fest-cookie-consent',
+        VOD_FEST_THEME_URI . '/assets/js/cookie-consent.js',
         array(),
         VOD_FEST_VERSION,
         true
@@ -165,6 +182,14 @@ function vod_fest_scripts() {
     }
 }
 add_action('wp_enqueue_scripts', 'vod_fest_scripts');
+
+/**
+ * Render Cookie Consent Banner via wp_footer
+ */
+function vod_fest_cookie_consent_banner() {
+    get_template_part('templates/cookie-consent-banner');
+}
+add_action('wp_footer', 'vod_fest_cookie_consent_banner');
 
 /**
  * Register Widget Areas
@@ -302,7 +327,7 @@ remove_action('wp_head', 'wp_generator');
  * Performance: Defer JavaScript loading
  */
 function vod_fest_defer_scripts($tag, $handle, $src) {
-    $defer_scripts = array('vod-fest-main');
+    $defer_scripts = array('vod-fest-main', 'vod-fest-cookie-consent');
 
     if (in_array($handle, $defer_scripts)) {
         return str_replace(' src', ' defer src', $tag);
