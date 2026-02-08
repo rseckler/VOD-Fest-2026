@@ -422,7 +422,7 @@ Header edit Location ^http://72.62.148.205/ https://www.vod-records.com/ env=RED
 
 ### Legal Pages (content sourced from vod-records.com)
 - **Impressum** (Post ID 73) - §5 TMG site notice (Alpenstrasse 25/1, USt-IdNr DE232493058)
-- **Datenschutzerklärung** (Post ID 75) - Full GDPR/DSGVO privacy policy (6 sections incl. PayPal, Google Fonts, Newsletter)
+- **Datenschutzerklärung** (Post ID 3) - Full GDPR/DSGVO privacy policy (7 sections incl. Google Analytics, PayPal, Google Fonts, Newsletter)
 - **Terms & Conditions** (Post ID 74) - AGB Deutschland/Ausland + Widerrufsbelehrung + Disclaimer
 
 ### User Pages
@@ -809,6 +809,8 @@ wp rewrite flush --allow-root
 - ✅ Fixed menu URLs (Home, Lineup) for new /vod-fest/ path
 - ✅ Fixed Venue page hardcoded image paths for /vod-fest/ prefix
 - ✅ All 21 bands now have images (IRSOL Media ID 145, Crash Course in Science Media ID 146)
+- ✅ Datenschutzerklärung published (Post ID 3, was draft) with Google Analytics section (Consent Mode v2, opt-out, legal basis)
+- ✅ Fixed footer menu link for Datenschutz page
 
 ### v1.0.3 (February 8, 2026)
 - ✅ Enhanced hero sections: background photos with slow zoom, dark overlay, animated text for Info, Tickets, Contact, Travel, Venue pages
