@@ -6,25 +6,30 @@ This file provides comprehensive guidance to Claude Code when working on the VOD
 
 **Last Updated:** February 8, 2026
 **Status:** Fully implemented and deployed on VPS
-**Live URL:** http://72.62.148.205:8080
+**Live URL:** https://www.vod-records.com/vod-fest/
 
 ---
 
 ## Quick Access
 
 ### URLs
-- **Website:** http://72.62.148.205:8080
-- **Admin:** http://72.62.148.205:8080/wp-admin
-- **Lineup:** http://72.62.148.205:8080/lineup/
-- **Festival 2025 Recap:** http://72.62.148.205:8080/festival-2025/
-- **User Login:** http://72.62.148.205:8080/login/
-- **User Register:** http://72.62.148.205:8080/register/
-- **User Dashboard:** http://72.62.148.205:8080/dashboard/
+- **Production:** https://www.vod-records.com/vod-fest/
+- **Direct VPS:** http://72.62.148.205/vod-fest/
+- **Admin:** https://www.vod-records.com/vod-fest/wp-admin
+- **Lineup:** https://www.vod-records.com/vod-fest/lineup/
+- **Festival 2025 Recap:** https://www.vod-records.com/vod-fest/festival-2025/
+- **User Login:** https://www.vod-records.com/vod-fest/login/
+- **User Register:** https://www.vod-records.com/vod-fest/register/
+- **User Dashboard:** https://www.vod-records.com/vod-fest/dashboard/
+- **Main Site:** https://www.vod-records.com (Hetzner, legacy PHP CMS)
 
 ### Server Access
 ```bash
-# SSH to VPS
+# SSH to VPS (Hostinger)
 ssh root@72.62.148.205
+
+# SSH to Hetzner (legacy site + reverse proxy)
+ssh -p 222 maier@dedi99.your-server.de  # Password: LQq6XoRU
 
 # WordPress Directory
 cd /var/www/vodfest
@@ -63,11 +68,13 @@ Hunting Lodge, Esplendor Geométrico, Lydia Lunch/Marc Hurtado, No More, Crash C
 
 ### Core Platform
 - **CMS:** WordPress 6.x
-- **Theme:** Custom "VOD Fest 2026" Theme (v1.0.2)
+- **Theme:** Custom "VOD Fest 2026" Theme (v1.0.4)
 - **Server:** Hostinger VPS (Ubuntu 24.04.3 LTS)
 - **IP:** 72.62.148.205
-- **Port:** 8080
+- **Port:** 80 (proxied from Hetzner via mod_proxy)
 - **Database:** MySQL/MariaDB
+- **Reverse Proxy:** Hetzner (vod-records.com) → VPS (72.62.148.205:80)
+- **Analytics:** Google Analytics G-YHTGXEJDZC
 
 ### Custom Theme
 **Location:** `/var/www/vodfest/wp-content/themes/vod-fest-2026/`
@@ -266,7 +273,7 @@ SELECT email FROM wp_vod_fest_newsletter ORDER BY subscribed_at DESC;
 
 ### ✅ 8. Festival 2025 Recap Page
 **Template:** `template-2025-recap.php`
-**Page:** http://72.62.148.205:8080/festival-2025/ (Post ID 138)
+**Page:** https://www.vod-records.com/vod-fest/festival-2025/ (Post ID 138)
 **Added to navigation:** Primary Menu (position 9)
 
 **Sections:**
@@ -338,7 +345,51 @@ window.vodCookieConsent.getConsent('analytics')  // true/false
 window.vodCookieConsent.showSettings()           // open settings modal
 ```
 
-### ✅ 11. Navigation Menu
+### ✅ 11. Reverse Proxy (vod-records.com/vod-fest/)
+**Status:** Live since February 8, 2026
+
+**Architecture:**
+```
+Browser → Hetzner (vod-records.com) → [mod_proxy] → VPS (72.62.148.205:80) → WordPress
+```
+
+**Hetzner Side** (`/usr/www/users/maier/neu2013/.htaccess`):
+```apache
+RewriteRule ^vod-fest(/.*)?$ http://72.62.148.205/vod-fest$1 [P,L]
+Header edit Location ^http://72.62.148.205/ https://www.vod-records.com/ env=REDIRECT_STATUS
+```
+
+**VPS Side:**
+- **VirtualHost** (`/etc/apache2/sites-available/vodfest.conf`): DocumentRoot `/var/www/vodfest`, `AllowOverride All`, `SetEnvIf X-Forwarded-Proto`
+- **WordPress `.htaccess`**: Strips `/vod-fest/` prefix via `RewriteRule ^vod-fest/(.*)$ $1 [L]` before standard WordPress rewrite rules
+- **wp-config.php**: `WP_HOME`/`WP_SITEURL` = `https://www.vod-records.com/vod-fest`, HTTPS detection via `X-Forwarded-Host` header, cookie paths set to `/vod-fest/`
+- **Apache port**: Changed from 8080 to 80 (Docker/Traefik moved to 8880/8443)
+
+**Key files on VPS:**
+- `/etc/apache2/sites-available/vodfest.conf` — VirtualHost config
+- `/etc/apache2/ports.conf` — Listen 80
+- `/var/www/vodfest/.htaccess` — WordPress rewrite + vod-fest prefix strip
+- `/var/www/vodfest/wp-config.php` — URLs, HTTPS, cookies
+
+### ✅ 12. Google Analytics
+**Measurement ID:** `G-YHTGXEJDZC`
+**Status:** Active on entire vod-records.com (main site + /vod-fest/)
+
+**VOD Fest (WordPress):**
+- Loaded via `wp_head` hook in `functions.php` (priority 1)
+- Uses **Google Consent Mode v2** for GDPR compliance:
+  - `analytics_storage` defaults to `denied` (no cookies until consent)
+  - Updates to `granted` when user accepts analytics in cookie consent banner
+  - Listens for `cookie-consent-updated` custom event for live updates
+- Skipped in wp-admin (`is_admin()` check)
+
+**Main vod-records.com (Hetzner):**
+- GA tag injected into all 15 `tmpl_*.html` template files
+- Standard tracking (no consent gate — legacy site has no consent system)
+- Template location: `/usr/www/users/maier/neu2013/tmpl_*.html`
+- Backup: `tmpl_standard.html.bak`
+
+### ✅ 13. Navigation Menu
 **Primary Menu** (9 items):
 1. Home
 2. Lineup
@@ -512,6 +563,22 @@ scp -r vod-fest-user-area root@72.62.148.205:/var/www/vodfest/wp-content/plugins
 
 # Clear WordPress cache
 ssh root@72.62.148.205 "cd /var/www/vodfest && wp cache flush --allow-root"
+
+# Verify deployment
+curl -sI "https://www.vod-records.com/vod-fest/"
+```
+
+### Deploy to Hetzner (main vod-records.com)
+```bash
+# Upload files via SCP (port 222)
+scp -P 222 localfile.php maier@dedi99.your-server.de:/usr/www/users/maier/neu2013/
+
+# SSH access (password-based, use expect for automation)
+ssh -p 222 maier@dedi99.your-server.de  # Password: LQq6XoRU
+
+# DocumentRoot: /usr/www/users/maier/neu2013/
+# Template files: /usr/www/users/maier/neu2013/tmpl_*.html
+# .htaccess: /usr/www/users/maier/neu2013/.htaccess
 ```
 
 ### WP-CLI Common Commands
@@ -594,8 +661,8 @@ Email: frank@vod-records.com
 - SSH key authentication for VPS
 
 ### SSL/HTTPS
-**Current:** HTTP only (port 8080)
-**TODO:** Configure SSL certificate for production domain
+**Current:** HTTPS via Hetzner reverse proxy (SSL terminates at Hetzner, proxied over HTTP to VPS)
+**Production URL:** https://www.vod-records.com/vod-fest/
 
 ---
 
@@ -614,10 +681,10 @@ Email: frank@vod-records.com
 - [ ] Email verification for new users
 - [ ] Automated welcome emails
 - [ ] Newsletter export to Mailchimp/Brevo
-- [ ] SSL certificate for production domain
+- [x] SSL/HTTPS via reverse proxy (vod-records.com)
 - [ ] Multilingual support (WPML/Polylang)
 - [ ] Performance optimization (caching, CDN)
-- [ ] Google Analytics integration
+- [x] Google Analytics integration (G-YHTGXEJDZC with Consent Mode v2)
 - [x] Cookie consent banner (GDPR)
 
 ### Plugin Enhancements
@@ -678,6 +745,33 @@ wp_kses($bandcamp_embed, array(
 ));
 ```
 
+### Reverse Proxy Issues
+```bash
+# Test VPS directly (bypassing proxy)
+curl -sI "http://72.62.148.205/vod-fest/"
+
+# Test through proxy
+curl -sI "https://www.vod-records.com/vod-fest/"
+
+# Check VPS Apache config
+ssh root@72.62.148.205 "cat /etc/apache2/sites-available/vodfest.conf"
+
+# Check WordPress .htaccess (must have vod-fest prefix strip rule)
+ssh root@72.62.148.205 "cat /var/www/vodfest/.htaccess"
+
+# Check Hetzner .htaccess (proxy rule)
+# Via SSH: ssh -p 222 maier@dedi99.your-server.de
+# File: /usr/www/users/maier/neu2013/.htaccess
+
+# If static assets (CSS/JS/images) return 404:
+# Verify .htaccess has: RewriteRule ^vod-fest/(.*)$ $1 [L]
+# This must be BEFORE the WordPress RewriteCond/RewriteRule block
+
+# If HTTPS URLs show as HTTP:
+# Check wp-config.php has X-Forwarded-Host detection
+ssh root@72.62.148.205 "grep -A3 'Force HTTPS' /var/www/vodfest/wp-config.php"
+```
+
 ### Cache Issues
 ```bash
 # Clear all caches
@@ -706,7 +800,17 @@ wp rewrite flush --allow-root
 
 ## Version History
 
-### v1.0.3 (February 8, 2026) - Current
+### v1.0.4 (February 8, 2026) - Current
+- ✅ **Reverse proxy**: Site now live at `https://www.vod-records.com/vod-fest/` via Hetzner → VPS proxy
+- ✅ **Google Analytics**: `G-YHTGXEJDZC` on entire vod-records.com; WordPress uses Consent Mode v2 (GDPR)
+- ✅ VPS Apache moved from port 8080 to port 80; Docker/Traefik to 8880/8443
+- ✅ WordPress URL prefix stripping via `.htaccess` (`RewriteRule ^vod-fest/(.*)$ $1 [L]`)
+- ✅ HTTPS detection via `X-Forwarded-Host` header in wp-config.php
+- ✅ Fixed menu URLs (Home, Lineup) for new /vod-fest/ path
+- ✅ Fixed Venue page hardcoded image paths for /vod-fest/ prefix
+- ✅ All 21 bands now have images (IRSOL Media ID 145, Crash Course in Science Media ID 146)
+
+### v1.0.3 (February 8, 2026)
 - ✅ Enhanced hero sections: background photos with slow zoom, dark overlay, animated text for Info, Tickets, Contact, Travel, Venue pages
 - ✅ Festival 2025 hero: YouTube video background (Laibach teaser) with static image fallback on mobile
 - ✅ Reduced hero heights across all pages (28-35vh) for faster content visibility
