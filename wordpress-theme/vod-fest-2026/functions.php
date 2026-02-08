@@ -319,6 +319,34 @@ function vod_fest_disable_gutenberg($use_block_editor, $post_type) {
 add_filter('use_block_editor_for_post_type', 'vod_fest_disable_gutenberg', 10, 2);
 
 /**
+ * Google Analytics (gtag.js) with Cookie Consent Integration
+ * Uses Google Consent Mode v2 for GDPR compliance
+ */
+function vod_fest_google_analytics() {
+    if (is_admin()) return;
+    ?>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-YHTGXEJDZC"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('consent', 'default', { 'analytics_storage': 'denied' });
+    gtag('js', new Date());
+    gtag('config', 'G-YHTGXEJDZC');
+    (function() {
+        try {
+            var c = JSON.parse(localStorage.getItem('vod_cookie_consent'));
+            if (c && c.analytics) gtag('consent', 'update', { 'analytics_storage': 'granted' });
+        } catch(e) {}
+        document.addEventListener('cookie-consent-updated', function(e) {
+            gtag('consent', 'update', { 'analytics_storage': e.detail.analytics ? 'granted' : 'denied' });
+        });
+    })();
+    </script>
+    <?php
+}
+add_action('wp_head', 'vod_fest_google_analytics', 1);
+
+/**
  * Security: Remove WordPress version from head
  */
 remove_action('wp_head', 'wp_generator');
