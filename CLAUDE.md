@@ -4,7 +4,7 @@ This file provides comprehensive guidance to Claude Code when working on the VOD
 
 ## Project Status: ✅ LIVE & PRODUCTION
 
-**Last Updated:** February 7, 2026
+**Last Updated:** February 8, 2026
 **Status:** Fully implemented and deployed on VPS
 **Live URL:** http://72.62.148.205:8080
 
@@ -271,7 +271,7 @@ SELECT email FROM wp_vod_fest_newsletter ORDER BY subscribed_at DESC;
 **Added to navigation:** Primary Menu (position 9)
 
 **Sections:**
-- Hero with 2025 branding
+- Hero with YouTube video background (Laibach teaser), static image fallback on mobile
 - Statistics cards (19 bands, 3 days, 2 stages, 100+ attendees)
 - Photo gallery (20 real photos in responsive grid)
 - Video gallery (9 YouTube embeds via youtube-nocookie.com)
@@ -285,7 +285,42 @@ SELECT email FROM wp_vod_fest_newsletter ORDER BY subscribed_at DESC;
 array('id' => 'YOUTUBE_VIDEO_ID', 'title' => 'Band Name', 'type' => 'Teaser'),
 ```
 
-### ✅ 9. Cookie Consent Banner (GDPR)
+### ✅ 9. Enhanced Hero Sections
+**Files:** `page.php`, `template-2025-recap.php`, `archive-band.php`, `assets/css/animations.css`
+**Status:** Active on all content pages
+
+**Page Heroes (Info, Tickets, Contact, Travel, Venue):**
+- Background photos from optimized `/uploads/images/fest-2025/heroes/` (266-682KB each)
+- Dark gradient overlay (60% → 75% → 85% opacity, top to bottom)
+- `heroSlowZoom` animation (20s infinite alternate, scale 1 → 1.08)
+- Title: `fadeInDown` (0.3s delay), Tagline: `fadeIn` (0.8s delay)
+- Heights: 28vh mobile, 30vh desktop (1024px+)
+- Pages without assigned image fall back to solid `--color-blood-red`
+
+**Photo assignments per page slug:**
+| Slug | Photo | Source |
+|------|-------|--------|
+| `info` | `finalprogram_0219bw_e.gabrieledvy.jpg` | E. Gabriel Edvy |
+| `tickets` | `laibach-01-cheesy.jpg` | Cheesy |
+| `contact` | `abc_0414_e.gabrieledvy.jpg` | E. Gabriel Edvy |
+| `travel-accommodation` | `clockdva_0455_e.gabrieledvy.jpg` | E. Gabriel Edvy |
+| `venue` | `esplendorg-03-cheesy.jpg` | Cheesy |
+
+**Festival 2025 Recap Hero:**
+- YouTube video background (Laibach teaser `IEYvPU_mykc`), muted, looping, no controls
+- Static image fallback (`laibach-01-cheesy.jpg`) — always visible on mobile (< 768px, no YT player loaded)
+- 1.5s fade-in transition when video is ready (`.is-ready` class)
+- Height: 35vh
+- YouTube IFrame API loaded via inline `<script>` before footer
+
+**Lineup Hero:**
+- Height reduced to 25vh (from 50vh)
+
+**Image optimization:**
+- Original festival photos (up to 8MB) resized to max 1920px width, quality 80 via ImageMagick
+- Stored in `/wp-content/uploads/images/fest-2025/heroes/` on VPS
+
+### ✅ 10. Cookie Consent Banner (GDPR)
 **Files:** `assets/css/cookie-consent.css`, `assets/js/cookie-consent.js`, `templates/cookie-consent-banner.php`
 **Loaded via:** `wp_footer` hook in `functions.php`
 
@@ -304,7 +339,7 @@ window.vodCookieConsent.getConsent('analytics')  // true/false
 window.vodCookieConsent.showSettings()           // open settings modal
 ```
 
-### ✅ 9. Navigation Menu
+### ✅ 11. Navigation Menu
 **Primary Menu** (9 items):
 1. Home
 2. Lineup
@@ -672,7 +707,14 @@ wp rewrite flush --allow-root
 
 ## Version History
 
-### v1.0.2 (February 7, 2026) - Current
+### v1.0.3 (February 8, 2026) - Current
+- ✅ Enhanced hero sections: background photos with slow zoom, dark overlay, animated text for Info, Tickets, Contact, Travel, Venue pages
+- ✅ Festival 2025 hero: YouTube video background (Laibach teaser) with static image fallback on mobile
+- ✅ Reduced hero heights across all pages (28-35vh) for faster content visibility
+- ✅ Optimized hero images on VPS (8MB → 266-682KB) in `heroes/` subdirectory
+- ✅ Added `heroSlowZoom` keyframe animation
+
+### v1.0.2 (February 7, 2026)
 - ✅ GDPR cookie consent banner with granular category controls
 - ✅ Festival 2025 photo gallery: 20 real photos with hover effects & credits
 - ✅ Festival 2025 video highlights: 9 YouTube embeds (youtube-nocookie.com)
@@ -748,5 +790,5 @@ This repository is part of a multi-project workspace. See parent `CLAUDE.md` for
 
 ---
 
-**Last Updated:** February 7, 2026 by Claude Code
+**Last Updated:** February 8, 2026 by Claude Code
 **Next Review:** Before VOD Fest 2026 (July 2026)
