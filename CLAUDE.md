@@ -330,15 +330,15 @@ window.vodCookieConsent.showSettings()           // open settings modal
 - **Lineup** - Archive of all 21 bands at `/lineup/`
 - **Info** (Post ID 6) - Festival info, philosophy, venue
 - **Tickets** (Post ID 7) - Pricing, payment info, order form
-- **Contact** (Post ID 8) - Contact form, organizer info
+- **Contact** (Post ID 8) - Contact info + Haftungsausschluss (from vod-records.com)
 - **Travel & Accommodation** (Post ID 82) - Hotels, transport
 - **Timetable** (Post ID 85) - Schedule overview
 - **Venue** (Post ID 84) - Kulturhaus Caserne info + gallery
 
-### Legal Pages
-- **Impressum** (Post ID 73) - TMG-compliant legal notice
-- **Datenschutzerklärung** (Post ID 75) - DSGVO privacy policy
-- **Terms & Conditions** (Post ID 74) - Complete AGB
+### Legal Pages (content sourced from vod-records.com)
+- **Impressum** (Post ID 73) - §5 TMG site notice (Alpenstrasse 25/1, USt-IdNr DE232493058)
+- **Datenschutzerklärung** (Post ID 75) - Full GDPR/DSGVO privacy policy (6 sections incl. PayPal, Google Fonts, Newsletter)
+- **Terms & Conditions** (Post ID 74) - AGB Deutschland/Ausland + Widerrufsbelehrung + Disclaimer
 
 ### User Pages
 - **Login** (Post ID 134) - `[vod_login]` shortcode
@@ -680,6 +680,7 @@ wp rewrite flush --allow-root
 - ✅ Fixed Bandcamp embed rendering: replaced `wp_kses_post()` with `wp_kses()` + explicit iframe attribute whitelist in `single-band.php`
 - ✅ Facebook URL updated to vinylondemandrecords
 - ✅ Footer links: VOD Records (vod-records.com) + Tape Magazine (tape-mag.com)
+- ✅ Legal & contact pages updated with real content from vod-records.com (Impressum, Datenschutz, AGB, Contact)
 
 ### v1.0.1 (February 2, 2026)
 - ✅ All 21 bands created with correct schedule
