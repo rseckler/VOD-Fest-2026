@@ -171,16 +171,15 @@ vod-fest-user-area/
 - `band_genre` - Industrial, Experimental, Post-Punk, etc.
 
 ### ✅ 2. Band Images
-**Status:** 19 of 21 bands have real images from Bandcamp
-**Missing:** IRSOL (Post 97), CRASH COURSE IN SCIENCE (Post 99)
+**Status:** All 21 bands have images
 
 **All 21 Bands:**
 1. JOACHIM IRMLER (FAUST) - Post ID 94
 2. NO MORE - Post ID 95
 3. DIETRICH VON EULER DONNERSPERG - Post ID 96
-4. IRSOL - Post ID 97 ❌ No image
+4. IRSOL - Post ID 97 (Media ID 145)
 5. O YUKI CONJUGATE - Post ID 98
-6. CRASH COURSE IN SCIENCE - Post ID 99 ❌ No image
+6. CRASH COURSE IN SCIENCE - Post ID 99 (Media ID 146)
 7. HUNTING LODGE - Post ID 100
 8. DAS SYNTHETISCHE MISCHGEWEBE - Post ID 101
 9. MARC HURTADO / LYDIA LUNCH - Post ID 102
@@ -604,7 +603,7 @@ Email: frank@vod-records.com
 
 ### Content Tasks
 - [x] Add Bandcamp/YouTube embeds for all 21 bands
-- [ ] Find images for IRSOL and CRASH COURSE IN SCIENCE
+- [x] Find images for IRSOL and CRASH COURSE IN SCIENCE
 - [x] Replace 2025 Recap placeholders with real photos/videos
 - [ ] Update artist testimonials with real quotes
 - [ ] Add band bios/descriptions to all band posts
