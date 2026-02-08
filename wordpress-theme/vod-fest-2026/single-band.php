@@ -94,7 +94,17 @@ while (have_posts()) : the_post();
                     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: var(--space-2xl);">
                         <?php if ($bandcamp_embed) : ?>
                             <div class="bandcamp-embed">
-                                <?php echo wp_kses_post($bandcamp_embed); ?>
+                                <?php echo wp_kses($bandcamp_embed, array(
+                                    'iframe' => array(
+                                        'style'    => true,
+                                        'src'      => true,
+                                        'seamless' => true,
+                                        'width'    => true,
+                                        'height'   => true,
+                                        'title'    => true,
+                                    ),
+                                    'a' => array('href' => true),
+                                )); ?>
                             </div>
                         <?php endif; ?>
 
