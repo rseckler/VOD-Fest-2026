@@ -550,7 +550,7 @@ Email: frank@vod-records.com
 - ✅ `.env` file in `.gitignore`
 - ✅ AJAX requests use WordPress nonces
 - ✅ Input sanitization (sanitize_text_field, sanitize_email, esc_url)
-- ✅ Output escaping (esc_html, esc_attr, wp_kses_post)
+- ✅ Output escaping (esc_html, esc_attr, wp_kses_post, wp_kses with explicit iframe whitelist for embeds)
 - ✅ SQL injection prevention (wpdb prepared statements)
 - ✅ CSRF protection (wp_verify_nonce)
 
@@ -635,6 +635,15 @@ wp db query "SHOW TABLES LIKE 'wp_vod_fest_newsletter';" --allow-root
 wp db query "CREATE TABLE IF NOT EXISTS wp_vod_fest_newsletter (...);" --allow-root
 ```
 
+### Bandcamp Embeds Not Rendering
+WordPress `wp_kses_post()` strips `<iframe>` tags. The fix in `single-band.php` uses `wp_kses()` with an explicit whitelist:
+```php
+wp_kses($bandcamp_embed, array(
+    'iframe' => array('style' => true, 'src' => true, 'seamless' => true, 'width' => true, 'height' => true, 'title' => true),
+    'a' => array('href' => true),
+));
+```
+
 ### Cache Issues
 ```bash
 # Clear all caches
@@ -668,6 +677,7 @@ wp rewrite flush --allow-root
 - ✅ Festival 2025 photo gallery: 20 real photos with hover effects & credits
 - ✅ Festival 2025 video highlights: 9 YouTube embeds (youtube-nocookie.com)
 - ✅ Bandcamp + YouTube embeds for all 21 bands (theme-colored players)
+- ✅ Fixed Bandcamp embed rendering: replaced `wp_kses_post()` with `wp_kses()` + explicit iframe attribute whitelist in `single-band.php`
 - ✅ Facebook URL updated to vinylondemandrecords
 - ✅ Footer links: VOD Records (vod-records.com) + Tape Magazine (tape-mag.com)
 
