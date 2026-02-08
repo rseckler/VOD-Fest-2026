@@ -325,13 +325,13 @@ add_filter('use_block_editor_for_post_type', 'vod_fest_disable_gutenberg', 10, 2
 function vod_fest_google_analytics() {
     if (is_admin()) return;
     ?>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-YHTGXEJDZC"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-53ZSWBBTD2"></script>
     <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('consent', 'default', { 'analytics_storage': 'denied' });
     gtag('js', new Date());
-    gtag('config', 'G-YHTGXEJDZC');
+    gtag('config', 'G-53ZSWBBTD2');
     (function() {
         try {
             var c = JSON.parse(localStorage.getItem('vod_cookie_consent'));

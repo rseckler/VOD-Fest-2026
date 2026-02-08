@@ -74,7 +74,7 @@ Hunting Lodge, Esplendor Geométrico, Lydia Lunch/Marc Hurtado, No More, Crash C
 - **Port:** 80 (proxied from Hetzner via mod_proxy)
 - **Database:** MySQL/MariaDB
 - **Reverse Proxy:** Hetzner (vod-records.com) → VPS (72.62.148.205:80)
-- **Analytics:** Google Analytics G-YHTGXEJDZC
+- **Analytics:** Google Analytics G-53ZSWBBTD2
 
 ### Custom Theme
 **Location:** `/var/www/vodfest/wp-content/themes/vod-fest-2026/`
@@ -372,7 +372,7 @@ Header edit Location ^http://72.62.148.205/ https://www.vod-records.com/ env=RED
 - `/var/www/vodfest/wp-config.php` — URLs, HTTPS, cookies
 
 ### ✅ 12. Google Analytics
-**Measurement ID:** `G-YHTGXEJDZC`
+**Measurement ID:** `G-53ZSWBBTD2`
 **Status:** Active on entire vod-records.com (main site + /vod-fest/)
 
 **VOD Fest (WordPress):**
@@ -684,7 +684,7 @@ Email: frank@vod-records.com
 - [x] SSL/HTTPS via reverse proxy (vod-records.com)
 - [ ] Multilingual support (WPML/Polylang)
 - [ ] Performance optimization (caching, CDN)
-- [x] Google Analytics integration (G-YHTGXEJDZC with Consent Mode v2)
+- [x] Google Analytics integration (G-53ZSWBBTD2 with Consent Mode v2)
 - [x] Cookie consent banner (GDPR)
 
 ### Plugin Enhancements
@@ -802,7 +802,7 @@ wp rewrite flush --allow-root
 
 ### v1.0.4 (February 8, 2026) - Current
 - ✅ **Reverse proxy**: Site now live at `https://www.vod-records.com/vod-fest/` via Hetzner → VPS proxy
-- ✅ **Google Analytics**: `G-YHTGXEJDZC` on entire vod-records.com; WordPress uses Consent Mode v2 (GDPR)
+- ✅ **Google Analytics**: `G-53ZSWBBTD2` on entire vod-records.com; WordPress uses Consent Mode v2 (GDPR)
 - ✅ VPS Apache moved from port 8080 to port 80; Docker/Traefik to 8880/8443
 - ✅ WordPress URL prefix stripping via `.htaccess` (`RewriteRule ^vod-fest/(.*)$ $1 [L]`)
 - ✅ HTTPS detection via `X-Forwarded-Host` header in wp-config.php
