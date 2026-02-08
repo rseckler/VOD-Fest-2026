@@ -13,19 +13,69 @@ get_header();
 
 <style>
 .page-hero {
-    min-height: 40vh;
-    background: var(--color-blood-red);
+    min-height: 28vh;
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
     padding: var(--space-4xl) var(--space-xl);
     position: relative;
+    overflow: hidden;
+    background: var(--color-blood-red);
+}
+
+.page-hero__bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+}
+
+.page-hero__bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    animation: heroSlowZoom 20s ease-in-out infinite alternate;
+}
+
+.page-hero__overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: linear-gradient(
+        to bottom,
+        rgba(13, 0, 0, 0.6) 0%,
+        rgba(13, 0, 0, 0.75) 50%,
+        rgba(13, 0, 0, 0.85) 100%
+    );
+}
+
+.page-hero__content {
+    position: relative;
+    z-index: 2;
+    width: 100%;
 }
 
 .page-hero h1 {
     font-size: clamp(2.5rem, 6vw, 5rem);
     margin-bottom: var(--space-lg);
+    opacity: 0;
+    animation: fadeInDown 0.8s ease forwards 0.3s;
+}
+
+.page-hero__tagline {
+    font-size: var(--font-size-lg);
+    color: var(--color-brass);
+    max-width: 800px;
+    margin: 0 auto;
+    opacity: 0;
+    animation: fadeIn 0.8s ease forwards 0.8s;
+}
+
+@media (min-width: 1024px) {
+    .page-hero {
+        min-height: 30vh;
+    }
 }
 
 .page-content-section {
@@ -115,14 +165,45 @@ get_header();
 </style>
 
 <!-- PAGE HERO -->
+<?php
+// Hero background images & taglines per page slug
+$hero_images = array(
+    'info'                 => 'finalprogram_0219bw_e.gabrieledvy.jpg',
+    'tickets'              => 'laibach-01-cheesy.jpg',
+    'contact'              => 'abc_0414_e.gabrieledvy.jpg',
+    'travel-accommodation' => 'clockdva_0455_e.gabrieledvy.jpg',
+    'venue'                => 'esplendorg-03-cheesy.jpg',
+);
+$hero_taglines = array(
+    'info'                 => __('Everything you need to know about VOD Fest 2026', 'vod-fest'),
+    'tickets'              => __('Secure your place at the underground event of 2026', 'vod-fest'),
+    'contact'              => __('Get in touch with the VOD Fest team', 'vod-fest'),
+    'travel-accommodation' => __('Getting to Friedrichshafen and where to stay', 'vod-fest'),
+    'venue'                => __('Kulturhaus Caserne // Friedrichshafen', 'vod-fest'),
+);
+
+$current_slug  = get_post_field('post_name', get_post());
+$hero_img_file = isset($hero_images[$current_slug]) ? $hero_images[$current_slug] : '';
+$hero_tagline  = isset($hero_taglines[$current_slug]) ? $hero_taglines[$current_slug] : '';
+$hero_img_url  = $hero_img_file ? content_url('/uploads/images/fest-2025/heroes/' . $hero_img_file) : '';
+?>
 <section class="page-hero">
-    <div class="container" style="width: 100%;">
+    <?php if ($hero_img_url) : ?>
+        <div class="page-hero__bg">
+            <img src="<?php echo esc_url($hero_img_url); ?>"
+                 alt="<?php echo esc_attr(get_the_title()); ?>"
+                 loading="eager">
+        </div>
+        <div class="page-hero__overlay"></div>
+    <?php endif; ?>
+
+    <div class="page-hero__content container">
         <?php while (have_posts()) : the_post(); ?>
             <h1><?php the_title(); ?></h1>
-            <?php if (has_excerpt()) : ?>
-                <p style="font-size: var(--font-size-lg); color: var(--color-brass); max-width: 800px; margin: 0 auto;">
-                    <?php echo get_the_excerpt(); ?>
-                </p>
+            <?php if ($hero_tagline) : ?>
+                <p class="page-hero__tagline"><?php echo esc_html($hero_tagline); ?></p>
+            <?php elseif (has_excerpt()) : ?>
+                <p class="page-hero__tagline"><?php echo esc_html(get_the_excerpt()); ?></p>
             <?php endif; ?>
         <?php endwhile; ?>
     </div>

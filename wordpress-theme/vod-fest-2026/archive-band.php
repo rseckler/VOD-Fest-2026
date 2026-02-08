@@ -11,7 +11,7 @@ get_header();
 
 <style>
 .lineup-hero {
-    min-height: 50vh;
+    min-height: 25vh;
     background: var(--color-blood-red);
     display: flex;
     align-items: center;

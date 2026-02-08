@@ -11,8 +11,7 @@ get_header();
 
 <style>
 .recap-hero {
-    min-height: 60vh;
-    background: linear-gradient(135deg, var(--color-blood-red) 0%, var(--color-black) 100%);
+    min-height: 35vh;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -20,27 +19,66 @@ get_header();
     padding: var(--space-5xl) var(--space-xl);
     position: relative;
     overflow: hidden;
+    background: var(--color-black);
 }
 
-.recap-hero::before {
-    content: '';
+.recap-hero__video-wrap {
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y="50" font-size="80" fill="%23D4AF37" opacity="0.1">2025</text></svg>');
-    background-size: 400px;
-    background-position: center;
-    background-repeat: no-repeat;
-    opacity: 0.3;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 1.5s ease;
+}
+
+.recap-hero__video-wrap.is-ready {
+    opacity: 1;
+}
+
+.recap-hero__video-wrap iframe {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    min-width: 100%;
+    min-height: 100%;
+    width: 177.78vh; /* 16:9 ratio */
+    height: 100vh;
+    border: 0;
+}
+
+.recap-hero__fallback {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+}
+
+.recap-hero__fallback img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.recap-hero__overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: linear-gradient(
+        to bottom,
+        rgba(13, 0, 0, 0.55) 0%,
+        rgba(13, 0, 0, 0.7) 50%,
+        rgba(13, 0, 0, 0.85) 100%
+    );
 }
 
 .recap-hero h1 {
     font-size: clamp(3rem, 8vw, 6rem);
     margin-bottom: var(--space-lg);
     position: relative;
-    z-index: 1;
+    z-index: 2;
+    opacity: 0;
+    animation: fadeInDown 0.8s ease forwards 0.3s;
 }
 
 .recap-subtitle {
@@ -49,7 +87,9 @@ get_header();
     max-width: 600px;
     margin: 0 auto;
     position: relative;
-    z-index: 1;
+    z-index: 2;
+    opacity: 0;
+    animation: fadeIn 0.8s ease forwards 0.8s;
 }
 
 .recap-section {
@@ -220,7 +260,21 @@ get_header();
 
 <!-- HERO -->
 <section class="recap-hero">
-    <div class="container" style="width: 100%;">
+    <!-- YouTube video background (desktop only) -->
+    <div class="recap-hero__video-wrap" id="recap-hero-video"></div>
+
+    <!-- Static image fallback -->
+    <div class="recap-hero__fallback">
+        <img src="<?php echo esc_url(content_url('/uploads/images/fest-2025/heroes/laibach-01-cheesy.jpg')); ?>"
+             alt="VOD Fest 2025"
+             loading="eager">
+    </div>
+
+    <!-- Dark overlay -->
+    <div class="recap-hero__overlay"></div>
+
+    <!-- Text content -->
+    <div class="container" style="position: relative; z-index: 2; width: 100%;">
         <h1><?php esc_html_e('VOD FEST 2025', 'vod-fest'); ?></h1>
         <p class="recap-subtitle">
             <?php esc_html_e('Three unforgettable nights of underground music. Relive the moments.', 'vod-fest'); ?>
@@ -395,6 +449,45 @@ get_header();
         <?php echo do_shortcode('[newsletter title="Don\'t Miss VOD FEST 2026" subtitle="Be the first to know when tickets go on sale for next year\'s festival."]'); ?>
     </div>
 </section>
+
+<script>
+(function() {
+    // Skip YouTube video on mobile (< 768px) — show static fallback only
+    if (window.innerWidth < 768) return;
+
+    var tag = document.createElement('script');
+    tag.src = 'https://www.youtube.com/iframe_api';
+    var firstScript = document.getElementsByTagName('script')[0];
+    firstScript.parentNode.insertBefore(tag, firstScript);
+
+    window.onYouTubeIframeAPIReady = function() {
+        new YT.Player('recap-hero-video', {
+            videoId: 'IEYvPU_mykc',
+            playerVars: {
+                autoplay: 1,
+                mute: 1,
+                controls: 0,
+                loop: 1,
+                playlist: 'IEYvPU_mykc',
+                modestbranding: 1,
+                disablekb: 1,
+                fs: 0,
+                rel: 0,
+                showinfo: 0,
+                iv_load_policy: 3,
+                playsinline: 1
+            },
+            events: {
+                onReady: function(e) {
+                    e.target.playVideo();
+                    var wrap = document.getElementById('recap-hero-video');
+                    if (wrap) wrap.classList.add('is-ready');
+                }
+            }
+        });
+    };
+})();
+</script>
 
 <?php
 get_footer();
