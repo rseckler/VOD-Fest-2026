@@ -15,7 +15,7 @@ This file provides comprehensive guidance to Claude Code when working on the VOD
 ### URLs
 - **Production:** https://www.vod-records.com/vod-fest/
 - **Direct VPS:** http://72.62.148.205/vod-fest/
-- **Admin:** https://www.vod-records.com/vod-fest/wp-admin
+- **Admin:** https://www.vod-records.com/vod-fest/wp-admin (⚠️ Direktzugriff via IP `72.62.148.205/wp-admin` geht NICHT — WordPress leitet auf die Proxy-URL um)
 - **Lineup:** https://www.vod-records.com/vod-fest/lineup/
 - **Festival 2025 Recap:** https://www.vod-records.com/vod-fest/festival-2025/
 - **User Login:** https://www.vod-records.com/vod-fest/login/
@@ -39,6 +39,7 @@ wp --allow-root [command]
 ```
 
 ### Credentials
+- **WP Admin:** https://www.vod-records.com/vod-fest/wp-admin — User: `VOD`, Password: see `.env`
 - See `.env` file for all credentials
 - **NEVER commit .env to git!**
 
@@ -362,7 +363,7 @@ Header edit Location ^http://72.62.148.205/ https://www.vod-records.com/ env=RED
 **VPS Side:**
 - **VirtualHost** (`/etc/apache2/sites-available/vodfest.conf`): DocumentRoot `/var/www/vodfest`, `AllowOverride All`, `SetEnvIf X-Forwarded-Proto`
 - **WordPress `.htaccess`**: Strips `/vod-fest/` prefix via `RewriteRule ^vod-fest/(.*)$ $1 [L]` before standard WordPress rewrite rules
-- **wp-config.php**: `WP_HOME`/`WP_SITEURL` = `https://www.vod-records.com/vod-fest`, HTTPS detection via `X-Forwarded-Host` header, cookie paths set to `/vod-fest/`
+- **wp-config.php**: `WP_HOME`/`WP_SITEURL` = `https://www.vod-records.com/vod-fest`, HTTPS detection via `X-Forwarded-Host` header, `HTTP_HOST` override to `www.vod-records.com` (fixes trailing-slash redirects using VPS IP), cookie paths set to `/vod-fest/`
 - **Apache port**: Changed from 8080 to 80 (Docker/Traefik moved to 8880/8443)
 
 **Key files on VPS:**
@@ -811,6 +812,7 @@ wp rewrite flush --allow-root
 - ✅ All 21 bands now have images (IRSOL Media ID 145, Crash Course in Science Media ID 146)
 - ✅ Datenschutzerklärung published (Post ID 3, was draft) with Google Analytics section (Consent Mode v2, opt-out, legal basis)
 - ✅ Fixed footer menu link for Datenschutz page
+- ✅ Fixed reverse proxy redirects: Added `HTTP_HOST` override in wp-config.php so WordPress trailing-slash redirects (e.g. `/tickets` → `/tickets/`) use `www.vod-records.com` instead of VPS IP
 
 ### v1.0.3 (February 8, 2026)
 - ✅ Enhanced hero sections: background photos with slow zoom, dark overlay, animated text for Info, Tickets, Contact, Travel, Venue pages
