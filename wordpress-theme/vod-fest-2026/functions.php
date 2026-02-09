@@ -347,6 +347,63 @@ function vod_fest_google_analytics() {
 add_action('wp_head', 'vod_fest_google_analytics', 1);
 
 /**
+ * JSON-LD Event Schema for rich snippets in Google
+ */
+function vod_fest_event_schema() {
+    if (!is_front_page()) return;
+
+    $bands = get_posts(array('post_type' => 'band', 'posts_per_page' => -1, 'post_status' => 'publish'));
+    $performers = array();
+    foreach ($bands as $band) {
+        $performers[] = array(
+            '@type' => 'MusicGroup',
+            'name'  => $band->post_title,
+            'url'   => get_permalink($band->ID),
+        );
+    }
+
+    $schema = array(
+        '@context'    => 'https://schema.org',
+        '@type'       => 'MusicEvent',
+        'name'        => 'VOD Fest 2026',
+        'description' => 'Three days of industrial, experimental, post-punk and avant-garde music. 21 bands, 2 stages.',
+        'startDate'   => '2026-07-17T17:00:00+02:00',
+        'endDate'     => '2026-07-19T24:00:00+02:00',
+        'eventStatus' => 'https://schema.org/EventScheduled',
+        'eventAttendanceMode' => 'https://schema.org/OfflineEventAttendanceMode',
+        'location'    => array(
+            '@type'   => 'Place',
+            'name'    => 'Kulturhaus Caserne',
+            'address' => array(
+                '@type'           => 'PostalAddress',
+                'streetAddress'   => 'Fallenbrunnen 17',
+                'addressLocality' => 'Friedrichshafen',
+                'postalCode'      => '88045',
+                'addressCountry'  => 'DE',
+            ),
+        ),
+        'organizer'   => array(
+            '@type' => 'Organization',
+            'name'  => 'VOD Records',
+            'url'   => 'https://www.vod-records.com',
+            'email' => 'frank@vod-records.com',
+        ),
+        'offers'      => array(
+            '@type'         => 'Offer',
+            'name'          => '3-Day Pass',
+            'price'         => '333',
+            'priceCurrency' => 'EUR',
+            'availability'  => 'https://schema.org/InStock',
+            'url'           => home_url('/tickets/'),
+        ),
+        'performer'   => $performers,
+    );
+
+    echo '<script type="application/ld+json">' . wp_json_encode($schema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) . '</script>' . "\n";
+}
+add_action('wp_head', 'vod_fest_event_schema', 2);
+
+/**
  * Security: Remove WordPress version from head
  */
 remove_action('wp_head', 'wp_generator');
