@@ -27,7 +27,7 @@ while (have_posts()) : the_post();
                 <!-- Band Photo -->
                 <div>
                     <?php if (has_post_thumbnail()) : ?>
-                        <?php the_post_thumbnail('large', array('style' => 'width: 100%; height: auto;')); ?>
+                        <?php the_post_thumbnail('large', array('style' => 'width: 100%; height: auto;', 'alt' => get_the_title())); ?>
                     <?php endif; ?>
                 </div>
 
@@ -45,9 +45,9 @@ while (have_posts()) : the_post();
 
                     <?php if ($day_terms || $stage_terms || $start_time) : ?>
                         <div class="card" style="margin-bottom: var(--space-xl);">
-                            <h3 style="font-size: var(--font-size-xl); margin-bottom: var(--space-md); color: var(--color-gold);">
+                            <h2 style="font-size: var(--font-size-xl); margin-bottom: var(--space-md); color: var(--color-gold);">
                                 <?php esc_html_e('Performance Details', 'vod-fest'); ?>
-                            </h3>
+                            </h2>
                             <?php if ($day_terms && !is_wp_error($day_terms)) : ?>
                                 <p><strong><?php esc_html_e('Date:', 'vod-fest'); ?></strong> <?php echo esc_html($day_terms[0]->name); ?></p>
                             <?php endif; ?>

@@ -368,7 +368,7 @@ function vod_fest_event_schema() {
         'name'        => 'VOD Fest 2026',
         'description' => 'Three days of industrial, experimental, post-punk and avant-garde music. 21 bands, 2 stages.',
         'startDate'   => '2026-07-17T17:00:00+02:00',
-        'endDate'     => '2026-07-19T24:00:00+02:00',
+        'endDate'     => '2026-07-20T00:00:00+02:00',
         'eventStatus' => 'https://schema.org/EventScheduled',
         'eventAttendanceMode' => 'https://schema.org/OfflineEventAttendanceMode',
         'location'    => array(
@@ -396,12 +396,53 @@ function vod_fest_event_schema() {
             'availability'  => 'https://schema.org/InStock',
             'url'           => home_url('/tickets/'),
         ),
+        'image'       => get_template_directory_uri() . '/assets/images/poster.png',
         'performer'   => $performers,
     );
 
     echo '<script type="application/ld+json">' . wp_json_encode($schema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) . '</script>' . "\n";
 }
 add_action('wp_head', 'vod_fest_event_schema', 2);
+
+/**
+ * Default OG image for pages without featured images
+ */
+function vod_fest_default_og_image() {
+    if (is_admin()) return;
+    // Only add if Yoast hasn't already set an og:image
+    if (!has_post_thumbnail() || is_front_page() || is_post_type_archive()) {
+        $poster_url = get_template_directory_uri() . '/assets/images/poster.png';
+        echo '<meta property="og:image" content="' . esc_url($poster_url) . '" />' . "\n";
+        echo '<meta property="og:image:width" content="1200" />' . "\n";
+        echo '<meta property="og:image:height" content="630" />' . "\n";
+        echo '<meta name="twitter:image" content="' . esc_url($poster_url) . '" />' . "\n";
+    }
+}
+add_action('wp_head', 'vod_fest_default_og_image', 3);
+
+/**
+ * Show all bands on one page (no pagination)
+ */
+function vod_fest_show_all_bands($query) {
+    if (!is_admin() && $query->is_main_query() && is_post_type_archive('band')) {
+        $query->set('posts_per_page', -1);
+    }
+}
+add_action('pre_get_posts', 'vod_fest_show_all_bands');
+
+/**
+ * Security: Block WP REST API user enumeration
+ */
+function vod_fest_restrict_rest_users($endpoints) {
+    if (isset($endpoints['/wp/v2/users'])) {
+        unset($endpoints['/wp/v2/users']);
+    }
+    if (isset($endpoints['/wp/v2/users/(?P<id>[\d]+)'])) {
+        unset($endpoints['/wp/v2/users/(?P<id>[\d]+)']);
+    }
+    return $endpoints;
+}
+add_filter('rest_endpoints', 'vod_fest_restrict_rest_users');
 
 /**
  * Security: Remove WordPress version from head

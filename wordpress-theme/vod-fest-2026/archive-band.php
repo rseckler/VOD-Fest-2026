@@ -84,6 +84,62 @@ get_header();
     padding: var(--space-5xl) var(--space-xl);
     color: var(--color-brass);
 }
+
+/* Pagination */
+.navigation.pagination {
+    margin-top: var(--space-4xl);
+    text-align: center;
+}
+
+.navigation.pagination .nav-links {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--space-md);
+    flex-wrap: wrap;
+}
+
+.navigation.pagination .nav-links a,
+.navigation.pagination .nav-links span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 48px;
+    height: 48px;
+    padding: var(--space-sm) var(--space-lg);
+    font-family: var(--font-display);
+    font-size: var(--font-size-lg);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border: 2px solid var(--color-gold);
+    color: var(--color-gold);
+    background: transparent;
+    transition: all var(--transition-base);
+    text-decoration: none;
+}
+
+.navigation.pagination .nav-links a:hover {
+    background: var(--color-gold);
+    color: var(--color-black);
+}
+
+.navigation.pagination .nav-links .current {
+    background: var(--color-gold);
+    color: var(--color-black);
+}
+
+.navigation.pagination .nav-links .prev,
+.navigation.pagination .nav-links .next {
+    padding: var(--space-sm) var(--space-xl);
+    font-size: var(--font-size-base);
+}
+
+.navigation.pagination .nav-links .dots {
+    border: none;
+    min-width: auto;
+    padding: 0;
+    color: var(--color-brass);
+}
 </style>
 
 <!-- LINEUP HERO -->
@@ -183,9 +239,9 @@ get_header();
                             </a>
                         </div>
 
-                        <h3 class="band-name">
+                        <h2 class="band-name">
                             <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
-                        </h3>
+                        </h2>
 
                         <?php if ($genre_terms && !is_wp_error($genre_terms)) : ?>
                             <div style="margin-bottom: var(--space-sm);">
