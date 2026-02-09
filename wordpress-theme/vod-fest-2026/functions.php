@@ -468,7 +468,13 @@ function vod_fest_band_embeds_callback($post) {
 
     $bandcamp_embed = get_post_meta($post->ID, '_band_bandcamp_embed', true);
     $youtube_id = get_post_meta($post->ID, '_band_youtube_id', true);
+    $website_url = get_post_meta($post->ID, '_band_website_url', true);
     ?>
+    <p>
+        <label for="band_website_url"><strong><?php _e('Band Website URL:', 'vod-fest'); ?></strong></label><br>
+        <input type="url" id="band_website_url" name="band_website_url" value="<?php echo esc_attr($website_url); ?>" style="width: 100%;" placeholder="https://www.example.com">
+        <small><?php _e('Official band/artist website (displayed below the About section).', 'vod-fest'); ?></small>
+    </p>
     <p>
         <label for="band_bandcamp_embed"><strong><?php _e('Bandcamp Embed Code:', 'vod-fest'); ?></strong></label><br>
         <textarea id="band_bandcamp_embed" name="band_bandcamp_embed" rows="4" style="width: 100%;" placeholder='<iframe style="border: 0; width: 350px; height: 470px;" src="https://bandcamp.com/EmbeddedPlayer/..." seamless></iframe>'><?php echo esc_textarea($bandcamp_embed); ?></textarea>
@@ -510,6 +516,11 @@ function vod_fest_save_band_embeds($post_id) {
     // Save YouTube ID
     if (isset($_POST['band_youtube_id'])) {
         update_post_meta($post_id, '_band_youtube_id', sanitize_text_field($_POST['band_youtube_id']));
+    }
+
+    // Save Website URL
+    if (isset($_POST['band_website_url'])) {
+        update_post_meta($post_id, '_band_website_url', esc_url_raw($_POST['band_website_url']));
     }
 }
 add_action('save_post_band', 'vod_fest_save_band_embeds');

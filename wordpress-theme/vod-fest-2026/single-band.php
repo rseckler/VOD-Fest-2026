@@ -77,6 +77,14 @@ while (have_posts()) : the_post();
                     <div class="entry-content">
                         <?php the_content(); ?>
                     </div>
+                    <?php $website_url = get_post_meta(get_the_ID(), '_band_website_url', true); ?>
+                    <?php if ($website_url) : ?>
+                        <p style="margin-top: var(--space-xl);">
+                            <a href="<?php echo esc_url($website_url); ?>" target="_blank" rel="noopener" class="btn btn-secondary" style="font-size: var(--font-size-base);">
+                                <?php esc_html_e('Visit Website', 'vod-fest'); ?> ↗
+                            </a>
+                        </p>
+                    <?php endif; ?>
                 </div>
             <?php endif; ?>
 

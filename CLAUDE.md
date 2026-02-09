@@ -171,6 +171,7 @@ vod-fest-user-area/
 - `_band_bandcamp_link` - Bandcamp URL
 - `_band_bandcamp_embed` - Bandcamp iframe embed code
 - `_band_youtube_id` - YouTube video ID
+- `_band_website_url` - Official band/artist website URL
 - `_thumbnail_id` - Featured image
 
 **Taxonomies:**
@@ -185,18 +186,18 @@ vod-fest-user-area/
 1. JOACHIM IRMLER (FAUST) - Post ID 94
 2. NO MORE - Post ID 95
 3. DIETRICH VON EULER DONNERSPERG - Post ID 96
-4. IRSOL - Post ID 97 (Media ID 145)
+4. IRSOL - Post ID 97 (Media ID 150)
 5. O YUKI CONJUGATE - Post ID 98
 6. CRASH COURSE IN SCIENCE - Post ID 99 (Media ID 146)
 7. HUNTING LODGE - Post ID 100
-8. DAS SYNTHETISCHE MISCHGEWEBE - Post ID 101
+8. DAS SYNTHETISCHE MISCHGEWEBE - Post ID 101 (Media ID 151)
 9. MARC HURTADO / LYDIA LUNCH - Post ID 102
 10. RAPOON - Post ID 103
 11. NORMA LOY - Post ID 104
-12. CLAIR OBSCUR - Post ID 105
+12. CLAIR OBSCUR - Post ID 105 (Media ID 152)
 13. THE ANTI GROUP - Post ID 106
 14. ESPLENDOR GEOMETRICO - Post ID 107
-15. PLUS INSTRUMENTS - Post ID 108
+15. PLUS INSTRUMENTS - Post ID 108 (Media ID 149)
 16. PARADE GROUND - Post ID 109
 17. ETANT DONNES - Post ID 110
 18. CLUB MORAL - Post ID 111
@@ -540,6 +541,7 @@ CREATE TABLE wp_vod_fest_newsletter (
 - `_band_bandcamp_link` - text - Full URL
 - `_band_bandcamp_embed` - longtext - Full iframe HTML
 - `_band_youtube_id` - varchar(20) - Video ID only
+- `_band_website_url` - text - Official band/artist website URL
 
 ### Theme Mods (Options)
 - `vod_fest_facebook` - Facebook URL
@@ -692,7 +694,7 @@ Email: frank@vod-records.com
 - [x] Find images for IRSOL and CRASH COURSE IN SCIENCE
 - [x] Replace 2025 Recap placeholders with real photos/videos
 - [ ] Update artist testimonials with real quotes
-- [ ] Add band bios/descriptions to all band posts
+- [x] Add band bios/descriptions to all band posts
 - [ ] Upload remaining ~5 festival videos to YouTube (unlisted) and add IDs to template
 
 ### Technical Enhancements
@@ -820,7 +822,12 @@ wp rewrite flush --allow-root
 
 ## Version History
 
-### v1.0.5 (February 9, 2026) - Current
+### v1.0.6 (February 9, 2026) - Current
+- ✅ **Band bios**: All 21 bands have biographical descriptions (English, 80-120 words each)
+- ✅ **Band website URL**: New `_band_website_url` meta field in functions.php + "Visit Website ↗" button on single-band.php
+- ✅ **Updated band images**: IRSOL (Media ID 150), Plus Instruments (Media ID 149), Das Synthetische Mischgewebe (Media ID 151), Clair Obscur (Media ID 152)
+
+### v1.0.5 (February 9, 2026)
 - ✅ **Yoast SEO**: Installed and configured (meta descriptions, OG tags, Twitter Cards, XML sitemap)
 - ✅ **JSON-LD Event Schema**: MusicEvent with all 21 performers, location, offers on homepage
 - ✅ Fixed YouTube links for Anti Group, Clair Obscur, Marc Hurtado/Lydia Lunch (play Suicide), IRSOL
