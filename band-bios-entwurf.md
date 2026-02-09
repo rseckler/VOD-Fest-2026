@@ -20,7 +20,7 @@ The band dissolved in 1986 after completing the album Hysteria. Schwarz and Sanu
 
 ---
 
-### 3. DIETRICH VON EULER DONNERSPERG — Outside Stage, 21:30-22:15
+### 3. DIETRICH VON EULER-DONNERSPERG — Outside Stage, 21:30-22:15
 
 Ditterich von Euler-Donnersperg is the performance alias of Uli Rehberg, a Hamburg-based artist and label founder active in Germany's industrial avant-garde since the early 1980s. In 1980, Rehberg founded Walter Ulbricht Schallfolien, a label that provided early releases for SPK, Laibach, and Werkbund. Under his alias, he has released yearly booklets paired with electronic sound pieces since 1996.
 

@@ -324,7 +324,7 @@ VOD Fest 2026
 │   │  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━  │ │
 │   │  20:30  CRASH COURSE IN SCIENCE                  [Inside Stage]  │ │
 │   │  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━  │ │
-│   │  21:30  DIETRICH VON EULER DONNERSPERG          [Outside Stage]  │ │
+│   │  21:30  DIETRICH VON EULER-DONNERSPERG          [Outside Stage]  │ │
 │   │  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━  │ │
 │   │  22:45  HUNTING LODGE                            [Inside Stage]  │ │
 │   │                                                                   │ │
