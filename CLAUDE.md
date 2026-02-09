@@ -4,7 +4,7 @@ This file provides comprehensive guidance to Claude Code when working on the VOD
 
 ## Project Status: ✅ LIVE & PRODUCTION
 
-**Last Updated:** February 8, 2026
+**Last Updated:** February 9, 2026
 **Status:** Fully implemented and deployed on VPS
 **Live URL:** https://www.vod-records.com/vod-fest/
 
@@ -217,19 +217,14 @@ vod-fest-user-area/
 
 ### ✅ 4. Newsletter Signup
 **Shortcode:** `[newsletter]`
-**Database:** `wp_vod_fest_newsletter` table
-**Features:**
-- Email validation
-- Duplicate prevention (UNIQUE email constraint)
-- IP address logging
-- GDPR-compliant text
+**Method:** mailto:frank@vod-records.com (replaced broken DB form in v1.0.5)
 
 **Active on:**
-- All band detail pages (bottom)
-- Festival 2025 Recap page
-- Can be added to any page/post
+- All band detail pages (bottom) — via `[newsletter]` shortcode
+- Homepage "STAY IN THE LOOP" section — hardcoded in `front-page.php`
+- Festival 2025 Recap page — via `[newsletter]` shortcode
 
-**Export Newsletter Subscribers:**
+**Legacy DB table** (no longer used for new signups):
 ```sql
 SELECT email FROM wp_vod_fest_newsletter ORDER BY subscribed_at DESC;
 ```
@@ -237,11 +232,8 @@ SELECT email FROM wp_vod_fest_newsletter ORDER BY subscribed_at DESC;
 ### ✅ 5. Social Media Integration
 **Customizer Settings:** Appearance → Customize → Social Media
 
-**Configured URLs:**
-- Facebook: https://www.facebook.com/vinylondemandrecords
-- Instagram: https://instagram.com/vodfest
-- YouTube: https://youtube.com/@vodfest
-- Bandcamp: https://vodrecords.bandcamp.com
+**Footer Social Link:**
+- Facebook only: https://www.facebook.com/vinylondemandrecords (hardcoded in `footer.php` since v1.0.5)
 
 **Footer Website Links:**
 - VOD Records: https://www.vod-records.com
@@ -279,7 +271,7 @@ SELECT email FROM wp_vod_fest_newsletter ORDER BY subscribed_at DESC;
 
 **Sections:**
 - Hero with YouTube video background (Laibach teaser), static image fallback on mobile
-- Statistics cards (19 bands, 3 days, 2 stages, 100+ attendees)
+- Statistics cards (18 bands, 3 days, 2 stages, 444 attendees)
 - Photo gallery (20 real photos in responsive grid)
 - Video gallery (9 YouTube embeds via youtube-nocookie.com)
 - Artist testimonials (3 cards - editable in template)
@@ -639,7 +631,7 @@ Email: frank@vod-records.com
 ```
 
 **Current Setup:**
-- Simple contact form for ticket orders
+- "Get Your Ticket" button on homepage opens mailto:frank@vod-records.com
 - Manual processing by organizer
 - Email confirmation sent manually
 - No automated payment processing (by design - ~100 tickets only)
@@ -801,7 +793,15 @@ wp rewrite flush --allow-root
 
 ## Version History
 
-### v1.0.4 (February 8, 2026) - Current
+### v1.0.5 (February 9, 2026) - Current
+- ✅ Fixed YouTube links for Anti Group, Clair Obscur, Marc Hurtado/Lydia Lunch (play Suicide), IRSOL
+- ✅ Replaced broken newsletter forms with mailto:frank@vod-records.com (front-page + `[newsletter]` shortcode)
+- ✅ "Get Your Ticket" CTA now opens mailto:frank@vod-records.com
+- ✅ Footer "Follow Us" reduced to Facebook only (removed Instagram, YouTube, Bandcamp)
+- ✅ Festival 2025 stats corrected: 18 bands, 444 attendees
+- ✅ Info page: replaced "coming soon" text with button linking to Festival 2025 recap page
+
+### v1.0.4 (February 8, 2026)
 - ✅ **Reverse proxy**: Site now live at `https://www.vod-records.com/vod-fest/` via Hetzner → VPS proxy
 - ✅ **Google Analytics**: `G-53ZSWBBTD2` on entire vod-records.com; WordPress uses Consent Mode v2 (GDPR)
 - ✅ VPS Apache moved from port 8080 to port 80; Docker/Traefik to 8880/8443
@@ -897,5 +897,5 @@ This repository is part of a multi-project workspace. See parent `CLAUDE.md` for
 
 ---
 
-**Last Updated:** February 8, 2026 by Claude Code
+**Last Updated:** February 9, 2026 by Claude Code
 **Next Review:** Before VOD Fest 2026 (July 2026)
