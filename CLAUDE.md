@@ -673,7 +673,7 @@ Email: frank@vod-records.com
 - [ ] Add reCAPTCHA to registration form (prevent spam)
 - [ ] Email verification for new users
 - [ ] Automated welcome emails
-- [ ] Newsletter export to Mailchimp/Brevo
+- [ ] **Newsletter-Service Integration (Brevo empfohlen):** Brevo (ehem. Sendinblue) statt Mailchimp -- Free Plan hat unbegrenzte Kontakte + 300 E-Mails/Tag, EU-Server (DSGVO-konform), Starter ab ~$8/Monat. Bei ~5.000 Empfaengern ist Mailchimp Free unbrauchbar (nur 250 Kontakte). Brevo-API an bestehendes WordPress-Newsletter-Formular anbinden.
 - [x] SSL/HTTPS via reverse proxy (vod-records.com)
 - [ ] Multilingual support (WPML/Polylang)
 - [ ] Performance optimization (caching, CDN)
