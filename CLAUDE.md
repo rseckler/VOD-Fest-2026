@@ -382,6 +382,32 @@ Header edit Location ^http://72.62.148.205/ https://www.vod-records.com/ env=RED
 - Template location: `/usr/www/users/maier/neu2013/tmpl_*.html`
 - Backup: `tmpl_standard.html.bak`
 
+### ✅ 14. SEO (Yoast SEO)
+**Plugin:** Yoast SEO 26.9 (free)
+**Status:** Active since February 9, 2026
+
+**Features:**
+- Meta descriptions for all pages + band/lineup templates
+- Open Graph tags (og:title, og:description, og:image, og:url)
+- Twitter Cards (summary_large_image)
+- XML Sitemap: https://www.vod-records.com/vod-fest/sitemap_index.xml
+- Canonical URLs on all pages
+- JSON-LD MusicEvent schema on homepage (dates, venue, €333 offer, 21 performers)
+
+**JSON-LD Schema (homepage):**
+- `@type`: MusicEvent
+- `startDate`: 2026-07-17T17:00:00+02:00
+- `endDate`: 2026-07-19T24:00:00+02:00
+- `location`: Kulturhaus Caserne, Friedrichshafen
+- `organizer`: VOD Records
+- `offers`: €333 3-Day Pass
+- `performer`: All 21 bands with URLs
+
+**Band Page SEO Template:**
+- Title: `BAND NAME - VOD Fest 2026 Lineup`
+- Description: `BAND NAME live at VOD Fest 2026, July 17-19 in Friedrichshafen...`
+- og:image: Band featured image (automatic)
+
 ### ✅ 13. Navigation Menu
 **Primary Menu** (9 items):
 1. Home
@@ -409,8 +435,8 @@ Header edit Location ^http://72.62.148.205/ https://www.vod-records.com/ env=RED
 - **Info** (Post ID 6) - Festival info, philosophy, venue
 - **Tickets** (Post ID 7) - Pricing, payment info, order form
 - **Contact** (Post ID 8) - Contact info + Haftungsausschluss (from vod-records.com)
-- **Travel & Accommodation** (Post ID 82) - Hotels, transport
-- **Timetable** (Post ID 85) - Schedule overview
+- **Travel & Accommodation** (Post ID 45) - Hotels, transport
+- **Timetable** (Post ID 49) - Schedule overview
 - **Venue** (Post ID 84) - Kulturhaus Caserne info + gallery
 
 ### Legal Pages (content sourced from vod-records.com)
@@ -679,6 +705,7 @@ Email: frank@vod-records.com
 - [ ] Performance optimization (caching, CDN)
 - [x] Google Analytics integration (G-53ZSWBBTD2 with Consent Mode v2)
 - [x] Cookie consent banner (GDPR)
+- [x] SEO: Yoast SEO plugin (meta descriptions, OG tags, Twitter Cards, XML sitemap, JSON-LD Event schema)
 
 ### Plugin Enhancements
 - [ ] User favorite bands feature
@@ -794,12 +821,16 @@ wp rewrite flush --allow-root
 ## Version History
 
 ### v1.0.5 (February 9, 2026) - Current
+- ✅ **Yoast SEO**: Installed and configured (meta descriptions, OG tags, Twitter Cards, XML sitemap)
+- ✅ **JSON-LD Event Schema**: MusicEvent with all 21 performers, location, offers on homepage
 - ✅ Fixed YouTube links for Anti Group, Clair Obscur, Marc Hurtado/Lydia Lunch (play Suicide), IRSOL
 - ✅ Replaced broken newsletter forms with mailto:frank@vod-records.com (front-page + `[newsletter]` shortcode)
-- ✅ "Get Your Ticket" CTA now opens mailto:frank@vod-records.com
+- ✅ All "Get Tickets" / "Get Your Ticket" buttons now open mailto:frank@vod-records.com
+- ✅ Tickets page: added "Order Ticket Now" mailto button, updated to 21 performances, wristband pickup at VOD-Shop/Gallery
 - ✅ Footer "Follow Us" reduced to Facebook only (removed Instagram, YouTube, Bandcamp)
 - ✅ Festival 2025 stats corrected: 18 bands, 444 attendees
 - ✅ Info page: replaced "coming soon" text with button linking to Festival 2025 recap page
+- ✅ Fixed Post IDs in docs: Travel (45), Timetable (49)
 
 ### v1.0.4 (February 8, 2026)
 - ✅ **Reverse proxy**: Site now live at `https://www.vod-records.com/vod-fest/` via Hetzner → VPS proxy
