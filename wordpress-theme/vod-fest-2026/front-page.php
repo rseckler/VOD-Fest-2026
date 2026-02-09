@@ -309,7 +309,7 @@ get_header();
         <p class="hero-location"><?php echo esc_html__('Kulturhaus Caserne, Fallenbrunnen', 'vod-fest'); ?></p>
 
         <div class="hero-cta">
-            <a href="<?php echo esc_url(home_url('/tickets')); ?>" class="btn btn-primary pulse-glow">
+            <a href="mailto:frank@vod-records.com?subject=<?php echo rawurlencode('VOD Fest 2026 - Ticket Order'); ?>" class="btn btn-primary pulse-glow">
                 <?php esc_html_e('Get Tickets', 'vod-fest'); ?>
             </a>
             <a href="<?php echo esc_url(get_post_type_archive_link('band')); ?>" class="btn btn-secondary">
@@ -455,7 +455,6 @@ get_header();
             <?php esc_html_e('JULY 17-19, 2026', 'vod-fest'); ?><br>
             <?php esc_html_e('DON\'T MISS OUT', 'vod-fest'); ?>
         </h2>
-        <p class="cta-urgency"><?php esc_html_e('Only 100 tickets available', 'vod-fest'); ?></p>
         <a href="mailto:frank@vod-records.com?subject=<?php echo rawurlencode('VOD Fest 2026 - Ticket Order'); ?>" class="btn btn-primary pulse-glow" style="font-size: var(--font-size-xl); padding: 20px 60px;">
             <?php esc_html_e('Get Your Ticket', 'vod-fest'); ?>
         </a>
