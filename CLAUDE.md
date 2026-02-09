@@ -704,10 +704,15 @@ Email: frank@vod-records.com
 - [ ] **Newsletter-Service Integration (Brevo empfohlen):** Brevo (ehem. Sendinblue) statt Mailchimp -- Free Plan hat unbegrenzte Kontakte + 300 E-Mails/Tag, EU-Server (DSGVO-konform), Starter ab ~$8/Monat. Bei ~5.000 Empfaengern ist Mailchimp Free unbrauchbar (nur 250 Kontakte). Brevo-API an bestehendes WordPress-Newsletter-Formular anbinden.
 - [x] SSL/HTTPS via reverse proxy (vod-records.com)
 - [ ] Multilingual support (WPML/Polylang)
-- [ ] Performance optimization (caching, CDN)
+- [x] Performance optimization (cache headers, preconnect, poster compression 3.5MB→444KB)
 - [x] Google Analytics integration (G-53ZSWBBTD2 with Consent Mode v2)
 - [x] Cookie consent banner (GDPR)
 - [x] SEO: Yoast SEO plugin (meta descriptions, OG tags, Twitter Cards, XML sitemap, JSON-LD Event schema)
+- [x] SEO audit & fixes: og:image fallback, band meta descriptions, heading hierarchy, security headers
+- [x] robots.txt on Hetzner (disallow wp-admin, wp-json, user pages)
+- [x] Google Search Console: sitemap submitted
+- [x] REST API user enumeration blocked
+- [ ] non-www → www redirect (Hetzner .htaccess)
 
 ### Plugin Enhancements
 - [ ] User favorite bands feature
@@ -822,7 +827,26 @@ wp rewrite flush --allow-root
 
 ## Version History
 
-### v1.0.6 (February 9, 2026) - Current
+### v1.0.7 (February 9, 2026) - Current
+- ✅ **SEO audit & fixes**: Comprehensive 4-part audit (homepage, lineup, band detail, external tools)
+- ✅ **og:image fallback**: Poster image as default for homepage, lineup, and pages without featured images
+- ✅ **Meta descriptions**: All 21 band pages now have Yoast meta descriptions (band name, genre, day, stage)
+- ✅ **JSON-LD fixes**: endDate corrected (24:00→2026-07-20T00:00), added image property
+- ✅ **Alt text fix**: Band detail featured images now use band name as alt text
+- ✅ **Heading hierarchy**: H3→H2 for band names (lineup) and Performance Details (band detail)
+- ✅ **All bands on one page**: pre_get_posts shows all 21 bands without pagination on lineup
+- ✅ **Pagination styling**: Centered, larger, gold-themed buttons (for taxonomy archive pages)
+- ✅ **Preconnect**: Google Fonts resource hints in header.php
+- ✅ **Cache headers**: Static assets (CSS, JS, images) cached for 1 year via mod_expires
+- ✅ **Security headers**: X-Content-Type-Options, X-Frame-Options, Referrer-Policy
+- ✅ **REST API lockdown**: User enumeration endpoint blocked
+- ✅ **robots.txt**: Created on Hetzner (disallow wp-admin, wp-json, user pages; sitemap reference)
+- ✅ **Google Search Console**: Sitemap submitted (sitemap_index.xml with 7 sub-sitemaps)
+- ✅ **Poster compressed**: poster-optimized.jpg (444KB) created from poster.png (3.5MB) on VPS
+- ✅ **Placeholder pages deleted**: beispiel-seite (Post 2), testimonials (Post 46)
+- ✅ **Band name corrected**: Ditterich von Euler-Donnersperg (Post ID 96)
+
+### v1.0.6 (February 9, 2026)
 - ✅ **Band bios**: All 21 bands have biographical descriptions (English, 80-120 words each)
 - ✅ **Band website URL**: New `_band_website_url` meta field in functions.php + "Visit Website ↗" button on single-band.php
 - ✅ **Updated band images**: IRSOL (Media ID 150), Plus Instruments (Media ID 149), Das Synthetische Mischgewebe (Media ID 151), Clair Obscur (Media ID 152)
