@@ -43,18 +43,7 @@
             <div class="footer-section">
                 <h4 style="color: var(--color-gold); margin-bottom: 20px;">Follow Us</h4>
                 <div style="display: flex; gap: 15px; margin-top: 20px; flex-wrap: wrap;">
-                    <?php if (get_theme_mod('vod_fest_facebook')) : ?>
-                        <a href="<?php echo esc_url(get_theme_mod('vod_fest_facebook')); ?>" target="_blank" rel="noopener" title="Facebook" style="width: 40px; height: 40px; border: 2px solid var(--color-brass); display: flex; align-items: center; justify-content: center; transition: all var(--transition-base);" onmouseover="this.style.borderColor='var(--color-gold)'; this.style.boxShadow='0 0 10px rgba(212, 175, 55, 0.5)'" onmouseout="this.style.borderColor='var(--color-brass)'; this.style.boxShadow='none'">FB</a>
-                    <?php endif; ?>
-                    <?php if (get_theme_mod('vod_fest_instagram')) : ?>
-                        <a href="<?php echo esc_url(get_theme_mod('vod_fest_instagram')); ?>" target="_blank" rel="noopener" title="Instagram" style="width: 40px; height: 40px; border: 2px solid var(--color-brass); display: flex; align-items: center; justify-content: center; transition: all var(--transition-base);" onmouseover="this.style.borderColor='var(--color-gold)'; this.style.boxShadow='0 0 10px rgba(212, 175, 55, 0.5)'" onmouseout="this.style.borderColor='var(--color-brass)'; this.style.boxShadow='none'">IG</a>
-                    <?php endif; ?>
-                    <?php if (get_theme_mod('vod_fest_youtube')) : ?>
-                        <a href="<?php echo esc_url(get_theme_mod('vod_fest_youtube')); ?>" target="_blank" rel="noopener" title="YouTube" style="width: 40px; height: 40px; border: 2px solid var(--color-brass); display: flex; align-items: center; justify-content: center; transition: all var(--transition-base);" onmouseover="this.style.borderColor='var(--color-gold)'; this.style.boxShadow='0 0 10px rgba(212, 175, 55, 0.5)'" onmouseout="this.style.borderColor='var(--color-brass)'; this.style.boxShadow='none'">YT</a>
-                    <?php endif; ?>
-                    <?php if (get_theme_mod('vod_fest_bandcamp')) : ?>
-                        <a href="<?php echo esc_url(get_theme_mod('vod_fest_bandcamp')); ?>" target="_blank" rel="noopener" title="Bandcamp" style="width: 40px; height: 40px; border: 2px solid var(--color-brass); display: flex; align-items: center; justify-content: center; transition: all var(--transition-base);" onmouseover="this.style.borderColor='var(--color-gold)'; this.style.boxShadow='0 0 10px rgba(212, 175, 55, 0.5)'" onmouseout="this.style.borderColor='var(--color-brass)'; this.style.boxShadow='none'">BC</a>
-                    <?php endif; ?>
+                    <a href="https://www.facebook.com/vinylondemandrecords" target="_blank" rel="noopener" title="Facebook" style="width: 40px; height: 40px; border: 2px solid var(--color-brass); display: flex; align-items: center; justify-content: center; transition: all var(--transition-base);" onmouseover="this.style.borderColor='var(--color-gold)'; this.style.boxShadow='0 0 10px rgba(212, 175, 55, 0.5)'" onmouseout="this.style.borderColor='var(--color-brass)'; this.style.boxShadow='none'">FB</a>
                 </div>
             </div>
 

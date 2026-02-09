@@ -439,15 +439,12 @@ get_header();
             <?php esc_html_e('Get lineup updates, ticket information, and exclusive content straight to your inbox.', 'vod-fest'); ?>
         </p>
 
-        <form class="newsletter-form scroll-animate delay-400" method="post">
-            <input type="hidden" name="action" value="vod_fest_newsletter_subscribe">
-            <?php wp_nonce_field('vod_fest_newsletter', 'newsletter_nonce'); ?>
-            <div class="newsletter-input-group">
-                <input type="email" name="email" class="form-input" placeholder="<?php esc_attr_e('Your Email Address', 'vod-fest'); ?>" required>
-                <button type="submit" class="btn btn-primary"><?php esc_html_e('Subscribe', 'vod-fest'); ?></button>
-            </div>
-            <p class="newsletter-disclaimer"><?php esc_html_e('No spam, just underground music news.', 'vod-fest'); ?></p>
-        </form>
+        <div class="scroll-animate delay-400" style="margin-top: var(--space-xl);">
+            <a href="mailto:frank@vod-records.com?subject=<?php echo rawurlencode('VOD Fest 2026 - Newsletter Signup'); ?>" class="btn btn-primary" style="font-size: var(--font-size-xl); padding: 16px 48px;">
+                <?php esc_html_e('Subscribe via Email', 'vod-fest'); ?>
+            </a>
+            <p class="newsletter-disclaimer" style="margin-top: var(--space-lg);"><?php esc_html_e('No spam, just underground music news.', 'vod-fest'); ?></p>
+        </div>
     </div>
 </section>
 
@@ -459,7 +456,7 @@ get_header();
             <?php esc_html_e('DON\'T MISS OUT', 'vod-fest'); ?>
         </h2>
         <p class="cta-urgency"><?php esc_html_e('Only 100 tickets available', 'vod-fest'); ?></p>
-        <a href="<?php echo esc_url(home_url('/tickets')); ?>" class="btn btn-primary pulse-glow" style="font-size: var(--font-size-xl); padding: 20px 60px;">
+        <a href="mailto:frank@vod-records.com?subject=<?php echo rawurlencode('VOD Fest 2026 - Ticket Order'); ?>" class="btn btn-primary pulse-glow" style="font-size: var(--font-size-xl); padding: 20px 60px;">
             <?php esc_html_e('Get Your Ticket', 'vod-fest'); ?>
         </a>
     </div>

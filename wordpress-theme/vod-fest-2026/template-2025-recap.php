@@ -291,7 +291,7 @@ get_header();
 
         <div class="stats-grid">
             <div class="stat-card">
-                <div class="stat-number">19</div>
+                <div class="stat-number">18</div>
                 <div class="stat-label"><?php esc_html_e('Bands', 'vod-fest'); ?></div>
             </div>
             <div class="stat-card">
@@ -303,7 +303,7 @@ get_header();
                 <div class="stat-label"><?php esc_html_e('Stages', 'vod-fest'); ?></div>
             </div>
             <div class="stat-card">
-                <div class="stat-number">100+</div>
+                <div class="stat-number">444</div>
                 <div class="stat-label"><?php esc_html_e('Attendees', 'vod-fest'); ?></div>
             </div>
         </div>

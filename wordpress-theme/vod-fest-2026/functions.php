@@ -475,26 +475,14 @@ function vod_fest_newsletter_signup($atts) {
         <p style="font-size: var(--font-size-lg); color: var(--color-brass); margin-bottom: var(--space-2xl); max-width: 600px; margin-left: auto; margin-right: auto;">
             <?php echo esc_html($atts['subtitle']); ?>
         </p>
-        <form class="newsletter-form" method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>" style="max-width: 500px; margin: 0 auto;">
-            <input type="hidden" name="action" value="vod_fest_newsletter_signup">
-            <?php wp_nonce_field('vod_fest_newsletter', 'newsletter_nonce'); ?>
-            <div style="display: flex; gap: var(--space-md); flex-wrap: wrap;">
-                <input
-                    type="email"
-                    name="newsletter_email"
-                    class="form-input"
-                    placeholder="<?php esc_attr_e('Your email address', 'vod-fest'); ?>"
-                    required
-                    style="flex: 1; min-width: 250px;"
-                >
-                <button type="submit" class="btn btn-primary" style="white-space: nowrap;">
-                    <?php esc_html_e('Subscribe →', 'vod-fest'); ?>
-                </button>
-            </div>
+        <div style="max-width: 500px; margin: 0 auto;">
+            <a href="mailto:frank@vod-records.com?subject=<?php echo rawurlencode('VOD Fest 2026 - Newsletter Signup'); ?>" class="btn btn-primary" style="font-size: var(--font-size-lg); padding: 14px 40px;">
+                <?php esc_html_e('Subscribe via Email', 'vod-fest'); ?>
+            </a>
             <p style="font-size: var(--font-size-sm); color: var(--color-brass); margin-top: var(--space-md);">
                 <?php esc_html_e('We respect your privacy. Unsubscribe at any time.', 'vod-fest'); ?>
             </p>
-        </form>
+        </div>
     </div>
     <?php
     return ob_get_clean();
