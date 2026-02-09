@@ -62,7 +62,7 @@ Frank
 **DAY								TIME				ARTIST / BAND**  
 FRIDAY, 17.July	Outside Stage 	18:00-18:30"	30 min	**JOACHIM IRMLER (FAUST) **++[https://staubgold.bandcamp.com/album/lifelike](https://staubgold.bandcamp.com/album/lifelike)++  
 FRIDAY, 17.July	Outside Stage 	19:30-20:30"	60 min	**NO MORE **++[https://nomore.bandcamp.com/music](https://nomore.bandcamp.com/music)++  
-FRIDAY, 17.July	Outside Stage 	21:30-22:15"	45 min	**DIETRICH VON EULER-DONNERSPERG **++[https://nostalgiedelaboue.bandcamp.com/album/quelquechose-ii](https://nostalgiedelaboue.bandcamp.com/album/quelquechose-ii)++  
+FRIDAY, 17.July	Outside Stage 	21:30-22:15"	45 min	**Ditterich von Euler-Donnersperg **++[https://nostalgiedelaboue.bandcamp.com/album/quelquechose-ii](https://nostalgiedelaboue.bandcamp.com/album/quelquechose-ii)++  
 FRIDAY, 17.July	Venue Inside		17.00 - 18:00	60 min	**IRSOL **++[https://irsol-sonic-archives-3ac9a371.base44.app/](https://irsol-sonic-archives-3ac9a371.base44.app/)++  
 FRIDAY, 17.July	Venue Inside		18:30 - 19:30	60 min	**O YUKI CONJUGATE **++[https://oyukiconjugate.bandcamp.com/](https://oyukiconjugate.bandcamp.com/)++  
 FRIDAY, 17.July	Venue Inside		20.30 - 21.30	60 min	**CRASH COURSE IN SCIENCE **++[https://crashcourseinscience.bandcamp.com/](https://crashcourseinscience.bandcamp.com/)++  
@@ -129,7 +129,7 @@ Frank
 FRIDAY, 17.July	Outside Stage 	18:00-18:30"	30 min	**JOACHIM IRMLER (FAUST) **++[https://staubgold.bandcamp.com/album/lifelike](https://staubgold.bandcamp.com/album/lifelike)++  
 FRIDAY, 17.July	Outside Stage 	18:00-18:30"	30 min	**JOACHIM IRMLER (FAUST) **++[https://staubgold.bandcamp.com/album/lifelike](https://staubgold.bandcamp.com/album/lifelike)++  
 FRIDAY, 17.July	Outside Stage 	19:30-20:30"	60 min	**NO MORE **++[https://nomore.bandcamp.com/music](https://nomore.bandcamp.com/music)++  
-FRIDAY, 17.July	Outside Stage 	21:30-22:15"	45 min	**DIETRICH VON EULER-DONNERSPERG **++[https://nostalgiedelaboue.bandcamp.com/album/quelquechose-ii](https://nostalgiedelaboue.bandcamp.com/album/quelquechose-ii)++  
+FRIDAY, 17.July	Outside Stage 	21:30-22:15"	45 min	**Ditterich von Euler-Donnersperg **++[https://nostalgiedelaboue.bandcamp.com/album/quelquechose-ii](https://nostalgiedelaboue.bandcamp.com/album/quelquechose-ii)++  
 FRIDAY, 17.July	Venue Inside		17.00 - 18:00	60 min	**IRSOL **++[https://irsol-sonic-archives-3ac9a371.base44.app/](https://irsol-sonic-archives-3ac9a371.base44.app/)++  
 FRIDAY, 17.July	Venue Inside		18:30 - 19:30	60 min	**O YUKI CONJUGATE **++[https://oyukiconjugate.bandcamp.com/](https://oyukiconjugate.bandcamp.com/)++  
 FRIDAY, 17.July	Venue Inside		18:30 - 19:30	60 min	**O YUKI CONJUGATE **++[https://oyukiconjugate.bandcamp.com/](https://oyukiconjugate.bandcamp.com/)++  
