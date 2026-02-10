@@ -827,7 +827,10 @@ wp rewrite flush --allow-root
 
 ## Version History
 
-### v1.0.7 (February 9, 2026) - Current
+### v1.0.8 (February 10, 2026) - Current
+- ✅ **JSON-LD validFrom fix**: Added `validFrom` to `offers` in MusicEvent schema (Google Search Console warning)
+
+### v1.0.7 (February 9, 2026)
 - ✅ **SEO audit & fixes**: Comprehensive 4-part audit (homepage, lineup, band detail, external tools)
 - ✅ **og:image fallback**: Poster image as default for homepage, lineup, and pages without featured images
 - ✅ **Meta descriptions**: All 21 band pages now have Yoast meta descriptions (band name, genre, day, stage)
