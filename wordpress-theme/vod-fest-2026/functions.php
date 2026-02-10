@@ -395,6 +395,7 @@ function vod_fest_event_schema() {
             'priceCurrency' => 'EUR',
             'availability'  => 'https://schema.org/InStock',
             'url'           => home_url('/tickets/'),
+            'validFrom'     => '2026-02-01T00:00:00+01:00',
         ),
         'image'       => get_template_directory_uri() . '/assets/images/poster.png',
         'performer'   => $performers,
