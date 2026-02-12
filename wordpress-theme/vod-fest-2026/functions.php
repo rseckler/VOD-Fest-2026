@@ -714,3 +714,33 @@ function vod_fest_customize_register($wp_customize) {
     ));
 }
 add_action('customize_register', 'vod_fest_customize_register');
+
+/**
+ * Yoast SEO: Exclude user area pages from sitemap
+ * These pages are blocked by robots.txt, causing a Google Search Console
+ * "blocked by robots.txt" warning when they also appear in the sitemap.
+ */
+function vod_fest_yoast_exclude_from_sitemap() {
+    // Login (134), Register (135), Dashboard (136), Profile (137)
+    return array(134, 135, 136, 137);
+}
+add_filter('wpseo_exclude_from_sitemap_by_post_ids', 'vod_fest_yoast_exclude_from_sitemap');
+
+/**
+ * Yoast SEO: Disable author sitemap (no SEO value for this site)
+ */
+function vod_fest_yoast_disable_author_sitemap($is_excluded) {
+    return true;
+}
+add_filter('wpseo_sitemap_exclude_author', 'vod_fest_yoast_disable_author_sitemap');
+
+/**
+ * Yoast SEO: Disable category sitemap (only contains empty default "Allgemein")
+ */
+function vod_fest_yoast_disable_category_sitemap($excluded, $taxonomy) {
+    if ($taxonomy === 'category') {
+        return true;
+    }
+    return $excluded;
+}
+add_filter('wpseo_sitemap_exclude_taxonomy', 'vod_fest_yoast_disable_category_sitemap', 10, 2);
