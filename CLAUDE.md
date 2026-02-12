@@ -391,7 +391,7 @@ Header edit Location ^http://72.62.148.205/ https://www.vod-records.com/ env=RED
 - Meta descriptions for all pages + band/lineup templates
 - Open Graph tags (og:title, og:description, og:image, og:url)
 - Twitter Cards (summary_large_image)
-- XML Sitemap: https://www.vod-records.com/vod-fest/sitemap_index.xml (5 sub-sitemaps: page, band, festival_day, stage, post)
+- XML Sitemap: https://www.vod-records.com/vod-fest/sitemap_index.xml (4 sub-sitemaps: page, band, festival_day, stage)
 - Sitemap cleanup: User pages (login/register/dashboard/profile) excluded via noindex + `wpseo_exclude_from_sitemap_by_post_ids` filter; author and category sitemaps disabled via `wpseo_sitemap_exclude_author` and `wpseo_sitemap_exclude_taxonomy` filters
 - Canonical URLs on all pages
 - JSON-LD MusicEvent schema on homepage (dates, venue, €333 offer, 21 performers)
@@ -833,7 +833,8 @@ wp rewrite flush --allow-root
 - ✅ **User pages excluded from sitemap**: Login (134), Register (135), Dashboard (136), Profile (137) set to noindex via Yoast meta + `wpseo_exclude_from_sitemap_by_post_ids` filter
 - ✅ **Author sitemap disabled**: Removed `/author/vod/` and `/author/vodfest/` from sitemap index via `wpseo_sitemap_exclude_author` filter
 - ✅ **Category sitemap disabled**: Removed empty "Allgemein" default category from sitemap index via `wpseo_sitemap_exclude_taxonomy` filter
-- ✅ **Sitemap reduced from 7 to 5 sub-sitemaps**: page, band, festival_day, stage, post (removed author + category)
+- ✅ **Post sitemap disabled**: Only contained "Hallo Welt" default post and homepage duplicate; excluded via `wpseo_sitemap_exclude_post_type` filter
+- ✅ **Sitemap reduced from 7 to 4 sub-sitemaps**: page, band, festival_day, stage (removed author, category, post)
 
 ### v1.0.9 (February 12, 2026)
 - ✅ **Esplendor Geometrico bio update**: Added current members (Arturo Lanz & Saverio Evangelista) to band description
@@ -855,7 +856,7 @@ wp rewrite flush --allow-root
 - ✅ **Security headers**: X-Content-Type-Options, X-Frame-Options, Referrer-Policy
 - ✅ **REST API lockdown**: User enumeration endpoint blocked
 - ✅ **robots.txt**: Created on Hetzner (disallow wp-admin, wp-json, user pages; sitemap reference)
-- ✅ **Google Search Console**: Sitemap submitted (sitemap_index.xml, reduced to 5 sub-sitemaps in v1.0.10)
+- ✅ **Google Search Console**: Sitemap submitted (sitemap_index.xml, reduced to 4 sub-sitemaps in v1.0.10)
 - ✅ **Poster compressed**: poster-optimized.jpg (444KB) created from poster.png (3.5MB) on VPS
 - ✅ **Placeholder pages deleted**: beispiel-seite (Post 2), testimonials (Post 46)
 - ✅ **Band name corrected**: Ditterich von Euler-Donnersperg (Post ID 96)

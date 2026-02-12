@@ -744,3 +744,14 @@ function vod_fest_yoast_disable_category_sitemap($excluded, $taxonomy) {
     return $excluded;
 }
 add_filter('wpseo_sitemap_exclude_taxonomy', 'vod_fest_yoast_disable_category_sitemap', 10, 2);
+
+/**
+ * Yoast SEO: Disable post sitemap (site has no blog posts, only contains "Hallo Welt" default)
+ */
+function vod_fest_yoast_disable_post_sitemap($excluded, $post_type) {
+    if ($post_type === 'post') {
+        return true;
+    }
+    return $excluded;
+}
+add_filter('wpseo_sitemap_exclude_post_type', 'vod_fest_yoast_disable_post_sitemap', 10, 2);
