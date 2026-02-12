@@ -4,7 +4,7 @@ This file provides comprehensive guidance to Claude Code when working on the VOD
 
 ## Project Status: ✅ LIVE & PRODUCTION
 
-**Last Updated:** February 9, 2026
+**Last Updated:** February 12, 2026
 **Status:** Fully implemented and deployed on VPS
 **Live URL:** https://www.vod-records.com/vod-fest/
 
@@ -827,7 +827,10 @@ wp rewrite flush --allow-root
 
 ## Version History
 
-### v1.0.8 (February 10, 2026) - Current
+### v1.0.9 (February 12, 2026) - Current
+- ✅ **Esplendor Geometrico bio update**: Added current members (Arturo Lanz & Saverio Evangelista) to band description
+
+### v1.0.8 (February 10, 2026)
 - ✅ **JSON-LD validFrom fix**: Added `validFrom` to `offers` in MusicEvent schema (Google Search Console warning)
 
 ### v1.0.7 (February 9, 2026)
@@ -962,5 +965,5 @@ This repository is part of a multi-project workspace. See parent `CLAUDE.md` for
 
 ---
 
-**Last Updated:** February 9, 2026 by Claude Code
+**Last Updated:** February 12, 2026 by Claude Code
 **Next Review:** Before VOD Fest 2026 (July 2026)
