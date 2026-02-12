@@ -833,7 +833,8 @@ wp rewrite flush --allow-root
 - ✅ **User pages excluded from sitemap**: Login (134), Register (135), Dashboard (136), Profile (137) set to noindex via Yoast meta + `wpseo_exclude_from_sitemap_by_post_ids` filter
 - ✅ **Author sitemap disabled**: Removed `/author/vod/` and `/author/vodfest/` from sitemap index via `wpseo_sitemap_exclude_author` filter
 - ✅ **Category sitemap disabled**: Removed empty "Allgemein" default category from sitemap index via `wpseo_sitemap_exclude_taxonomy` filter
-- ✅ **Post sitemap disabled**: Only contained "Hallo Welt" default post and homepage duplicate; excluded via `wpseo_sitemap_exclude_post_type` filter
+- ✅ **Post sitemap disabled**: Excluded via `wpseo_sitemap_exclude_post_type` filter (site has no blog posts)
+- ✅ **"Hallo Welt!" default post deleted** (Post ID 1)
 - ✅ **Sitemap reduced from 7 to 4 sub-sitemaps**: page, band, festival_day, stage (removed author, category, post)
 
 ### v1.0.9 (February 12, 2026)
